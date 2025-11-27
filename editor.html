@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KormoNama - Free Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pdf-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                <span class="theme-icon" id="themeIcon">🌙</span>
+            </button>
+        </div>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none;">
+                <span class="logo-icon">📋</span>
+                <h1>KormoNama</h1>
+            </a>
+        </div>
+        <p class="tagline">Free Resume Builder</p>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link">Templates</a>
+            <a href="import.html" class="nav-link">Import Resume</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="editor-panel">
+            <h2>Build Your Resume</h2>
+            
+            <!-- Personal Information -->
+            <section class="form-section">
+                <h3>Personal Information</h3>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="profilePhoto">Profile Photo</label>
+                        <input type="file" id="profilePhoto" accept="image/*" onchange="handlePhotoUpload(this)">
+                        <input type="hidden" id="profilePhotoBase64">
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle">Job Title</label>
+                        <input type="text" id="jobTitle" placeholder="Software Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" placeholder="+1 234 567 890">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" placeholder="New York, USA">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn URL</label>
+                        <input type="url" id="linkedin" placeholder="https://linkedin.com/in/johndoe">
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Portfolio/Website</label>
+                        <input type="url" id="website" placeholder="https://johndoe.dev">
+                    </div>
+                    <div class="form-group">
+                        <label for="github">GitHub (Optional)</label>
+                        <input type="url" id="github" placeholder="https://github.com/johndoe">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="form-section">
+                <h3>Professional Summary</h3>
+                <div class="form-group full-width">
+                    <textarea id="summary" rows="4" placeholder="A brief summary of your professional background and key strengths..."></textarea>
+                </div>
+            </section>
+
+            <!-- Experience -->
+            <section class="form-section">
+                <h3>Work Experience</h3>
+                <div id="experienceContainer">
+                    <div class="experience-entry" data-index="0">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input type="text" class="exp-title" placeholder="Software Engineer">
+                            </div>
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" class="exp-company" placeholder="Tech Company Inc.">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="text" class="exp-start" placeholder="Jan 2020">
+                            </div>
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="text" class="exp-end" placeholder="Present">
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Description</label>
+                            <textarea class="exp-description" rows="3" placeholder="• Led development of key features&#10;• Improved performance by 40%&#10;• Mentored junior developers"></textarea>
+                        </div>
+                        <button type="button" class="btn-remove" onclick="removeExperience(this)">Remove</button>
+                    </div>
+                </div>
+                <button type="button" class="btn-add" onclick="addExperience()">+ Add Experience</button>
+            </section>
+
+            <!-- Education -->
+            <section class="form-section">
+                <h3>Education</h3>
+                <div id="educationContainer">
+                    <div class="education-entry" data-index="0">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Degree</label>
+                                <input type="text" class="edu-degree" placeholder="Bachelor of Science in Computer Science">
+                            </div>
+                            <div class="form-group">
+                                <label>Institution</label>
+                                <input type="text" class="edu-institution" placeholder="University of Technology">
+                            </div>
+                            <div class="form-group">
+                                <label>Year</label>
+                                <input type="text" class="edu-year" placeholder="2016 - 2020">
+                            </div>
+                            <div class="form-group">
+                                <label>Grade/GPA (Optional)</label>
+                                <input type="text" class="edu-grade" placeholder="3.8/4.0">
+                            </div>
+                        </div>
+                        <button type="button" class="btn-remove" onclick="removeEducation(this)">Remove</button>
+                    </div>
+                </div>
+                <button type="button" class="btn-add" onclick="addEducation()">+ Add Education</button>
+            </section>
+
+            <!-- Projects (Great for Freshers) -->
+            <section class="form-section">
+                <h3>Projects</h3>
+                <div id="projectsContainer">
+                    <div class="project-entry" data-index="0">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                <input type="text" class="proj-name" placeholder="E-commerce Website">
+                            </div>
+                            <div class="form-group">
+                                <label>Technologies Used</label>
+                                <input type="text" class="proj-tech" placeholder="React, Node.js, MongoDB">
+                            </div>
+                            <div class="form-group">
+                                <label>Project Link (Optional)</label>
+                                <input type="url" class="proj-link" placeholder="github.com/username/project">
+                            </div>
+                            <div class="form-group">
+                                <label>Duration</label>
+                                <input type="text" class="proj-duration" placeholder="Jan 2024 - Mar 2024">
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Description</label>
+                            <textarea class="proj-description" rows="2" placeholder="• Built a full-stack e-commerce platform&#10;• Implemented secure payment processing"></textarea>
+                        </div>
+                        <button type="button" class="btn-remove" onclick="removeProject(this)">Remove</button>
+                    </div>
+                </div>
+                <button type="button" class="btn-add" onclick="addProject()">+ Add Project</button>
+            </section>
+
+            <!-- Certifications -->
+            <section class="form-section">
+                <h3>Certifications (Optional)</h3>
+                <div id="certificationsContainer">
+                    <div class="certification-entry" data-index="0">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Certification Name</label>
+                                <input type="text" class="cert-name" placeholder="AWS Certified Solutions Architect">
+                            </div>
+                            <div class="form-group">
+                                <label>Issuer</label>
+                                <input type="text" class="cert-issuer" placeholder="Amazon Web Services">
+                            </div>
+                            <div class="form-group">
+                                <label>Year</label>
+                                <input type="text" class="cert-year" placeholder="2024">
+                            </div>
+                            <div class="form-group">
+                                <label>Certificate Link (Optional)</label>
+                                <input type="url" class="cert-link" placeholder="https://credential.net/abc123">
+                            </div>
+                        </div>
+                        <button type="button" class="btn-remove" onclick="removeCertification(this)">Remove</button>
+                    </div>
+                </div>
+                <button type="button" class="btn-add" onclick="addCertification()">+ Add Certification</button>
+            </section>
+
+            <!-- Skills -->
+            <section class="form-section">
+                <h3>Hard Skills</h3>
+                <div class="form-group full-width">
+                    <label for="skills">Enter skills separated by commas</label>
+                    <textarea id="skills" rows="3" placeholder="JavaScript, Python, React, Node.js, SQL, Git, AWS, Docker"></textarea>
+                </div>
+            </section>
+
+            <!-- Soft Skills -->
+            <section class="form-section">
+                <h3>Soft Skills</h3>
+                <div class="form-group full-width">
+                    <label for="softSkills">Enter soft skills separated by commas</label>
+                    <textarea id="softSkills" rows="2" placeholder="Leadership, Communication, Teamwork, Problem Solving"></textarea>
+                </div>
+            </section>
+
+            <!-- Languages -->
+            <section class="form-section">
+                <h3>Languages</h3>
+                <div class="form-group full-width">
+                    <label for="languages">Enter languages separated by commas</label>
+                    <textarea id="languages" rows="2" placeholder="English (Native), Spanish (Intermediate), Hindi (Fluent)"></textarea>
+                </div>
+            </section>
+
+            <!-- Actions -->
+            <div class="actions">
+                <button type="button" class="btn-primary" onclick="downloadPDF()">
+                    <span>↓</span> Download PDF
+                </button>
+                <button type="button" class="btn-secondary" onclick="clearForm()">
+                    Clear All
+                </button>
+            </div>
+        </div>
+
+        <div class="preview-panel">
+            <div class="preview-header">
+                <h2>Live Preview</h2>
+                <div class="template-selector">
+                    <label>Template:</label>
+                    <select id="templateSelect" onchange="updatePreview()">
+                        <optgroup label="✨ Premium (Best for Everyone)">
+                            <option value="clean-blue">Clean Blue (New)</option>
+                            <option value="modern-split">Modern Split (With Photo)</option>
+                            <option value="creative-split">Creative Split (Minimal)</option>
+                            <option value="modern-timeline">Timeline Resume</option>
+                            <option value="glassmorphism">Glassmorphism</option>
+                        </optgroup>
+                        <optgroup label="💼 Professional & Clean">
+                            <option value="executive-orange">Executive Orange (New)</option>
+                            <option value="classic">Classic Professional</option>
+                            <option value="modern">Modern Corporate</option>
+                            <option value="minimal">Clean Minimal</option>
+                            <option value="executive">Executive</option>
+                        </optgroup>
+                        <optgroup label="🎓 Freshers & Academic">
+                            <option value="fresh-graduate">Fresh Graduate / Student</option>
+                            <option value="academic">Academic / CV</option>
+                        </optgroup>
+                        <optgroup label="🎨 Creative & Specialized">
+                            <option value="tech">Tech / Developer (Dark)</option>
+                            <option value="creative">Creative Designer</option>
+                            <option value="magazine-style">Editorial / Writer</option>
+                            <option value="tech-terminal">Terminal / Hacker</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="resume-preview" id="resumePreview">
+                <div class="resume-content" id="resumeContent">
+                    <!-- Resume will be rendered here -->
+                    <div class="resume-header">
+                        <h1 class="resume-name">Your Name</h1>
+                        <p class="resume-title">Your Job Title</p>
+                        <div class="resume-contact">
+                            <span>email@example.com</span>
+                            <span>•</span>
+                            <span>+1 234 567 890</span>
+                            <span>•</span>
+                            <span>Location</span>
+                        </div>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Professional Summary</h2>
+                        <p class="resume-summary">Your professional summary will appear here...</p>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Experience</h2>
+                        <div class="resume-experience"></div>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Education</h2>
+                        <div class="resume-education"></div>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Projects</h2>
+                        <div class="resume-projects"></div>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Certifications</h2>
+                        <div class="resume-certifications"></div>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Skills</h2>
+                        <div class="resume-skills"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>📋 <strong>KormoNama</strong> - Build Your Career Story</p>
+        <p class="footer-links">
+            <a href="https://github.com/ByteHackr/kormo.bytehackr.in" target="_blank">GitHub</a> • 
+            <span>MIT License</span> • 
+            <span>100% Free Forever</span> •
+            <span>Made with ♥ in India</span>
+        </p>
+    </footer>
+
+    <!-- Open source PDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Resume - KormoNama</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="templates-gallery.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                <span class="theme-icon" id="themeIcon">🌙</span>
+            </button>
+        </div>
+        <div class="logo">
+            <a href="index.html" class="logo-link">
+                <span class="logo-icon">📋</span>
+                <h1>KormoNama</h1>
+            </a>
+        </div>
+        <p class="tagline">Import Resume</p>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-btn">Templates</a>
+            <a href="editor.html" class="nav-btn">Go to Editor →</a>
+        </nav>
+    </header>
+
+    <main class="templates-container" style="max-width: 800px;">
+        <div class="editor-panel" style="margin-top: 2rem;">
+            <h2>Import Existing Resume</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-secondary);">Paste your resume text or upload a file to automatically extract details. We support parsing for Name, Email, Phone, Links, Skills, and more.</p>
+            
+            <section class="form-section">
+                <div class="form-group full-width">
+                    <label for="importResume">Paste your resume text here</label>
+                    <textarea id="importResume" rows="15" placeholder="Paste your existing resume text here...
+                    
+Example:
+John Doe
+Software Engineer
+john@example.com
+..."></textarea>
+                    <div class="import-actions" style="margin-top: 1.5rem;">
+                        <input type="file" id="importFile" accept=".txt,.json" style="display:none" onchange="handleFileImport(this)">
+                        <button type="button" class="btn-import" onclick="document.getElementById('importFile').click()" style="padding: 1rem;">
+                            <i class="fas fa-file-upload"></i> Upload File (.txt/.json)
+                        </button>
+                        <button type="button" class="btn-primary" onclick="parseAndRedirect()" style="flex: 2;">
+                            ⚡ Parse & Fill Editor
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 KormoNama • Free Open Source Resume Builder</p>
+        <div class="footer-links">
+            <a href="https://github.com/ByteHackr/kormo.bytehackr.in" target="_blank">GitHub</a> • 
+            <a href="https://bytehackr.in" target="_blank">ByteHackr</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Theme Toggle
+        (function initTheme() {
+            const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+
+        // Parse and Redirect
+        function parseAndRedirect() {
+            const text = document.getElementById('importResume').value.trim();
+            if (!text) {
+                alert('Please paste or upload your resume text first.');
+                return;
+            }
+            
+            // Use the parse function from script.js
+            const parsed = parseResumeText(text);
+            
+            // Map to structure and save
+            const structuredData = mapParsedToStructure(parsed);
+            saveDataObject(structuredData);
+            
+            // Redirect to editor
+            window.location.href = 'editor.html';
+        }
+    </script>
+</body>
+</html>
+

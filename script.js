@@ -79,6 +79,41 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// ============================================
+// DATA HELPERS
+// ============================================
+
+// Save structured data object directly to localStorage
+function saveDataObject(data) {
+    localStorage.setItem('kormoNamaData', JSON.stringify(data));
+}
+
+// Map parsed flat data to application structure
+function mapParsedToStructure(parsed) {
+    // Get existing data or default structure
+    let current = localStorage.getItem('kormoNamaData');
+    let data = current ? JSON.parse(current) : {
+        personal: {}, experience: [], education: [], projects: [], certifications: []
+    };
+    
+    // Update personal info
+    data.personal = {
+        ...data.personal,
+        fullName: parsed.name || data.personal.fullName || '',
+        jobTitle: parsed.title || data.personal.jobTitle || '',
+        email: parsed.email || data.personal.email || '',
+        phone: parsed.phone || data.personal.phone || '',
+        location: parsed.location || data.personal.location || '',
+        linkedin: parsed.linkedin || data.personal.linkedin || '',
+        website: parsed.website || data.personal.website || '',
+        github: parsed.github || data.personal.github || '',
+        summary: parsed.summary || data.personal.summary || '',
+        skills: parsed.skills || data.personal.skills || ''
+    };
+    
+    return data;
+}
+
 // Setup event listeners for all form inputs
 function initializeEventListeners() {
     // Personal info inputs

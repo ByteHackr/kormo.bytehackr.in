@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KormoNama - Free Resume Builder</title>
+    <title>Templates Gallery - KormoNama</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pdf-styles.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="templates-gallery.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -17,340 +16,529 @@
             </button>
         </div>
         <div class="logo">
-            <span class="logo-icon">📋</span>
-            <h1>KormoNama</h1>
+            <a href="index.html" class="logo-link">
+                <span class="logo-icon">📋</span>
+                <h1>KormoNama</h1>
+            </a>
         </div>
-        <p class="tagline">Free Resume Builder</p>
+        <p class="tagline">Choose Your Template</p>
         <nav class="header-nav">
-            <a href="templates.html" class="nav-link">Templates</a>
+            <a href="import.html" class="nav-btn" style="background: var(--bg-tertiary); color: var(--text-primary); border: 2px solid var(--border);">Import Resume</a>
+            <a href="editor.html" class="nav-btn">Go to Editor →</a>
         </nav>
     </header>
 
-    <main class="container">
-        <div class="editor-panel">
-            <h2>Build Your Resume</h2>
-            
-            <!-- Personal Information -->
-            <section class="form-section">
-                <h3>Personal Information</h3>
-                <div class="form-grid">
-                    <div class="form-group full-width">
-                        <label for="profilePhoto">Profile Photo</label>
-                        <input type="file" id="profilePhoto" accept="image/*" onchange="handlePhotoUpload(this)">
-                        <input type="hidden" id="profilePhotoBase64">
-                    </div>
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="jobTitle">Job Title</label>
-                        <input type="text" id="jobTitle" placeholder="Software Engineer">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="john@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" placeholder="+1 234 567 890">
-                    </div>
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <input type="text" id="location" placeholder="New York, USA">
-                    </div>
-                    <div class="form-group">
-                        <label for="linkedin">LinkedIn URL</label>
-                        <input type="url" id="linkedin" placeholder="https://linkedin.com/in/johndoe">
-                    </div>
-                    <div class="form-group">
-                        <label for="website">Portfolio/Website</label>
-                        <input type="url" id="website" placeholder="https://johndoe.dev">
-                    </div>
-                    <div class="form-group">
-                        <label for="github">GitHub (Optional)</label>
-                        <input type="url" id="github" placeholder="https://github.com/johndoe">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Summary -->
-            <section class="form-section">
-                <h3>Professional Summary</h3>
-                <div class="form-group full-width">
-                    <textarea id="summary" rows="4" placeholder="A brief summary of your professional background and key strengths..."></textarea>
-                </div>
-            </section>
-
-            <!-- Experience -->
-            <section class="form-section">
-                <h3>Work Experience</h3>
-                <div id="experienceContainer">
-                    <div class="experience-entry" data-index="0">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Job Title</label>
-                                <input type="text" class="exp-title" placeholder="Software Engineer">
-                            </div>
-                            <div class="form-group">
-                                <label>Company</label>
-                                <input type="text" class="exp-company" placeholder="Tech Company Inc.">
-                            </div>
-                            <div class="form-group">
-                                <label>Start Date</label>
-                                <input type="text" class="exp-start" placeholder="Jan 2020">
-                            </div>
-                            <div class="form-group">
-                                <label>End Date</label>
-                                <input type="text" class="exp-end" placeholder="Present">
-                            </div>
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Description</label>
-                            <textarea class="exp-description" rows="3" placeholder="• Led development of key features&#10;• Improved performance by 40%&#10;• Mentored junior developers"></textarea>
-                        </div>
-                        <button type="button" class="btn-remove" onclick="removeExperience(this)">Remove</button>
-                    </div>
-                </div>
-                <button type="button" class="btn-add" onclick="addExperience()">+ Add Experience</button>
-            </section>
-
-            <!-- Education -->
-            <section class="form-section">
-                <h3>Education</h3>
-                <div id="educationContainer">
-                    <div class="education-entry" data-index="0">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Degree</label>
-                                <input type="text" class="edu-degree" placeholder="Bachelor of Science in Computer Science">
-                            </div>
-                            <div class="form-group">
-                                <label>Institution</label>
-                                <input type="text" class="edu-institution" placeholder="University of Technology">
-                            </div>
-                            <div class="form-group">
-                                <label>Year</label>
-                                <input type="text" class="edu-year" placeholder="2016 - 2020">
-                            </div>
-                            <div class="form-group">
-                                <label>Grade/GPA (Optional)</label>
-                                <input type="text" class="edu-grade" placeholder="3.8/4.0">
-                            </div>
-                        </div>
-                        <button type="button" class="btn-remove" onclick="removeEducation(this)">Remove</button>
-                    </div>
-                </div>
-                <button type="button" class="btn-add" onclick="addEducation()">+ Add Education</button>
-            </section>
-
-            <!-- Projects (Great for Freshers) -->
-            <section class="form-section">
-                <h3>Projects</h3>
-                <div id="projectsContainer">
-                    <div class="project-entry" data-index="0">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Project Name</label>
-                                <input type="text" class="proj-name" placeholder="E-commerce Website">
-                            </div>
-                            <div class="form-group">
-                                <label>Technologies Used</label>
-                                <input type="text" class="proj-tech" placeholder="React, Node.js, MongoDB">
-                            </div>
-                            <div class="form-group">
-                                <label>Project Link (Optional)</label>
-                                <input type="url" class="proj-link" placeholder="github.com/username/project">
-                            </div>
-                            <div class="form-group">
-                                <label>Duration</label>
-                                <input type="text" class="proj-duration" placeholder="Jan 2024 - Mar 2024">
-                            </div>
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Description</label>
-                            <textarea class="proj-description" rows="2" placeholder="• Built a full-stack e-commerce platform&#10;• Implemented secure payment processing"></textarea>
-                        </div>
-                        <button type="button" class="btn-remove" onclick="removeProject(this)">Remove</button>
-                    </div>
-                </div>
-                <button type="button" class="btn-add" onclick="addProject()">+ Add Project</button>
-            </section>
-
-            <!-- Certifications -->
-            <section class="form-section">
-                <h3>Certifications (Optional)</h3>
-                <div id="certificationsContainer">
-                    <div class="certification-entry" data-index="0">
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Certification Name</label>
-                                <input type="text" class="cert-name" placeholder="AWS Certified Solutions Architect">
-                            </div>
-                            <div class="form-group">
-                                <label>Issuer</label>
-                                <input type="text" class="cert-issuer" placeholder="Amazon Web Services">
-                            </div>
-                            <div class="form-group">
-                                <label>Year</label>
-                                <input type="text" class="cert-year" placeholder="2024">
-                            </div>
-                            <div class="form-group">
-                                <label>Certificate Link (Optional)</label>
-                                <input type="url" class="cert-link" placeholder="https://credential.net/abc123">
-                            </div>
-                        </div>
-                        <button type="button" class="btn-remove" onclick="removeCertification(this)">Remove</button>
-                    </div>
-                </div>
-                <button type="button" class="btn-add" onclick="addCertification()">+ Add Certification</button>
-            </section>
-
-            <!-- Skills -->
-            <section class="form-section">
-                <h3>Hard Skills</h3>
-                <div class="form-group full-width">
-                    <label for="skills">Enter skills separated by commas</label>
-                    <textarea id="skills" rows="3" placeholder="JavaScript, Python, React, Node.js, SQL, Git, AWS, Docker"></textarea>
-                </div>
-            </section>
-
-            <!-- Soft Skills -->
-            <section class="form-section">
-                <h3>Soft Skills</h3>
-                <div class="form-group full-width">
-                    <label for="softSkills">Enter soft skills separated by commas</label>
-                    <textarea id="softSkills" rows="2" placeholder="Leadership, Communication, Teamwork, Problem Solving"></textarea>
-                </div>
-            </section>
-
-            <!-- Languages -->
-            <section class="form-section">
-                <h3>Languages</h3>
-                <div class="form-group full-width">
-                    <label for="languages">Enter languages separated by commas</label>
-                    <textarea id="languages" rows="2" placeholder="English (Native), Spanish (Intermediate), Hindi (Fluent)"></textarea>
-                </div>
-            </section>
-
-            <!-- Import Resume -->
-            <section class="form-section">
-                <h3>Import Existing Resume</h3>
-                <div class="form-group full-width">
-                    <label for="importResume">Paste your resume text or upload a .txt file</label>
-                    <textarea id="importResume" rows="4" placeholder="Paste your existing resume text here..."></textarea>
-                    <div class="import-actions">
-                        <input type="file" id="importFile" accept=".txt,.json" style="display:none" onchange="handleFileImport(this)">
-                        <button type="button" class="btn-import" onclick="document.getElementById('importFile').click()">
-                            📁 Upload File
-                        </button>
-                        <button type="button" class="btn-import" onclick="parseImportedResume()">
-                            ⚡ Parse & Fill
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Actions -->
-            <div class="actions">
-                <button type="button" class="btn-primary" onclick="downloadPDF()">
-                    <span>↓</span> Download PDF
-                </button>
-                <button type="button" class="btn-secondary" onclick="clearForm()">
-                    Clear All
-                </button>
-            </div>
+    <main class="templates-container">
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All (14)</button>
+            <button class="filter-btn" data-filter="premium">✨ Premium</button>
+            <button class="filter-btn" data-filter="professional">💼 Professional</button>
+            <button class="filter-btn" data-filter="creative">🎨 Creative</button>
+            <button class="filter-btn" data-filter="academic">🎓 Academic</button>
         </div>
 
-        <div class="preview-panel">
-            <div class="preview-header">
-                <h2>Live Preview</h2>
-                <div class="template-selector">
-                    <label>Template:</label>
-                    <select id="templateSelect" onchange="updatePreview()">
-                        <optgroup label="✨ Premium (Best for Everyone)">
-                            <option value="clean-blue">Clean Blue (New)</option>
-                            <option value="modern-split">Modern Split (With Photo)</option>
-                            <option value="creative-split">Creative Split (Minimal)</option>
-                            <option value="modern-timeline">Timeline Resume</option>
-                            <option value="glassmorphism">Glassmorphism</option>
-                        </optgroup>
-                        <optgroup label="💼 Professional & Clean">
-                            <option value="executive-orange">Executive Orange (New)</option>
-                            <option value="classic">Classic Professional</option>
-                            <option value="modern">Modern Corporate</option>
-                            <option value="minimal">Clean Minimal</option>
-                            <option value="executive">Executive</option>
-                        </optgroup>
-                        <optgroup label="🎓 Freshers & Academic">
-                            <option value="fresh-graduate">Fresh Graduate / Student</option>
-                            <option value="academic">Academic / CV</option>
-                        </optgroup>
-                        <optgroup label="🎨 Creative & Specialized">
-                            <option value="tech">Tech / Developer (Dark)</option>
-                            <option value="creative">Creative Designer</option>
-                            <option value="magazine-style">Editorial / Writer</option>
-                            <option value="tech-terminal">Terminal / Hacker</option>
-                        </optgroup>
-                    </select>
-                </div>
-            </div>
-            <div class="resume-preview" id="resumePreview">
-                <div class="resume-content" id="resumeContent">
-                    <!-- Resume will be rendered here -->
-                    <div class="resume-header">
-                        <h1 class="resume-name">Your Name</h1>
-                        <p class="resume-title">Your Job Title</p>
-                        <div class="resume-contact">
-                            <span>email@example.com</span>
-                            <span>•</span>
-                            <span>+1 234 567 890</span>
-                            <span>•</span>
-                            <span>Location</span>
+        <!-- Templates Grid -->
+        <div class="templates-grid">
+            
+            <!-- PREMIUM TEMPLATES -->
+            
+            <!-- Clean Blue -->
+            <div class="template-card" data-category="premium" data-template="clean-blue">
+                <div class="template-badge premium">New</div>
+                <div class="template-preview">
+                    <div class="resume-content clean-blue">
+                        <div class="resume-header">
+                            <div class="profile-photo" style="background: #ddd;"></div>
+                            <h1 class="resume-name">Olivia Martinez</h1>
+                            <div class="resume-contact">Hillcrest, NY</div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Resume Objective</h2>
+                            <p class="resume-summary">Experienced Office Assistant...</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <div class="skill-tag">Office Management</div>
+                                <div class="skill-tag">Data Entry</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="resume-section">
-                        <h2>Professional Summary</h2>
-                        <p class="resume-summary">Your professional summary will appear here...</p>
-                    </div>
-                    <div class="resume-section">
-                        <h2>Experience</h2>
-                        <div class="resume-experience"></div>
-                    </div>
-                    <div class="resume-section">
-                        <h2>Education</h2>
-                        <div class="resume-education"></div>
-                    </div>
-                    <div class="resume-section">
-                        <h2>Projects</h2>
-                        <div class="resume-projects"></div>
-                    </div>
-                    <div class="resume-section">
-                        <h2>Certifications</h2>
-                        <div class="resume-certifications"></div>
-                    </div>
-                    <div class="resume-section">
-                        <h2>Skills</h2>
-                        <div class="resume-skills"></div>
-                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Clean Blue (Photo)</h3>
+                    <p>Modern layout with right-aligned photo & skill bars.</p>
+                    <button class="use-template-btn" onclick="useTemplate('clean-blue')">Use This Template</button>
                 </div>
             </div>
+
+            <!-- Modern Split (Photo) -->
+            <div class="template-card" data-category="premium" data-template="modern-split">
+                <div class="template-badge premium">Best Choice</div>
+                <div class="template-preview">
+                    <div class="resume-content modern-split">
+                        <div class="header-section">
+                            <div class="profile-photo" style="background: #ddd;"></div>
+                            <div class="header-text">
+                                <h1 class="resume-name">Will Tribianni</h1>
+                                <p class="resume-title">Theater Actor</p>
+                            </div>
+                        </div>
+                        <div class="contact-bar">
+                            <span>will@email.com</span>
+                            <span>123-444-5555</span>
+                        </div>
+                        <div class="main-grid">
+                            <div class="column-left">
+                                <div class="resume-section">
+                                    <h2><i class="fas fa-briefcase"></i> Experience</h2>
+                                    <div class="exp-item">
+                                        <span class="exp-title-company">Lead Actor</span>
+                                        <div class="exp-company">Manhattan Mirage</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column-right">
+                                <div class="resume-section">
+                                    <h2><i class="fas fa-tools"></i> Skills</h2>
+                                    <div class="vertical-list">
+                                        <div class="skill-tag">Vocal modulation</div>
+                                        <div class="skill-tag">Improvisation</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Modern Split (With Photo)</h3>
+                    <p>Our most popular 2-column layout. Professional & sleek.</p>
+                    <button class="use-template-btn" onclick="useTemplate('modern-split')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Creative Split -->
+            <div class="template-card" data-category="premium" data-template="creative-split">
+                <div class="template-badge premium">Premium</div>
+                <div class="template-preview">
+                    <div class="resume-content creative-split">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Aria Stark</h1>
+                            <p class="resume-title">Creative Director</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Summary</h2>
+                            <p class="resume-summary">Visionary director...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Creative Split</h3>
+                    <p>High-contrast black & white design for creatives.</p>
+                    <button class="use-template-btn" onclick="useTemplate('creative-split')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Modern Timeline -->
+            <div class="template-card" data-category="premium" data-template="modern-timeline">
+                <div class="template-badge premium">Premium</div>
+                <div class="template-preview">
+                    <div class="resume-content modern-timeline">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Maya Singh</h1>
+                            <p class="resume-title">Product Manager</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">Product Lead</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Timeline Resume</h3>
+                    <p>Visual vertical timeline connecting your journey.</p>
+                    <button class="use-template-btn" onclick="useTemplate('modern-timeline')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Glassmorphism -->
+            <div class="template-card" data-category="premium" data-template="glassmorphism">
+                <div class="template-badge premium">Trendy</div>
+                <div class="template-preview">
+                    <div class="resume-content glassmorphism">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Alex Nova</h1>
+                            <p class="resume-title">UI Engineer</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">Senior Dev</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Glassmorphism</h3>
+                    <p>Modern frosted glass effect on gradient background.</p>
+                    <button class="use-template-btn" onclick="useTemplate('glassmorphism')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- PROFESSIONAL TEMPLATES -->
+
+            <!-- Executive Orange -->
+            <div class="template-card" data-category="professional" data-template="executive-orange">
+                <div class="template-badge professional">New</div>
+                <div class="template-preview">
+                    <div class="resume-content executive-orange">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Allen Smith</h1>
+                        </div>
+                        <div class="main-grid">
+                            <div class="column-left">
+                                <div class="resume-section">
+                                    <h2>Professional Summary</h2>
+                                    <p>Highly organized paralegal...</p>
+                                </div>
+                            </div>
+                            <div class="column-right">
+                                <div class="profile-photo" style="background: #ddd;"></div>
+                                <div class="resume-section">
+                                    <h2>Contact</h2>
+                                    <div class="resume-contact">
+                                        <span>Seattle, WA</span>
+                                        <span>555-555-5555</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Executive Orange (Photo)</h3>
+                    <p>Bold 2-column layout with highlighted headers.</p>
+                    <button class="use-template-btn" onclick="useTemplate('executive-orange')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Classic -->
+            <div class="template-card" data-category="professional" data-template="classic">
+                <div class="template-badge professional">Classic</div>
+                <div class="template-preview">
+                    <div class="resume-content classic">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Vikram Mehta</h1>
+                            <p class="resume-title">Senior Engineer</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">Microsoft</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Classic Professional</h3>
+                    <p>Timeless serif typography. Safe choice for any job.</p>
+                    <button class="use-template-btn" onclick="useTemplate('classic')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Modern Corporate -->
+            <div class="template-card" data-category="professional" data-template="modern">
+                <div class="template-badge professional">Corporate</div>
+                <div class="template-preview">
+                    <div class="resume-content modern">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Sneha Reddy</h1>
+                            <p class="resume-title">Manager</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">Flipkart</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Modern Corporate</h3>
+                    <p>Blue header block. Standard corporate look.</p>
+                    <button class="use-template-btn" onclick="useTemplate('modern')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Minimal -->
+            <div class="template-card" data-category="professional" data-template="minimal">
+                <div class="template-badge professional">Minimal</div>
+                <div class="template-preview">
+                    <div class="resume-content minimal">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Rohan Das</h1>
+                            <p class="resume-title">Engineer</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">TCS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Clean Minimal</h3>
+                    <p>No distractions. Just your content.</p>
+                    <button class="use-template-btn" onclick="useTemplate('minimal')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Executive -->
+            <div class="template-card" data-category="professional" data-template="executive">
+                <div class="template-badge professional">Executive</div>
+                <div class="template-preview">
+                    <div class="resume-content executive">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Rajesh Iyer</h1>
+                            <p class="resume-title">CTO</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">TechCorp</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Executive</h3>
+                    <p>Commanding dark header with gold accents.</p>
+                    <button class="use-template-btn" onclick="useTemplate('executive')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- ACADEMIC TEMPLATES -->
+
+            <!-- Fresh Graduate -->
+            <div class="template-card" data-category="academic" data-template="fresh-graduate">
+                <div class="template-badge academic">Fresher</div>
+                <div class="template-preview">
+                    <div class="resume-content fresh-graduate">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Priya Sharma</h1>
+                            <p class="resume-title">CS Graduate</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Education</h2>
+                            <div class="edu-item">
+                                <span class="edu-degree">B.Tech</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Fresh Graduate</h3>
+                    <p>Highlights education and projects first.</p>
+                    <button class="use-template-btn" onclick="useTemplate('fresh-graduate')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Academic -->
+            <div class="template-card" data-category="academic" data-template="academic">
+                <div class="template-badge academic">CV</div>
+                <div class="template-preview">
+                    <div class="resume-content academic">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Prof. Suresh</h1>
+                            <p class="resume-title">Professor</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Research</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">IIT Bombay</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Academic CV</h3>
+                    <p>Formal layout for research and academia.</p>
+                    <button class="use-template-btn" onclick="useTemplate('academic')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- CREATIVE TEMPLATES -->
+
+            <!-- Tech Dark -->
+            <div class="template-card" data-category="creative" data-template="tech">
+                <div class="template-badge creative">Dark Mode</div>
+                <div class="template-preview">
+                    <div class="resume-content tech">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Arjun Nair</h1>
+                            <p class="resume-title">Developer</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="skill-tag">React</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Tech Dark</h3>
+                    <p>IDE-inspired dark theme for developers.</p>
+                    <button class="use-template-btn" onclick="useTemplate('tech')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Creative Designer -->
+            <div class="template-card" data-category="creative" data-template="creative">
+                <div class="template-badge creative">Artistic</div>
+                <div class="template-preview">
+                    <div class="resume-content creative">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Kavya M</h1>
+                            <p class="resume-title">Designer</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Portfolio</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">Behance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Creative Designer</h3>
+                    <p>Colorful sidebar for visual artists.</p>
+                    <button class="use-template-btn" onclick="useTemplate('creative')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Magazine -->
+            <div class="template-card" data-category="creative" data-template="magazine-style">
+                <div class="template-badge creative">Editorial</div>
+                <div class="template-preview">
+                    <div class="resume-content magazine-style">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Elena R</h1>
+                            <p class="resume-title">Editor</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Writing</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">Vogue</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Magazine Feature</h3>
+                    <p>Elegant editorial layout for writers.</p>
+                    <button class="use-template-btn" onclick="useTemplate('magazine-style')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Terminal -->
+            <div class="template-card" data-category="creative" data-template="tech-terminal">
+                <div class="template-badge creative">Hacker</div>
+                <div class="template-preview">
+                    <div class="resume-content tech-terminal">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Neo</h1>
+                            <p class="resume-title">Hacker</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>System</h2>
+                            <div class="exp-item">
+                                <span class="exp-title-company">Matrix</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Terminal / Hacker</h3>
+                    <p>Green-on-black console style.</p>
+                    <button class="use-template-btn" onclick="useTemplate('tech-terminal')">Use This Template</button>
+                </div>
+            </div>
+
         </div>
     </main>
 
     <footer>
         <p>📋 <strong>KormoNama</strong> - Build Your Career Story</p>
         <p class="footer-links">
-            <a href="https://github.com/ByteHackr/kormo.bytehackr.in" target="_blank">GitHub</a> • 
+            <a href="index.html">Create Your Resume</a> • 
             <span>MIT License</span> • 
-            <span>100% Free Forever</span> •
-            <span>Made with ♥ in India</span>
+            <span>100% Free Forever</span>
         </p>
     </footer>
 
-    <!-- Open source PDF library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Theme Toggle
+        (function initTheme() {
+            const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup theme toggle
+            const themeBtn = document.getElementById('themeToggle');
+            const icon = document.getElementById('themeIcon');
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            
+            if (icon) icon.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+            
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const html = document.documentElement;
+                    const current = html.getAttribute('data-theme') || 'dark';
+                    const newTheme = current === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('kormoNamaTheme', newTheme);
+                    if (icon) icon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+                });
+            }
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const templateCards = document.querySelectorAll('.template-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                // Filter cards
+                templateCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => card.style.opacity = '1', 10);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(() => card.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+
+        // Use template - redirect to editor with template selected
+        function useTemplate(templateName) {
+            // Store the selected template
+            localStorage.setItem('kormoNamaSelectedTemplate', templateName);
+            // Redirect to editor
+            window.location.href = 'editor.html?template=' + templateName;
+        }
+    </script>
 </body>
 </html>
-
