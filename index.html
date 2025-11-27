@@ -480,32 +480,6 @@
 
     <script src="script.js"></script>
     <script>
-        // Theme Toggle
-        (function initTheme() {
-            const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Setup theme toggle
-            const themeBtn = document.getElementById('themeToggle');
-            const icon = document.getElementById('themeIcon');
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-            
-            if (icon) icon.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
-            
-            if (themeBtn) {
-                themeBtn.addEventListener('click', function() {
-                    const html = document.documentElement;
-                    const current = html.getAttribute('data-theme') || 'dark';
-                    const newTheme = current === 'dark' ? 'light' : 'dark';
-                    html.setAttribute('data-theme', newTheme);
-                    localStorage.setItem('kormoNamaTheme', newTheme);
-                    if (icon) icon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
-                });
-            }
-        });
-
         // Filter functionality
         const filterBtns = document.querySelectorAll('.filter-btn');
         const templateCards = document.querySelectorAll('.template-card');
