@@ -1,5 +1,6 @@
 /**
- * Sundar Resume - Free & Open Source Resume Builder
+ * কর্মনামা (KormoNama) - Free & Open Source Resume Builder
+ * আপনার কর্মজীবনের গল্প বলুন • Build Your Career Story
  * JavaScript functionality for live preview and PDF export
  * License: MIT
  */
@@ -12,16 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if coming from templates page with a selected template
     const urlParams = new URLSearchParams(window.location.search);
     const templateParam = urlParams.get('template');
-    const storedTemplate = localStorage.getItem('sundarSelectedTemplate');
+    const storedTemplate = localStorage.getItem('kormoNamaSelectedTemplate');
     
     if (templateParam) {
         document.getElementById('templateSelect').value = templateParam;
-        localStorage.removeItem('sundarSelectedTemplate');
+        localStorage.removeItem('kormoNamaSelectedTemplate');
         // Clean up URL
         window.history.replaceState({}, document.title, window.location.pathname);
     } else if (storedTemplate) {
         document.getElementById('templateSelect').value = storedTemplate;
-        localStorage.removeItem('sundarSelectedTemplate');
+        localStorage.removeItem('kormoNamaSelectedTemplate');
     }
     
     updatePreview();
@@ -580,7 +581,7 @@ function clearForm() {
         });
         
         // Clear local storage
-        localStorage.removeItem('sundarResumeData');
+        localStorage.removeItem('kormoNamaData');
         
         updatePreview();
     }
@@ -650,12 +651,12 @@ function saveToLocalStorage() {
         });
     });
     
-    localStorage.setItem('sundarResumeData', JSON.stringify(data));
+    localStorage.setItem('kormoNamaData', JSON.stringify(data));
 }
 
 // Load form data from localStorage
 function loadFromLocalStorage() {
-    const saved = localStorage.getItem('sundarResumeData');
+    const saved = localStorage.getItem('kormoNamaData');
     if (!saved) return;
     
     try {

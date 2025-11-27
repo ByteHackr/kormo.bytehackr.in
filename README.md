@@ -1,43 +1,48 @@
-# ✦ Sundar Resume - Free & Open Source Resume Builder
+# 📋 কর্মনামা (KormoNama) - Free & Open Source Resume Builder
+
+**আপনার কর্মজীবনের গল্প বলুন • Build Your Career Story**
 
 A beautiful, simple, and completely free resume builder web application. Built entirely with open source technologies.
 
-> **"Sundar"** means "Beautiful" - Create beautiful resumes for free!
+> **কর্মনামা** (KormoNama) - Bengali for "Work Document" or "Career Record"
 
-## Features
+🌐 **Live Demo**: [resume.bytehackr.in](https://resume.bytehackr.in)
+
+## ✨ Features
 
 - **Live Preview**: See your resume update in real-time as you type
 - **14 Templates**: Designed for freshers, experienced professionals, and various industries
 - **PDF Export**: Download your resume as a professional PDF
+- **Clickable Links**: Email, LinkedIn, GitHub, Website, Certificate links all work
 - **Auto-Save**: Your data is automatically saved to browser localStorage
 - **100% Free**: No sign-up, no payments, no hidden fees
 - **Privacy First**: All data stays in your browser - nothing sent to servers
 
-## Templates
+## 🎨 Templates
 
-### For Freshers
-- Fresh Graduate - Warm yellow tones, academic-focused
-- Student - Green theme, emphasizes education & projects
-- Entry Level - Purple gradient, modern & energetic
+### For Freshers (ফ্রেশার্স)
+- **Fresh Graduate** - Warm yellow tones, academic-focused
+- **Student** - Green theme, emphasizes education & projects
+- **Entry Level** - Purple gradient, modern & energetic
 
-### For Experienced
-- Classic Professional - Traditional serif typography
-- Executive - Dark header with gold accents
-- Modern - Blue header block, contemporary look
+### For Experienced (অভিজ্ঞ)
+- **Classic Professional** - Traditional serif typography
+- **Executive** - Dark header with gold accents
+- **Modern** - Blue header block, contemporary look
 
-### By Profession
-- Tech / Developer - Dark IDE-style with monospace font
-- Creative / Designer - Colorful gradient sidebar
-- Healthcare / Medical - Cyan/teal professional theme
-- Academic / Research - Scholarly serif font
-- Sales / Marketing - Bold red, high-impact design
-- Legal / Finance - Conservative, formal style
+### By Profession (পেশা অনুযায়ী)
+- **Tech / Developer** - Dark IDE-style with monospace font
+- **Creative / Designer** - Colorful gradient sidebar
+- **Healthcare / Medical** - Cyan/teal professional theme
+- **Academic / Research** - Scholarly serif font
+- **Sales / Marketing** - Bold red, high-impact design
+- **Legal / Finance** - Conservative, formal style
 
-### Minimal
-- Simple Minimal - Clean, no-frills design
-- Elegant - Soft purple, refined typography
+### Minimal (সাদামাটা)
+- **Simple Minimal** - Clean, no-frills design
+- **Elegant** - Soft purple, refined typography
 
-## Open Source Technologies Used
+## 🛠️ Open Source Technologies Used
 
 | Technology | License | Purpose |
 |------------|---------|---------|
@@ -45,30 +50,23 @@ A beautiful, simple, and completely free resume builder web application. Built e
 | [html2pdf.js](https://github.com/eKoopmans/html2pdf.js) | MIT | PDF generation |
 | [Google Fonts](https://fonts.google.com/) | Open Font License | Typography |
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Option 1: Open Directly
 Simply open `index.html` in any modern web browser.
 
 ```bash
-# Using your file manager, double-click index.html
-# OR use a browser command:
 firefox index.html
-chromium index.html
 google-chrome index.html
 ```
 
 ### Option 2: Local Server (Recommended)
-For the best experience, run a local server:
 
 ```bash
 # Using Python 3
 python3 -m http.server 8000
 
-# Using Python 2
-python -m SimpleHTTPServer 8000
-
-# Using Node.js (with http-server)
+# Using Node.js
 npx http-server -p 8000
 
 # Using PHP
@@ -77,60 +75,66 @@ php -S localhost:8000
 
 Then open http://localhost:8000 in your browser.
 
-## Project Structure
+## 📁 Project Structure
 
 ```
-resume/
-├── index.html      # Main HTML structure
-├── style.css       # Styling and themes
-├── script.js       # Application logic
-└── README.md       # This file
+কর্মনামা/
+├── index.html             # Main resume builder page
+├── templates.html         # Templates gallery
+├── style.css              # Main styles
+├── templates-gallery.css  # Gallery styles
+├── script.js              # Application logic
+└── README.md              # This file
 ```
 
-## How to Use
+## 📝 How to Use
 
-1. **Fill in your details**: Enter your personal information, work experience, education, projects, and skills
-2. **Choose a template**: Select from 14 templates organized by experience level and profession
-3. **Preview in real-time**: See your resume update as you type
-4. **Download as PDF**: Click the "Download PDF" button to get your resume
+1. **Fill in your details**: Enter personal info, experience, education, projects, certifications, and skills
+2. **Add Links**: Include LinkedIn, GitHub, Portfolio, and certificate verification links
+3. **Choose a template**: Select from 14 templates organized by experience level and profession
+4. **Preview in real-time**: See your resume update as you type
+5. **Download as PDF**: Click the "Download PDF" button to get your resume
 
-## Smart Features
+## 🔗 Supported Links
 
-- **Fresher templates** automatically order sections as: Education → Projects → Experience
-- **Experienced templates** order sections as: Experience → Education → Projects
-- **Projects section** with technology tags and GitHub links - perfect for freshers
-- **Certifications section** to highlight your professional credentials
+- 📧 **Email** - Opens email client (mailto:)
+- 📞 **Phone** - Initiates call on mobile (tel:)
+- 🔗 **LinkedIn** - Your professional profile
+- 🌐 **Website** - Portfolio or personal site
+- ⌨️ **GitHub** - Your code repositories
+- 📜 **Certificates** - Credential verification links
 
-## Browser Support
+## 🔒 Privacy
+
+কর্মনামা is designed with privacy in mind:
+- ✅ All processing happens in your browser
+- ✅ Data stored only in browser's localStorage
+- ✅ No data sent to external servers
+- ✅ No analytics or tracking
+- ✅ No account required
+
+## 🌐 Browser Support
 
 - Chrome/Chromium (recommended)
 - Firefox
 - Safari
 - Edge
 
-## Privacy
-
-Sundar Resume is designed with privacy in mind:
-- All processing happens in your browser
-- Your data is stored only in your browser's localStorage
-- No data is ever sent to external servers
-- No analytics or tracking
-
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Feel free to:
 - Report bugs
 - Suggest features
 - Submit pull requests
 
-## License
+## 📄 License
 
-This project is licensed under the MIT License - see below:
+This project is licensed under the MIT License.
 
 ```
 MIT License
 
-Copyright (c) 2024 Sundar Resume
+Copyright (c) 2024 কর্মনামা (KormoNama)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -151,7 +155,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-## Acknowledgments
+## 🙏 Acknowledgments
 
 - [html2pdf.js](https://github.com/eKoopmans/html2pdf.js) for PDF generation
 - Google Fonts for beautiful typography
@@ -159,4 +163,6 @@ SOFTWARE.
 
 ---
 
-✦ **Sundar Resume** - Beautiful Resumes, Completely Free
+📋 **কর্মনামা (KormoNama)** - আপনার কর্মজীবনের গল্প বলুন • Build Your Career Story
+
+Made with ♥ in Bangladesh 🇧🇩
