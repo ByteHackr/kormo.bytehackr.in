@@ -8,14 +8,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="hero-header">
         <div class="logo">
             <span class="logo-icon">📋</span>
             <h1>KormoNama</h1>
         </div>
         <p class="tagline">Build Your Career Story</p>
+        <p class="hero-subtitle">Create professional resumes in minutes. Free forever. No signup required.</p>
+        <div class="hero-features">
+            <span class="hero-feature">✓ 40+ Templates</span>
+            <span class="hero-feature">✓ All Professions</span>
+            <span class="hero-feature">✓ PDF Download</span>
+            <span class="hero-feature">✓ 100% Free</span>
+        </div>
         <nav class="header-nav">
-            <a href="templates.html" class="nav-link">Browse Templates →</a>
+            <a href="templates.html" class="nav-link">Browse All Templates →</a>
         </nav>
     </header>
 
@@ -220,27 +227,76 @@
                 <div class="template-selector">
                     <label>Template:</label>
                     <select id="templateSelect" onchange="updatePreview()">
-                        <optgroup label="For Freshers">
+                        <optgroup label="🎓 For Freshers & Students">
                             <option value="fresh-graduate">Fresh Graduate</option>
-                            <option value="student">Student</option>
+                            <option value="student">Student / Intern</option>
                             <option value="entry-level">Entry Level</option>
+                            <option value="first-job">First Job Seeker</option>
                         </optgroup>
-                        <optgroup label="For Experienced">
+                        <optgroup label="💼 For Experienced">
                             <option value="classic">Classic Professional</option>
-                            <option value="executive">Executive</option>
-                            <option value="modern">Modern</option>
+                            <option value="executive">Executive / Director</option>
+                            <option value="modern">Modern Professional</option>
+                            <option value="senior">Senior Management</option>
                         </optgroup>
-                        <optgroup label="By Profession">
-                            <option value="tech">Tech / Developer</option>
-                            <option value="creative">Creative / Designer</option>
-                            <option value="healthcare">Healthcare / Medical</option>
+                        <optgroup label="💻 Technology & IT">
+                            <option value="tech">Software Developer</option>
+                            <option value="data-science">Data Science / AI</option>
+                            <option value="devops">DevOps / Cloud</option>
+                            <option value="cybersecurity">Cybersecurity</option>
+                        </optgroup>
+                        <optgroup label="🏦 Banking & Finance">
+                            <option value="banking">Banking Professional</option>
+                            <option value="accountant">Accountant / CA</option>
+                            <option value="finance">Finance / Investment</option>
+                        </optgroup>
+                        <optgroup label="🏛️ Government & Civil">
+                            <option value="government">Government / PSU</option>
+                            <option value="civil-services">Civil Services</option>
+                            <option value="legal">Legal / Advocate</option>
+                        </optgroup>
+                        <optgroup label="🏥 Healthcare">
+                            <option value="healthcare">Doctor / Physician</option>
+                            <option value="nursing">Nursing</option>
+                            <option value="pharma">Pharmaceutical</option>
+                        </optgroup>
+                        <optgroup label="📚 Education">
+                            <option value="teacher">Teacher / Professor</option>
                             <option value="academic">Academic / Research</option>
-                            <option value="sales">Sales / Marketing</option>
-                            <option value="legal">Legal / Finance</option>
+                            <option value="trainer">Corporate Trainer</option>
                         </optgroup>
-                        <optgroup label="Minimal">
+                        <optgroup label="🎨 Creative & Media">
+                            <option value="creative">Designer / Artist</option>
+                            <option value="media">Journalism / Media</option>
+                            <option value="photography">Photography / Video</option>
+                            <option value="content">Content Writer</option>
+                        </optgroup>
+                        <optgroup label="🏭 Engineering & Manufacturing">
+                            <option value="engineering">Engineer (Non-IT)</option>
+                            <option value="manufacturing">Manufacturing</option>
+                            <option value="construction">Construction / Civil</option>
+                            <option value="architecture">Architecture</option>
+                        </optgroup>
+                        <optgroup label="🛒 Sales & Marketing">
+                            <option value="sales">Sales Executive</option>
+                            <option value="marketing">Marketing / Brand</option>
+                            <option value="digital-marketing">Digital Marketing</option>
+                            <option value="retail">Retail Management</option>
+                        </optgroup>
+                        <optgroup label="🏨 Hospitality & Services">
+                            <option value="hospitality">Hotel / Hospitality</option>
+                            <option value="airline">Aviation / Airline</option>
+                            <option value="customer-service">Customer Service</option>
+                        </optgroup>
+                        <optgroup label="📦 Operations & Logistics">
+                            <option value="operations">Operations Manager</option>
+                            <option value="logistics">Logistics / Supply Chain</option>
+                            <option value="hr">HR / Recruitment</option>
+                        </optgroup>
+                        <optgroup label="✨ Minimal & Clean">
                             <option value="minimal">Simple Minimal</option>
                             <option value="elegant">Elegant</option>
+                            <option value="professional">Clean Professional</option>
                         </optgroup>
                     </select>
                 </div>

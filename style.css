@@ -47,6 +47,49 @@ header {
     border-bottom: 1px solid var(--border);
 }
 
+/* Hero Header */
+.hero-header {
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, #1a1f2e 50%, var(--bg-primary) 100%);
+}
+
+.hero-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-feature {
+    background: var(--accent-dim);
+    color: var(--accent);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+@media (max-width: 600px) {
+    .hero-features {
+        gap: 0.5rem;
+    }
+    .hero-feature {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -810,6 +853,82 @@ textarea {
     color: #7c3aed;
 }
 
+/* First Job Seeker Template */
+.resume-content.first-job {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 30%);
+}
+
+.resume-content.first-job .resume-header {
+    text-align: center;
+    border-bottom: 3px solid #14b8a6;
+    padding-bottom: 1.5rem;
+}
+
+.resume-content.first-job .resume-name {
+    color: #134e4a;
+    font-size: 2rem;
+}
+
+.resume-content.first-job .resume-title {
+    color: #0d9488;
+}
+
+.resume-content.first-job .resume-section h2 {
+    color: #134e4a;
+    border-bottom: 2px solid #99f6e4;
+}
+
+.resume-content.first-job .skill-tag {
+    background: #ccfbf1;
+    color: #134e4a;
+}
+
+.resume-content.first-job .exp-company,
+.resume-content.first-job .edu-institution {
+    color: #0d9488;
+}
+
+/* Senior Management Template */
+.resume-content.senior {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: #fafaf9;
+}
+
+.resume-content.senior .resume-header {
+    background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2.5rem;
+    text-align: left;
+    border-bottom: 4px solid #a16207;
+}
+
+.resume-content.senior .resume-name {
+    color: #fafaf9;
+    font-size: 2.2rem;
+    letter-spacing: 0.05em;
+}
+
+.resume-content.senior .resume-title {
+    color: #fbbf24;
+    font-size: 1.1rem;
+}
+
+.resume-content.senior .resume-contact {
+    color: #a8a29e;
+    justify-content: flex-start;
+}
+
+.resume-content.senior .resume-section h2 {
+    color: #292524;
+    border-bottom: 2px solid #a16207;
+}
+
+.resume-content.senior .skill-tag {
+    background: #292524;
+    color: #fbbf24;
+}
+
 /* ============================================
    EXPERIENCED TEMPLATES
    ============================================ */
@@ -968,6 +1087,916 @@ textarea {
 
 .resume-content.tech .cert-link-url:hover {
     color: #7ee787;
+}
+
+/* Data Science / AI Template */
+.resume-content.data-science {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(180deg, #1e1b4b 0%, #0f0a1e 100%);
+    color: #e0e7ff;
+}
+
+.resume-content.data-science .resume-header {
+    border-bottom: 2px solid #6366f1;
+    text-align: left;
+}
+
+.resume-content.data-science .resume-name {
+    color: #a5b4fc;
+    font-size: 2rem;
+}
+
+.resume-content.data-science .resume-title {
+    color: #818cf8;
+}
+
+.resume-content.data-science .resume-contact {
+    color: #6366f1;
+    justify-content: flex-start;
+}
+
+.resume-content.data-science .resume-section h2 {
+    color: #a5b4fc;
+    border-bottom: 1px solid #4338ca;
+}
+
+.resume-content.data-science .resume-summary,
+.resume-content.data-science .exp-description {
+    color: #c7d2fe;
+}
+
+.resume-content.data-science .skill-tag {
+    background: #312e81;
+    color: #a5b4fc;
+    border: 1px solid #4338ca;
+}
+
+.resume-content.data-science .exp-company,
+.resume-content.data-science .edu-institution {
+    color: #818cf8;
+}
+
+/* DevOps / Cloud Template */
+.resume-content.devops {
+    font-family: 'JetBrains Mono', monospace;
+    background: #172554;
+    color: #bfdbfe;
+}
+
+.resume-content.devops .resume-header {
+    border-bottom: 2px solid #3b82f6;
+    text-align: left;
+}
+
+.resume-content.devops .resume-name {
+    color: #60a5fa;
+}
+
+.resume-content.devops .resume-name::before {
+    content: '$ ';
+    color: #22c55e;
+}
+
+.resume-content.devops .resume-title {
+    color: #93c5fd;
+}
+
+.resume-content.devops .resume-section h2 {
+    color: #60a5fa;
+    border-bottom: 1px solid #1e40af;
+}
+
+.resume-content.devops .skill-tag {
+    background: #1e3a8a;
+    color: #93c5fd;
+}
+
+/* Cybersecurity Template */
+.resume-content.cybersecurity {
+    font-family: 'JetBrains Mono', monospace;
+    background: #18181b;
+    color: #a1a1aa;
+}
+
+.resume-content.cybersecurity .resume-header {
+    border-bottom: 2px solid #ef4444;
+}
+
+.resume-content.cybersecurity .resume-name {
+    color: #ef4444;
+}
+
+.resume-content.cybersecurity .resume-title {
+    color: #f87171;
+}
+
+.resume-content.cybersecurity .resume-section h2 {
+    color: #ef4444;
+    border-bottom: 1px solid #7f1d1d;
+}
+
+.resume-content.cybersecurity .skill-tag {
+    background: #7f1d1d;
+    color: #fca5a5;
+}
+
+/* Banking Professional Template */
+.resume-content.banking {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.resume-content.banking .resume-header {
+    background: #14532d;
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.banking .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.banking .resume-title {
+    color: #86efac;
+}
+
+.resume-content.banking .resume-contact {
+    color: #bbf7d0;
+}
+
+.resume-content.banking .resume-section h2 {
+    color: #14532d;
+    border-bottom: 2px solid #22c55e;
+}
+
+.resume-content.banking .skill-tag {
+    background: #dcfce7;
+    color: #14532d;
+}
+
+/* Accountant / CA Template */
+.resume-content.accountant {
+    font-family: 'DM Sans', sans-serif;
+    background: #fafafa;
+}
+
+.resume-content.accountant .resume-header {
+    text-align: left;
+    border-bottom: 3px double #374151;
+}
+
+.resume-content.accountant .resume-name {
+    color: #111827;
+}
+
+.resume-content.accountant .resume-title {
+    color: #4b5563;
+}
+
+.resume-content.accountant .resume-section h2 {
+    color: #374151;
+    border-bottom: 1px solid #d1d5db;
+}
+
+.resume-content.accountant .skill-tag {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+/* Finance / Investment Template */
+.resume-content.finance {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: #ffffff;
+}
+
+.resume-content.finance .resume-header {
+    background: linear-gradient(135deg, #0c4a6e 0%, #075985 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.finance .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.finance .resume-title {
+    color: #7dd3fc;
+}
+
+.resume-content.finance .resume-section h2 {
+    color: #0c4a6e;
+    border-bottom: 2px solid #0ea5e9;
+}
+
+.resume-content.finance .skill-tag {
+    background: #e0f2fe;
+    color: #0c4a6e;
+}
+
+/* Government / PSU Template */
+.resume-content.government {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: #fffbeb;
+}
+
+.resume-content.government .resume-header {
+    text-align: center;
+    border-bottom: 3px solid #b45309;
+}
+
+.resume-content.government .resume-name {
+    color: #78350f;
+    font-size: 2rem;
+}
+
+.resume-content.government .resume-title {
+    color: #b45309;
+}
+
+.resume-content.government .resume-section h2 {
+    color: #92400e;
+    border-bottom: 1px solid #fbbf24;
+}
+
+.resume-content.government .skill-tag {
+    background: #fef3c7;
+    color: #78350f;
+}
+
+/* Civil Services Template */
+.resume-content.civil-services {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: #fefce8;
+}
+
+.resume-content.civil-services .resume-header {
+    background: #1e3a8a;
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.resume-content.civil-services .resume-name {
+    color: #ffffff;
+    letter-spacing: 0.1em;
+}
+
+.resume-content.civil-services .resume-title {
+    color: #93c5fd;
+}
+
+.resume-content.civil-services .resume-section h2 {
+    color: #1e3a8a;
+    border-bottom: 2px solid #3b82f6;
+}
+
+.resume-content.civil-services .skill-tag {
+    background: #dbeafe;
+    color: #1e3a8a;
+}
+
+/* Nursing Template */
+.resume-content.nursing {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(180deg, #fdf2f8 0%, #ffffff 100%);
+}
+
+.resume-content.nursing .resume-header {
+    text-align: center;
+    border-bottom: 3px solid #db2777;
+}
+
+.resume-content.nursing .resume-name {
+    color: #831843;
+}
+
+.resume-content.nursing .resume-title {
+    color: #db2777;
+}
+
+.resume-content.nursing .resume-section h2 {
+    color: #9d174d;
+    border-bottom: 2px solid #f9a8d4;
+}
+
+.resume-content.nursing .skill-tag {
+    background: #fce7f3;
+    color: #831843;
+}
+
+/* Pharmaceutical Template */
+.resume-content.pharma {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+}
+
+.resume-content.pharma .resume-header {
+    background: linear-gradient(135deg, #065f46 0%, #047857 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.pharma .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.pharma .resume-title {
+    color: #6ee7b7;
+}
+
+.resume-content.pharma .resume-section h2 {
+    color: #065f46;
+    border-bottom: 2px solid #10b981;
+}
+
+.resume-content.pharma .skill-tag {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+/* Teacher / Professor Template */
+.resume-content.teacher {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: linear-gradient(180deg, #fef3c7 0%, #ffffff 30%);
+}
+
+.resume-content.teacher .resume-header {
+    text-align: center;
+    border-bottom: 2px solid #d97706;
+}
+
+.resume-content.teacher .resume-name {
+    color: #78350f;
+    font-size: 2rem;
+}
+
+.resume-content.teacher .resume-title {
+    color: #b45309;
+    font-style: italic;
+}
+
+.resume-content.teacher .resume-section h2 {
+    color: #92400e;
+    border-bottom: 1px solid #fcd34d;
+}
+
+.resume-content.teacher .skill-tag {
+    background: #fef3c7;
+    color: #78350f;
+}
+
+/* Corporate Trainer Template */
+.resume-content.trainer {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+}
+
+.resume-content.trainer .resume-header {
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.trainer .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.trainer .resume-title {
+    color: #c4b5fd;
+}
+
+.resume-content.trainer .resume-section h2 {
+    color: #6d28d9;
+    border-bottom: 2px solid #a78bfa;
+}
+
+.resume-content.trainer .skill-tag {
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+/* Journalism / Media Template */
+.resume-content.media {
+    font-family: 'DM Sans', sans-serif;
+    background: #18181b;
+    color: #d4d4d8;
+}
+
+.resume-content.media .resume-header {
+    border-bottom: 3px solid #f59e0b;
+}
+
+.resume-content.media .resume-name {
+    color: #ffffff;
+    font-size: 2.2rem;
+}
+
+.resume-content.media .resume-title {
+    color: #fbbf24;
+}
+
+.resume-content.media .resume-section h2 {
+    color: #fbbf24;
+    border-bottom: 1px solid #78350f;
+}
+
+.resume-content.media .skill-tag {
+    background: #78350f;
+    color: #fef3c7;
+}
+
+/* Photography / Video Template */
+.resume-content.photography {
+    font-family: 'DM Sans', sans-serif;
+    background: #000000;
+    color: #e5e5e5;
+}
+
+.resume-content.photography .resume-header {
+    text-align: left;
+    border-bottom: 1px solid #404040;
+}
+
+.resume-content.photography .resume-name {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.resume-content.photography .resume-title {
+    color: #a3a3a3;
+}
+
+.resume-content.photography .resume-section h2 {
+    color: #ffffff;
+    border-bottom: 1px solid #404040;
+    font-weight: 300;
+}
+
+.resume-content.photography .skill-tag {
+    background: transparent;
+    color: #a3a3a3;
+    border: 1px solid #404040;
+}
+
+/* Content Writer Template */
+.resume-content.content {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: #fafaf9;
+}
+
+.resume-content.content .resume-header {
+    text-align: left;
+    border-bottom: 2px solid #0891b2;
+}
+
+.resume-content.content .resume-name {
+    color: #164e63;
+    font-size: 2rem;
+}
+
+.resume-content.content .resume-title {
+    color: #0891b2;
+}
+
+.resume-content.content .resume-section h2 {
+    color: #164e63;
+    border-bottom: 1px solid #67e8f9;
+}
+
+.resume-content.content .skill-tag {
+    background: #ecfeff;
+    color: #164e63;
+}
+
+/* Engineer (Non-IT) Template */
+.resume-content.engineering {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+}
+
+.resume-content.engineering .resume-header {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.engineering .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.engineering .resume-title {
+    color: #93c5fd;
+}
+
+.resume-content.engineering .resume-section h2 {
+    color: #1e40af;
+    border-bottom: 2px solid #3b82f6;
+}
+
+.resume-content.engineering .skill-tag {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+/* Manufacturing Template */
+.resume-content.manufacturing {
+    font-family: 'DM Sans', sans-serif;
+    background: #f5f5f4;
+}
+
+.resume-content.manufacturing .resume-header {
+    background: #292524;
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.manufacturing .resume-name {
+    color: #fafaf9;
+}
+
+.resume-content.manufacturing .resume-title {
+    color: #fbbf24;
+}
+
+.resume-content.manufacturing .resume-section h2 {
+    color: #292524;
+    border-bottom: 2px solid #fbbf24;
+}
+
+.resume-content.manufacturing .skill-tag {
+    background: #fef3c7;
+    color: #78350f;
+}
+
+/* Construction / Civil Template */
+.resume-content.construction {
+    font-family: 'DM Sans', sans-serif;
+    background: #fffbeb;
+}
+
+.resume-content.construction .resume-header {
+    background: linear-gradient(135deg, #c2410c 0%, #ea580c 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.construction .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.construction .resume-title {
+    color: #fed7aa;
+}
+
+.resume-content.construction .resume-section h2 {
+    color: #c2410c;
+    border-bottom: 2px solid #fb923c;
+}
+
+.resume-content.construction .skill-tag {
+    background: #ffedd5;
+    color: #9a3412;
+}
+
+/* Architecture Template */
+.resume-content.architecture {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+}
+
+.resume-content.architecture .resume-header {
+    text-align: left;
+    border-bottom: 1px solid #18181b;
+}
+
+.resume-content.architecture .resume-name {
+    color: #18181b;
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+}
+
+.resume-content.architecture .resume-title {
+    color: #71717a;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.9rem;
+}
+
+.resume-content.architecture .resume-section h2 {
+    color: #18181b;
+    border-bottom: 1px solid #e4e4e7;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+}
+
+.resume-content.architecture .skill-tag {
+    background: #fafafa;
+    color: #3f3f46;
+    border: 1px solid #e4e4e7;
+}
+
+/* Marketing / Brand Template */
+.resume-content.marketing {
+    font-family: 'DM Sans', sans-serif;
+}
+
+.resume-content.marketing .resume-header {
+    background: linear-gradient(135deg, #be185d 0%, #db2777 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.marketing .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.marketing .resume-title {
+    color: #fbcfe8;
+}
+
+.resume-content.marketing .resume-section h2 {
+    color: #be185d;
+    border-bottom: 2px solid #f472b6;
+}
+
+.resume-content.marketing .skill-tag {
+    background: #fce7f3;
+    color: #9d174d;
+}
+
+/* Digital Marketing Template */
+.resume-content.digital-marketing {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(180deg, #faf5ff 0%, #ffffff 100%);
+}
+
+.resume-content.digital-marketing .resume-header {
+    text-align: center;
+    border-bottom: 3px solid #8b5cf6;
+}
+
+.resume-content.digital-marketing .resume-name {
+    background: linear-gradient(90deg, #8b5cf6, #d946ef);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.2rem;
+}
+
+.resume-content.digital-marketing .resume-title {
+    color: #7c3aed;
+}
+
+.resume-content.digital-marketing .resume-section h2 {
+    color: #7c3aed;
+    border-bottom: 2px solid #c4b5fd;
+}
+
+.resume-content.digital-marketing .skill-tag {
+    background: linear-gradient(135deg, #ede9fe 0%, #fae8ff 100%);
+    color: #6d28d9;
+}
+
+/* Retail Management Template */
+.resume-content.retail {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+}
+
+.resume-content.retail .resume-header {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.retail .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.retail .resume-title {
+    color: #a7f3d0;
+}
+
+.resume-content.retail .resume-section h2 {
+    color: #047857;
+    border-bottom: 2px solid #34d399;
+}
+
+.resume-content.retail .skill-tag {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+/* Hotel / Hospitality Template */
+.resume-content.hospitality {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: linear-gradient(180deg, #fef2f2 0%, #ffffff 100%);
+}
+
+.resume-content.hospitality .resume-header {
+    background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.hospitality .resume-name {
+    color: #ffffff;
+    letter-spacing: 0.1em;
+}
+
+.resume-content.hospitality .resume-title {
+    color: #fecaca;
+}
+
+.resume-content.hospitality .resume-section h2 {
+    color: #7f1d1d;
+    border-bottom: 2px solid #fca5a5;
+}
+
+.resume-content.hospitality .skill-tag {
+    background: #fef2f2;
+    color: #7f1d1d;
+}
+
+/* Aviation / Airline Template */
+.resume-content.airline {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+}
+
+.resume-content.airline .resume-header {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.airline .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.airline .resume-title {
+    color: #7dd3fc;
+}
+
+.resume-content.airline .resume-section h2 {
+    color: #0c4a6e;
+    border-bottom: 2px solid #38bdf8;
+}
+
+.resume-content.airline .skill-tag {
+    background: #e0f2fe;
+    color: #075985;
+}
+
+/* Customer Service Template */
+.resume-content.customer-service {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.resume-content.customer-service .resume-header {
+    text-align: center;
+    border-bottom: 3px solid #16a34a;
+}
+
+.resume-content.customer-service .resume-name {
+    color: #166534;
+}
+
+.resume-content.customer-service .resume-title {
+    color: #22c55e;
+}
+
+.resume-content.customer-service .resume-section h2 {
+    color: #166534;
+    border-bottom: 2px solid #86efac;
+}
+
+.resume-content.customer-service .skill-tag {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* Operations Manager Template */
+.resume-content.operations {
+    font-family: 'DM Sans', sans-serif;
+    background: #fafafa;
+}
+
+.resume-content.operations .resume-header {
+    background: #1f2937;
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.operations .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.operations .resume-title {
+    color: #9ca3af;
+}
+
+.resume-content.operations .resume-section h2 {
+    color: #1f2937;
+    border-bottom: 2px solid #6b7280;
+}
+
+.resume-content.operations .skill-tag {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+/* Logistics / Supply Chain Template */
+.resume-content.logistics {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+}
+
+.resume-content.logistics .resume-header {
+    background: linear-gradient(135deg, #4338ca 0%, #6366f1 100%);
+    margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+    padding: 2rem;
+}
+
+.resume-content.logistics .resume-name {
+    color: #ffffff;
+}
+
+.resume-content.logistics .resume-title {
+    color: #c7d2fe;
+}
+
+.resume-content.logistics .resume-section h2 {
+    color: #4338ca;
+    border-bottom: 2px solid #818cf8;
+}
+
+.resume-content.logistics .skill-tag {
+    background: #e0e7ff;
+    color: #3730a3;
+}
+
+/* HR / Recruitment Template */
+.resume-content.hr {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(180deg, #fff7ed 0%, #ffffff 100%);
+}
+
+.resume-content.hr .resume-header {
+    text-align: center;
+    border-bottom: 3px solid #f97316;
+}
+
+.resume-content.hr .resume-name {
+    color: #9a3412;
+}
+
+.resume-content.hr .resume-title {
+    color: #ea580c;
+}
+
+.resume-content.hr .resume-section h2 {
+    color: #c2410c;
+    border-bottom: 2px solid #fdba74;
+}
+
+.resume-content.hr .skill-tag {
+    background: #ffedd5;
+    color: #9a3412;
+}
+
+/* Clean Professional Template */
+.resume-content.professional {
+    font-family: 'DM Sans', sans-serif;
+    background: #ffffff;
+}
+
+.resume-content.professional .resume-header {
+    text-align: left;
+    border-bottom: 2px solid #2563eb;
+}
+
+.resume-content.professional .resume-name {
+    color: #1e3a8a;
+    font-size: 2rem;
+}
+
+.resume-content.professional .resume-title {
+    color: #3b82f6;
+}
+
+.resume-content.professional .resume-section h2 {
+    color: #1e40af;
+    border-bottom: 1px solid #93c5fd;
+}
+
+.resume-content.professional .skill-tag {
+    background: #eff6ff;
+    color: #1e40af;
 }
 
 /* Creative / Designer Template */
