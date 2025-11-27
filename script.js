@@ -773,15 +773,27 @@ function downloadPDF() {
     const resumeContent = document.getElementById('resumeContent');
     const fullName = document.getElementById('fullName').value || 'resume';
     
+    // Clone the element to avoid modifying the original
+    const clone = resumeContent.cloneNode(true);
+    clone.style.width = '210mm';
+    clone.style.minHeight = '297mm';
+    clone.style.padding = '15mm';
+    clone.style.background = '#ffffff';
+    clone.style.position = 'absolute';
+    clone.style.left = '-9999px';
+    document.body.appendChild(clone);
+    
     // Configure PDF options
     const options = {
-        margin: 10,
+        margin: 0,
         filename: `${fullName.replace(/\s+/g, '_')}_resume.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
             scale: 2,
             useCORS: true,
-            letterRendering: true
+            letterRendering: true,
+            backgroundColor: '#ffffff',
+            logging: false
         },
         jsPDF: { 
             unit: 'mm', 
@@ -791,7 +803,163 @@ function downloadPDF() {
     };
     
     // Generate and download PDF
-    html2pdf().set(options).from(resumeContent).save();
+    html2pdf().set(options).from(clone).save().then(() => {
+        document.body.removeChild(clone);
+    });
+}
+
+// ============================================
+// RESUME IMPORT & PARSING
+// ============================================
+
+// Handle file import
+function handleFileImport(input) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const content = e.target.result;
+        
+        // Check if it's JSON format (exported data)
+        if (file.name.endsWith('.json')) {
+            try {
+                const data = JSON.parse(content);
+                loadFormData(data);
+                alert('Resume data imported successfully!');
+                return;
+            } catch (err) {
+                // Not valid JSON, treat as text
+            }
+        }
+        
+        // Put text content in the textarea
+        document.getElementById('importResume').value = content;
+    };
+    reader.readAsText(file);
+}
+
+// Parse imported resume text and fill form
+function parseImportedResume() {
+    const text = document.getElementById('importResume').value.trim();
+    if (!text) {
+        alert('Please paste or upload your resume text first.');
+        return;
+    }
+    
+    // Parse the resume text
+    const parsed = parseResumeText(text);
+    
+    // Fill form with parsed data
+    if (parsed.name) document.getElementById('fullName').value = parsed.name;
+    if (parsed.email) document.getElementById('email').value = parsed.email;
+    if (parsed.phone) document.getElementById('phone').value = parsed.phone;
+    if (parsed.location) document.getElementById('location').value = parsed.location;
+    if (parsed.linkedin) document.getElementById('linkedin').value = parsed.linkedin;
+    if (parsed.github) document.getElementById('github').value = parsed.github;
+    if (parsed.website) document.getElementById('website').value = parsed.website;
+    if (parsed.title) document.getElementById('jobTitle').value = parsed.title;
+    if (parsed.summary) document.getElementById('summary').value = parsed.summary;
+    if (parsed.skills) document.getElementById('skills').value = parsed.skills;
+    
+    // Clear import textarea
+    document.getElementById('importResume').value = '';
+    
+    // Update preview and save
+    updatePreview();
+    saveToLocalStorage();
+    
+    alert('Resume parsed! Please review and adjust the filled information.');
+}
+
+// Parse resume text into structured data
+function parseResumeText(text) {
+    const result = {};
+    const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+    
+    // Email pattern
+    const emailMatch = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+    if (emailMatch) result.email = emailMatch[0];
+    
+    // Phone pattern (various formats)
+    const phoneMatch = text.match(/(?:\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\+\d{10,14}/);
+    if (phoneMatch) result.phone = phoneMatch[0];
+    
+    // LinkedIn
+    const linkedinMatch = text.match(/linkedin\.com\/in\/[\w-]+/i);
+    if (linkedinMatch) result.linkedin = 'https://' + linkedinMatch[0];
+    
+    // GitHub
+    const githubMatch = text.match(/github\.com\/[\w-]+/i);
+    if (githubMatch) result.github = 'https://' + githubMatch[0];
+    
+    // Website (generic URL)
+    const websiteMatch = text.match(/(?:https?:\/\/)?(?:www\.)?([a-zA-Z0-9-]+\.[a-zA-Z]{2,})(?:\/\S*)?/);
+    if (websiteMatch && !websiteMatch[0].includes('linkedin') && !websiteMatch[0].includes('github')) {
+        result.website = websiteMatch[0].startsWith('http') ? websiteMatch[0] : 'https://' + websiteMatch[0];
+    }
+    
+    // First line is often the name
+    if (lines[0] && !lines[0].includes('@') && !lines[0].includes('http') && lines[0].length < 50) {
+        result.name = lines[0];
+    }
+    
+    // Look for job title (often second line or after name)
+    const titleKeywords = ['developer', 'engineer', 'designer', 'manager', 'analyst', 'consultant', 
+                          'architect', 'specialist', 'coordinator', 'assistant', 'director', 'lead',
+                          'senior', 'junior', 'intern', 'executive', 'officer', 'administrator'];
+    for (let i = 1; i < Math.min(5, lines.length); i++) {
+        const line = lines[i].toLowerCase();
+        if (titleKeywords.some(k => line.includes(k))) {
+            result.title = lines[i];
+            break;
+        }
+    }
+    
+    // Location patterns
+    const locationMatch = text.match(/(?:located in|location|address|city)[:\s]*([A-Za-z\s,]+)/i) ||
+                         text.match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?),\s*([A-Z]{2}|[A-Z][a-z]+)/);
+    if (locationMatch) {
+        result.location = locationMatch[1] ? locationMatch[1].trim() : locationMatch[0].trim();
+    }
+    
+    // Skills section
+    const skillsMatch = text.match(/(?:skills|technical skills|technologies)[:\s]*([\s\S]*?)(?:\n\n|\n[A-Z]|$)/i);
+    if (skillsMatch) {
+        result.skills = skillsMatch[1]
+            .replace(/[•\-\*]/g, ',')
+            .replace(/\n/g, ', ')
+            .replace(/,\s*,/g, ',')
+            .replace(/^\s*,|,\s*$/g, '')
+            .trim();
+    }
+    
+    // Summary/Objective
+    const summaryMatch = text.match(/(?:summary|objective|profile|about)[:\s]*([\s\S]*?)(?:\n\n|\n[A-Z][a-z]+:|\n[A-Z][A-Z]|$)/i);
+    if (summaryMatch) {
+        result.summary = summaryMatch[1].trim().substring(0, 500);
+    }
+    
+    return result;
+}
+
+// Load form data from object (for JSON import)
+function loadFormData(data) {
+    if (data.fullName) document.getElementById('fullName').value = data.fullName;
+    if (data.jobTitle) document.getElementById('jobTitle').value = data.jobTitle;
+    if (data.email) document.getElementById('email').value = data.email;
+    if (data.phone) document.getElementById('phone').value = data.phone;
+    if (data.location) document.getElementById('location').value = data.location;
+    if (data.linkedin) document.getElementById('linkedin').value = data.linkedin;
+    if (data.website) document.getElementById('website').value = data.website;
+    if (data.github) document.getElementById('github').value = data.github;
+    if (data.summary) document.getElementById('summary').value = data.summary;
+    if (data.skills) document.getElementById('skills').value = data.skills;
+    if (data.softSkills) document.getElementById('softSkills').value = data.softSkills;
+    if (data.languages) document.getElementById('languages').value = data.languages;
+    
+    updatePreview();
+    saveToLocalStorage();
 }
 
 // Clear all form data

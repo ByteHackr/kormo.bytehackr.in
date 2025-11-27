@@ -232,6 +232,24 @@
                 </div>
             </section>
 
+            <!-- Import Resume -->
+            <section class="form-section">
+                <h3>Import Existing Resume</h3>
+                <div class="form-group full-width">
+                    <label for="importResume">Paste your resume text or upload a .txt file</label>
+                    <textarea id="importResume" rows="4" placeholder="Paste your existing resume text here..."></textarea>
+                    <div class="import-actions">
+                        <input type="file" id="importFile" accept=".txt,.json" style="display:none" onchange="handleFileImport(this)">
+                        <button type="button" class="btn-import" onclick="document.getElementById('importFile').click()">
+                            📁 Upload File
+                        </button>
+                        <button type="button" class="btn-import" onclick="parseImportedResume()">
+                            ⚡ Parse & Fill
+                        </button>
+                    </div>
+                </div>
+            </section>
+
             <!-- Actions -->
             <div class="actions">
                 <button type="button" class="btn-primary" onclick="downloadPDF()">
