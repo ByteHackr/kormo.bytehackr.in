@@ -438,6 +438,7 @@ function updatePreview() {
     
     // Get section order from DOM or use default
     var sectionOrder = getSectionOrder();
+    console.log('Section order:', sectionOrder);
     
     // Build sections HTML based on order
     var sectionsHTML = '';
@@ -518,21 +519,27 @@ function updatePreview() {
 // Get current section order from DOM
 function getSectionOrder() {
     var container = document.getElementById('movableSections');
+    console.log('getSectionOrder - container:', container);
+    
     if (!container) {
-        // Default order if container not found
+        console.log('Container not found, using default order');
         return ['experience', 'education', 'projects', 'certifications', 'skills', 'custom'];
     }
     
     var sections = container.querySelectorAll('.movable-section');
+    console.log('Found sections:', sections.length);
+    
     var order = [];
     
     sections.forEach(function(section) {
         var sectionName = section.getAttribute('data-section');
+        console.log('Section:', sectionName);
         if (sectionName) {
             order.push(sectionName);
         }
     });
     
+    console.log('Final order:', order);
     return order.length > 0 ? order : ['experience', 'education', 'projects', 'certifications', 'skills', 'custom'];
 }
 
