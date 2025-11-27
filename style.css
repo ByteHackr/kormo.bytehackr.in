@@ -629,6 +629,234 @@ textarea {
     position: relative;
 }
 
+/* Modern Split Template (Photo) */
+.resume-content.modern-split {
+    font-family: 'Roboto', sans-serif;
+    background: #f3f4f6;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: auto auto 1fr;
+}
+
+.resume-content.modern-split .header-section {
+    grid-column: 1 / -1;
+    background: #2d3748;
+    color: white;
+    padding: 2.5rem 3rem;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.resume-content.modern-split .profile-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 4px solid #4fd1c5;
+    overflow: hidden;
+    background: #fff;
+}
+
+.resume-content.modern-split .profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.resume-content.modern-split .header-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.resume-content.modern-split .resume-name {
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+    color: white;
+}
+
+.resume-content.modern-split .resume-title {
+    color: #4fd1c5;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.resume-content.modern-split .header-summary {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1.5rem;
+}
+
+.resume-content.modern-split .contact-bar {
+    grid-column: 1 / -1;
+    background: #4fd1c5;
+    color: white;
+    padding: 0.75rem 3rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.resume-content.modern-split .contact-bar a {
+    color: white;
+    text-decoration: none;
+}
+
+.resume-content.modern-split .main-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    min-height: 800px;
+}
+
+.resume-content.modern-split .column-left {
+    padding: 2.5rem;
+    background: white;
+}
+
+.resume-content.modern-split .column-right {
+    padding: 2.5rem;
+    background: #e2e8f0;
+}
+
+.resume-content.modern-split h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #2d3748;
+    border-bottom: none;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.resume-content.modern-split h2 i {
+    background: #2d3748;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.resume-content.modern-split .exp-item {
+    margin-bottom: 2rem;
+    border-left: 2px solid #e2e8f0;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.resume-content.modern-split .exp-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    background: #4fd1c5;
+    border-radius: 50%;
+}
+
+.resume-content.modern-split .exp-title-company {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #2d3748;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.resume-content.modern-split .exp-company {
+    font-weight: 500;
+    color: #4a5568;
+    margin-bottom: 0.25rem;
+}
+
+.resume-content.modern-split .exp-dates {
+    color: #4fd1c5;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.resume-content.modern-split .vertical-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.resume-content.modern-split .vertical-list .skill-tag {
+    background: transparent;
+    color: #2d3748;
+    padding: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border-bottom: 1px solid #cbd5e0;
+    padding-bottom: 0.25rem;
+}
+
+.resume-content.modern-split .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.resume-content.modern-split .tag-cloud .skill-tag {
+    background: #cbd5e0;
+    color: #2d3748;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+}
+
+.resume-content.modern-split .simple-list .edu-item {
+    margin-bottom: 1.5rem;
+}
+
+.resume-content.modern-split .edu-degree {
+    font-weight: 700;
+    display: block;
+    color: #2d3748;
+}
+
+.resume-content.modern-split .edu-institution {
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+
+.resume-content.modern-split .edu-year {
+    color: #718096;
+    font-size: 0.85rem;
+}
+
+.resume-content.modern-split .lang-item {
+    margin-bottom: 0.5rem;
+    color: #2d3748;
+    font-size: 0.95rem;
+}
+
+.resume-content.modern-split .lang-item::before {
+    content: '•';
+    color: #4fd1c5;
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
 /* ============================================
    ADVANCED CREATIVE TEMPLATES
    ============================================ */

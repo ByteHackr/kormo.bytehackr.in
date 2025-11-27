@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KormoNama - Free Resume Builder</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="hero-header">
@@ -34,6 +35,11 @@
             <section class="form-section">
                 <h3>Personal Information</h3>
                 <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="profilePhoto">Profile Photo</label>
+                        <input type="file" id="profilePhoto" accept="image/*" onchange="handlePhotoUpload(this)">
+                        <input type="hidden" id="profilePhotoBase64">
+                    </div>
                     <div class="form-group">
                         <label for="fullName">Full Name</label>
                         <input type="text" id="fullName" placeholder="John Doe">
@@ -203,10 +209,28 @@
 
             <!-- Skills -->
             <section class="form-section">
-                <h3>Skills</h3>
+                <h3>Hard Skills</h3>
                 <div class="form-group full-width">
                     <label for="skills">Enter skills separated by commas</label>
                     <textarea id="skills" rows="3" placeholder="JavaScript, Python, React, Node.js, SQL, Git, AWS, Docker"></textarea>
+                </div>
+            </section>
+
+            <!-- Soft Skills -->
+            <section class="form-section">
+                <h3>Soft Skills</h3>
+                <div class="form-group full-width">
+                    <label for="softSkills">Enter soft skills separated by commas</label>
+                    <textarea id="softSkills" rows="2" placeholder="Leadership, Communication, Teamwork, Problem Solving"></textarea>
+                </div>
+            </section>
+
+            <!-- Languages -->
+            <section class="form-section">
+                <h3>Languages</h3>
+                <div class="form-group full-width">
+                    <label for="languages">Enter languages separated by commas</label>
+                    <textarea id="languages" rows="2" placeholder="English (Native), Spanish (Intermediate), Hindi (Fluent)"></textarea>
                 </div>
             </section>
 
@@ -228,6 +252,7 @@
                     <label>Template:</label>
                     <select id="templateSelect" onchange="updatePreview()">
                         <optgroup label="✨ Premium Creative (New)">
+                            <option value="modern-split">Modern Split (Photo)</option>
                             <option value="creative-split">Split Minimalist</option>
                             <option value="designer-portfolio">Designer Portfolio</option>
                             <option value="modern-timeline">Modern Timeline</option>

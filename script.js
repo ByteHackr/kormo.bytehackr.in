@@ -40,6 +40,19 @@ function initializeEventListeners() {
     });
 }
 
+// Handle photo upload
+function handlePhotoUpload(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profilePhotoBase64').value = e.target.result;
+            updatePreview();
+            saveToLocalStorage();
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 // Update the resume preview based on form data
 function updatePreview() {
     const template = document.getElementById('templateSelect').value;
@@ -59,6 +72,9 @@ function updatePreview() {
     const github = document.getElementById('github').value;
     const summary = document.getElementById('summary').value;
     const skills = document.getElementById('skills').value;
+    const softSkills = document.getElementById('softSkills').value;
+    const languages = document.getElementById('languages').value;
+    const photoBase64 = document.getElementById('profilePhotoBase64').value;
     
     // Build contact HTML with clickable links
     const contactHTML = buildContactHTML(email, phone, location, linkedin, website, github);
@@ -69,6 +85,82 @@ function updatePreview() {
     const projectsHTML = buildProjectsHTML();
     const certificationsHTML = buildCertificationsHTML();
     const skillsHTML = buildSkillsHTML(skills);
+    const softSkillsHTML = buildSkillsHTML(softSkills);
+    const languagesHTML = buildLanguagesHTML(languages);
+    
+    // Special layout for Modern Split template
+    if (template === 'modern-split') {
+        resumeContent.innerHTML = `
+            <div class="header-section">
+                ${photoBase64 ? `<div class="profile-photo"><img src="${photoBase64}" alt="Profile"></div>` : ''}
+                <div class="header-text">
+                    <h1 class="resume-name">${escapeHtml(fullName)}</h1>
+                    <p class="resume-title">${escapeHtml(jobTitle)}</p>
+                </div>
+                ${summary ? `<p class="header-summary">${escapeHtml(summary)}</p>` : ''}
+            </div>
+            
+            <div class="contact-bar">
+                ${contactHTML}
+            </div>
+            
+            <div class="main-grid">
+                <div class="column-left">
+                    ${experienceHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+                        <div class="resume-experience">${experienceHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${projectsHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-code"></i> Projects</h2>
+                        <div class="resume-projects">${projectsHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${certificationsHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-certificate"></i> Workshops & Training</h2>
+                        <div class="resume-certifications">${certificationsHTML}</div>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="column-right">
+                    ${skillsHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-tools"></i> Hard Skills</h2>
+                        <div class="resume-skills vertical-list">${skillsHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${softSkillsHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-lightbulb"></i> Soft Skills</h2>
+                        <div class="resume-skills tag-cloud">${softSkillsHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${educationHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+                        <div class="resume-education simple-list">${educationHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${languagesHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-language"></i> Languages</h2>
+                        <div class="resume-languages">${languagesHTML}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+        return;
+    }
     
     // Determine section order based on template (freshers get projects before experience)
     const isFresherTemplate = ['fresh-graduate', 'student', 'entry-level'].includes(template);
@@ -304,6 +396,14 @@ function buildSkillsHTML(skills) {
     
     const skillArray = skills.split(',').map(s => s.trim()).filter(s => s);
     return skillArray.map(skill => `<span class="skill-tag">${escapeHtml(skill)}</span>`).join('');
+}
+
+// Build languages section HTML
+function buildLanguagesHTML(languages) {
+    if (!languages) return '';
+    
+    const langArray = languages.split(',').map(s => s.trim()).filter(s => s);
+    return langArray.map(lang => `<div class="lang-item">${escapeHtml(lang)}</div>`).join('');
 }
 
 // Add new experience entry
@@ -600,7 +700,10 @@ function saveToLocalStorage() {
             website: document.getElementById('website').value,
             github: document.getElementById('github').value,
             summary: document.getElementById('summary').value,
-            skills: document.getElementById('skills').value
+            skills: document.getElementById('skills').value,
+            softSkills: document.getElementById('softSkills').value,
+            languages: document.getElementById('languages').value,
+            photo: document.getElementById('profilePhotoBase64').value
         },
         experience: [],
         education: [],
@@ -674,6 +777,9 @@ function loadFromLocalStorage() {
             document.getElementById('github').value = data.personal.github || '';
             document.getElementById('summary').value = data.personal.summary || '';
             document.getElementById('skills').value = data.personal.skills || '';
+            document.getElementById('softSkills').value = data.personal.softSkills || '';
+            document.getElementById('languages').value = data.personal.languages || '';
+            document.getElementById('profilePhotoBase64').value = data.personal.photo || '';
         }
         
         // Load template
