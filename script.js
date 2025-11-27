@@ -1157,7 +1157,7 @@ function printResume() {
         })
         .join('\n');
     
-    // Create print window
+    // Create print window with empty title to avoid header
     const printWindow = window.open('', '_blank', 'width=800,height=600');
     
     printWindow.document.write(`
@@ -1165,14 +1165,15 @@ function printResume() {
         <html>
         <head>
             <meta charset="UTF-8">
-            <title>Resume - Print</title>
+            <title></title>
             <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
             <style>
                 ${styles}
                 
+                /* Remove browser headers/footers by using zero margins */
                 @page {
-                    margin: 10mm;
+                    margin: 0;
                     size: A4 portrait;
                 }
                 
@@ -1185,14 +1186,13 @@ function printResume() {
                     margin: 0;
                     padding: 0;
                     background: white;
-                    width: 210mm;
                 }
                 
                 .resume-content {
-                    width: 100%;
-                    max-width: 190mm;
+                    width: 210mm;
+                    min-height: 297mm;
                     margin: 0 auto;
-                    padding: 10mm;
+                    padding: 15mm;
                     box-sizing: border-box;
                     background: white !important;
                     box-shadow: none !important;
@@ -1243,12 +1243,13 @@ function printResume() {
                 }
                 
                 @media print {
-                    body {
-                        width: 100%;
+                    html, body {
+                        width: 210mm;
+                        height: 297mm;
                     }
                     .resume-content {
-                        max-width: 100%;
-                        padding: 5mm;
+                        width: 100%;
+                        padding: 12mm;
                     }
                 }
             </style>
@@ -1260,8 +1261,6 @@ function printResume() {
                 window.onload = function() {
                     setTimeout(function() {
                         window.print();
-                        // Close window after print dialog closes (optional)
-                        // window.close();
                     }, 500);
                 };
             </script>
@@ -1270,6 +1269,63 @@ function printResume() {
     `);
     
     printWindow.document.close();
+}
+
+// Clean PDF download using html2pdf (no browser headers/footers)
+async function downloadCleanPDF() {
+    const resumeContent = document.getElementById('resumeContent');
+    if (!resumeContent || !resumeContent.innerHTML.trim()) {
+        alert('Please fill in your resume details first.');
+        return;
+    }
+    
+    // Check if html2pdf is available
+    if (typeof html2pdf === 'undefined') {
+        alert('PDF library not loaded. Please use the Print option instead.');
+        return;
+    }
+    
+    const fullName = document.getElementById('fullName').value || 'Resume';
+    const fileName = fullName.replace(/\s+/g, '_') + '_Resume.pdf';
+    
+    // Show loading state
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '⏳ Generating PDF...';
+    btn.disabled = true;
+    
+    try {
+        const opt = {
+            margin: [10, 10, 10, 10],
+            filename: fileName,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { 
+                scale: 2,
+                useCORS: true,
+                letterRendering: true,
+                logging: false
+            },
+            jsPDF: { 
+                unit: 'mm', 
+                format: 'a4', 
+                orientation: 'portrait' 
+            },
+            pagebreak: { 
+                mode: ['avoid-all', 'css', 'legacy'],
+                before: '.page-break-before',
+                after: '.page-break-after',
+                avoid: '.resume-section, .exp-item, .edu-item, .proj-item'
+            }
+        };
+        
+        await html2pdf().set(opt).from(resumeContent).save();
+    } catch (err) {
+        console.error('PDF generation error:', err);
+        alert('Error generating PDF. Please try the Print option.');
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
 }
 
 

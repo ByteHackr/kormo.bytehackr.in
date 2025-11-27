@@ -249,10 +249,13 @@
 
             <!-- Actions -->
             <div class="actions" style="flex-direction: column; gap: 1rem;">
-                <button type="button" class="btn-primary" onclick="printResume()" style="width: 100%;">
-                    <span>📄</span> Save as PDF
+                <button type="button" class="btn-primary" onclick="downloadCleanPDF()" style="width: 100%;">
+                    <span>📥</span> Download PDF
                 </button>
-                <button type="button" class="btn-secondary" onclick="clearForm()" style="width: 100%;">
+                <button type="button" class="btn-secondary" onclick="printResume()" style="width: 100%;">
+                    <span>🖨️</span> Print / Save as PDF
+                </button>
+                <button type="button" class="btn-secondary" onclick="clearForm()" style="width: 100%; margin-top: 0.5rem;">
                     Clear All Data
                 </button>
             </div>
