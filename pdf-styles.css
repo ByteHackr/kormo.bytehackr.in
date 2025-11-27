@@ -192,6 +192,13 @@ body.print-mode .header-nav {
         padding-top: 10mm !important;
     }
 
+    /* Override for templates with custom layouts */
+    .resume-content.modern-split .resume-section,
+    .resume-content.executive-orange .resume-section,
+    .resume-content.creative-split .resume-section {
+        padding: 0 !important;
+    }
+
     .exp-item, .edu-item, .proj-item, .cert-item {
         page-break-inside: avoid;
         break-inside: avoid;
@@ -223,13 +230,51 @@ body.print-mode .header-nav {
         background: #f3f4f6 !important;
     }
 
+    /* Executive Orange Template - Special Print Styles */
     .resume-content.executive-orange {
         border-top: 10px solid #ed8922 !important;
+        padding: 0 !important;
+    }
+
+    .resume-content.executive-orange .resume-header {
+        padding: 15mm 15mm 10mm 15mm !important;
+        margin-bottom: 0 !important;
+        border-bottom: 2px solid #000 !important;
     }
 
     .resume-content.executive-orange .main-grid {
         display: grid !important;
         grid-template-columns: 1fr 180px !important;
+        gap: 10mm !important;
+        padding: 10mm 15mm 15mm 15mm !important;
+        margin: 0 !important;
+        page-break-inside: auto !important;
+    }
+
+    .resume-content.executive-orange .column-left,
+    .resume-content.executive-orange .column-right {
+        padding: 0 !important;
+        min-width: 0 !important;
+        page-break-inside: auto !important;
+    }
+
+    .resume-content.executive-orange .column-left .resume-section,
+    .resume-content.executive-orange .column-right .resume-section {
+        padding: 0 !important;
+        margin-bottom: 1rem !important;
+        page-break-inside: avoid !important;
+    }
+
+    .resume-content.executive-orange .profile-photo {
+        max-width: 180px !important;
+        width: 100% !important;
+        margin-bottom: 1rem !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Ensure contact section in sidebar works */
+    .resume-content.executive-orange .vertical-contact {
+        padding: 0 !important;
     }
 
     /* Ensure text is readable */
