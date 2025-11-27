@@ -438,7 +438,6 @@ function updatePreview() {
     
     // Get section order from DOM or use default
     var sectionOrder = getSectionOrder();
-    console.log('Section order:', sectionOrder);
     
     // Build sections HTML based on order
     var sectionsHTML = '';
@@ -519,27 +518,20 @@ function updatePreview() {
 // Get current section order from DOM
 function getSectionOrder() {
     var container = document.getElementById('movableSections');
-    console.log('getSectionOrder - container:', container);
-    
     if (!container) {
-        console.log('Container not found, using default order');
         return ['experience', 'education', 'projects', 'certifications', 'skills', 'custom'];
     }
     
     var sections = container.querySelectorAll('.movable-section');
-    console.log('Found sections:', sections.length);
-    
     var order = [];
     
     sections.forEach(function(section) {
         var sectionName = section.getAttribute('data-section');
-        console.log('Section:', sectionName);
         if (sectionName) {
             order.push(sectionName);
         }
     });
     
-    console.log('Final order:', order);
     return order.length > 0 ? order : ['experience', 'education', 'projects', 'certifications', 'skills', 'custom'];
 }
 
@@ -1174,65 +1166,6 @@ function buildCustomSectionsHTML() {
     return html;
 }
 
-// Download resume as PDF using html2pdf.js (Open Source - MIT License)
-function downloadPDF() {
-    const resumeContent = document.getElementById('resumeContent');
-    const fullName = document.getElementById('fullName').value || 'resume';
-    
-    if (!resumeContent || !resumeContent.innerHTML.trim()) {
-        alert('Please fill in your resume details first.');
-        return;
-    }
-    
-    // Show loading state
-    const btn = event.target.closest('button');
-    const originalText = btn.innerHTML;
-    btn.innerHTML = '<span>⏳</span> Generating...';
-    btn.disabled = true;
-    
-    // Add class to body to trigger PDF-specific styles
-    document.body.classList.add('generating-pdf');
-    
-    // Configure PDF options
-    const options = {
-        margin: 0, // Margins handled by CSS
-        filename: `${fullName.replace(/\s+/g, '_')}_resume.pdf`,
-        image: { type: 'jpeg', quality: 1.0 },
-        html2canvas: { 
-            scale: 2, // High resolution
-            useCORS: true,
-            allowTaint: true,
-            scrollY: 0,
-            backgroundColor: '#ffffff', // Force white background
-            windowWidth: 794, // A4 width in pixels (approx) at 96 DPI
-        },
-        jsPDF: { 
-            unit: 'mm', 
-            format: 'a4', 
-            orientation: 'portrait' 
-        }
-    };
-    
-    // Generate PDF
-    html2pdf()
-        .set(options)
-        .from(resumeContent)
-        .save()
-        .then(() => {
-            // Remove class and restore state
-            document.body.classList.remove('generating-pdf');
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        })
-        .catch((err) => {
-            console.error('PDF generation error:', err);
-            document.body.classList.remove('generating-pdf');
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            alert('Error generating PDF. Please try again.');
-        });
-}
-
 // Print Resume (Native Browser Print for ATS Friendly PDF)
 function printResume() {
     const resumeContent = document.getElementById('resumeContent');
@@ -1371,75 +1304,6 @@ function printResume() {
     `);
     
     printWindow.document.close();
-}
-
-// Clean PDF download using html2pdf (no browser headers/footers)
-function downloadCleanPDF() {
-    console.log('downloadCleanPDF called');
-    
-    var resumeContent = document.getElementById('resumeContent');
-    if (!resumeContent || !resumeContent.innerHTML.trim()) {
-        alert('Please fill in your resume details first.');
-        return;
-    }
-    
-    // Check if html2pdf is available
-    if (typeof html2pdf === 'undefined') {
-        console.error('html2pdf not loaded');
-        alert('PDF library not loaded. Please refresh the page and try again.');
-        return;
-    }
-    
-    console.log('html2pdf is available');
-    
-    var fullName = document.getElementById('fullName').value || 'Resume';
-    var fileName = fullName.replace(/\s+/g, '_') + '_Resume.pdf';
-    
-    // Show loading
-    var downloadBtn = document.getElementById('downloadPdfBtn');
-    if (downloadBtn) {
-        downloadBtn.innerHTML = '⏳ Generating...';
-        downloadBtn.disabled = true;
-    }
-    
-    var opt = {
-        margin: [10, 10, 10, 10],
-        filename: fileName,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-            scale: 2,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: '#ffffff'
-        },
-        jsPDF: { 
-            unit: 'mm', 
-            format: 'a4', 
-            orientation: 'portrait' 
-        }
-    };
-    
-    console.log('Starting PDF generation with options:', opt);
-    
-    html2pdf()
-        .set(opt)
-        .from(resumeContent)
-        .save()
-        .then(function() {
-            console.log('PDF saved successfully');
-            if (downloadBtn) {
-                downloadBtn.innerHTML = '<span>📥</span> Download PDF';
-                downloadBtn.disabled = false;
-            }
-        })
-        .catch(function(error) {
-            console.error('PDF generation failed:', error);
-            alert('PDF generation failed. Error: ' + error.message);
-            if (downloadBtn) {
-                downloadBtn.innerHTML = '<span>📥</span> Download PDF';
-                downloadBtn.disabled = false;
-            }
-        });
 }
 
 
