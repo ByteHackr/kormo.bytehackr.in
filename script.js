@@ -1174,136 +1174,22 @@ function printResume() {
         return;
     }
     
-    // Get the current template class
-    const templateClass = resumeContent.className;
+    document.body.classList.add('print-mode');
     
-    // Clone the resume content
-    const resumeHTML = resumeContent.outerHTML;
+    const cleanup = () => {
+        document.body.classList.remove('print-mode');
+        window.removeEventListener('afterprint', cleanup);
+    };
     
-    // Get all stylesheets
-    const styles = Array.from(document.styleSheets)
-        .map(sheet => {
-            try {
-                return Array.from(sheet.cssRules).map(rule => rule.cssText).join('\n');
-            } catch (e) {
-                // External stylesheets may throw security error
-                return '';
-            }
-        })
-        .join('\n');
+    window.addEventListener('afterprint', cleanup);
+    window.print();
     
-    // Create print window with empty title to avoid header
-    const printWindow = window.open('', '_blank', 'width=800,height=600');
-    
-    printWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title></title>
-            <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-            <style>
-                ${styles}
-                
-                /* Remove browser headers/footers by using zero margins */
-                @page {
-                    margin: 0;
-                    size: A4 portrait;
-                }
-                
-                * {
-                    -webkit-print-color-adjust: exact !important;
-                    print-color-adjust: exact !important;
-                }
-                
-                html, body {
-                    margin: 0;
-                    padding: 0;
-                    background: white;
-                }
-                
-                .resume-content {
-                    width: 210mm;
-                    min-height: 297mm;
-                    margin: 0 auto;
-                    padding: 15mm;
-                    box-sizing: border-box;
-                    background: white !important;
-                    box-shadow: none !important;
-                    border: none !important;
-                }
-                
-                /* Ensure sections don't break awkwardly */
-                .resume-section {
-                    page-break-inside: avoid;
-                    break-inside: avoid;
-                }
-                
-                .exp-item, .edu-item, .proj-item, .cert-item {
-                    page-break-inside: avoid;
-                    break-inside: avoid;
-                }
-                
-                .resume-header {
-                    page-break-after: avoid;
-                }
-                
-                /* Fix grid layouts for print */
-                .resume-content.modern-split .main-grid,
-                .resume-content.executive-orange .main-grid,
-                .resume-content.creative-split {
-                    display: grid !important;
-                }
-                
-                .resume-content.modern-split .main-grid {
-                    grid-template-columns: 60% 40% !important;
-                }
-                
-                .resume-content.executive-orange .main-grid {
-                    grid-template-columns: 1fr 180px !important;
-                }
-                
-                .resume-content.creative-split {
-                    grid-template-columns: 240px 1fr !important;
-                }
-                
-                /* Ensure backgrounds print */
-                .resume-content.modern .resume-header,
-                .resume-content.executive .resume-header,
-                .resume-content.modern-split .header-section,
-                .resume-content.creative-split .resume-header {
-                    -webkit-print-color-adjust: exact !important;
-                    print-color-adjust: exact !important;
-                }
-                
-                @media print {
-                    html, body {
-                        width: 210mm;
-                        height: 297mm;
-                    }
-                    .resume-content {
-                        width: 100%;
-                        padding: 12mm;
-                    }
-                }
-            </style>
-        </head>
-        <body>
-            ${resumeHTML}
-            <script>
-                // Wait for fonts and images to load, then print
-                window.onload = function() {
-                    setTimeout(function() {
-                        window.print();
-                    }, 500);
-                };
-            </script>
-        </body>
-        </html>
-    `);
-    
-    printWindow.document.close();
+    // Fallback in case afterprint never fires (some browsers)
+    setTimeout(() => {
+        if (document.body.classList.contains('print-mode')) {
+            cleanup();
+        }
+    }, 2000);
 }
 
 

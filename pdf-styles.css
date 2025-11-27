@@ -3,8 +3,8 @@
    PDF GENERATION STYLES
    ============================================ */
 
-/* Force A4 layout during PDF generation */
-body.generating-pdf .resume-preview {
+/* Force A4 layout during PDF generation/print prep */
+body.print-mode .resume-preview {
     width: 210mm !important;
     max-width: 210mm !important;
     margin: 0 !important;
@@ -13,7 +13,7 @@ body.generating-pdf .resume-preview {
     overflow: visible !important;
 }
 
-body.generating-pdf .resume-content {
+body.print-mode .resume-content {
     width: 100% !important;
     min-height: auto !important;
     height: auto !important;
@@ -29,44 +29,47 @@ body.generating-pdf .resume-content {
 }
 
 /* Force text colors to be dark in PDF */
-body.generating-pdf .resume-content,
-body.generating-pdf .resume-content p,
-body.generating-pdf .resume-content li,
-body.generating-pdf .resume-content span {
+body.print-mode .resume-content,
+body.print-mode .resume-content p,
+body.print-mode .resume-content li,
+body.print-mode .resume-content span {
     color: #1f2937 !important;
 }
 
 /* Keep headings colored */
-body.generating-pdf .resume-content h1,
-body.generating-pdf .resume-content h2,
-body.generating-pdf .resume-content h3,
-body.generating-pdf .resume-content h4 {
+body.print-mode .resume-content h1,
+body.print-mode .resume-content h2,
+body.print-mode .resume-content h3,
+body.print-mode .resume-content h4 {
     color: inherit !important; /* Respect template colors */
 }
 
 /* Template Specific Adjustments for PDF */
-body.generating-pdf .resume-content.modern-split {
+body.print-mode .resume-content.modern-split {
     display: grid !important;
     grid-template-columns: 30% 70% !important;
     height: 100% !important;
     padding: 0 !important; /* Split template handles its own padding */
 }
 
-body.generating-pdf .resume-content.modern-split .sidebar {
+body.print-mode .resume-content.modern-split .sidebar {
     height: 100% !important;
     min-height: 297mm !important;
 }
 
-body.generating-pdf .resume-content.clean-blue .header-section {
+body.print-mode .resume-content.clean-blue .header-section {
     border-bottom: 2px solid #2563eb !important;
 }
 
 /* Hide non-resume elements just in case */
-body.generating-pdf header,
-body.generating-pdf .editor-panel,
-body.generating-pdf .preview-header,
-body.generating-pdf footer,
-body.generating-pdf .actions {
+body.print-mode header,
+body.print-mode .editor-panel,
+body.print-mode .preview-header,
+body.print-mode footer,
+body.print-mode .actions,
+body.print-mode .theme-toggle,
+body.print-mode .header-top,
+body.print-mode .header-nav {
     display: none !important;
 }
 
@@ -75,13 +78,8 @@ body.generating-pdf .actions {
    ============================================ */
 @media print {
     @page {
-        margin: 10mm 15mm;
+        margin: 12mm 15mm;
         size: A4 portrait;
-    }
-
-    /* First page has no top margin for header */
-    @page :first {
-        margin-top: 0;
     }
 
     * {
@@ -136,10 +134,11 @@ body.generating-pdf .actions {
         width: 100% !important;
         min-height: auto !important;
         height: auto !important;
-        padding: 10mm !important;
-        margin: 0 !important;
+        padding: 12mm !important;
+        margin: 0 auto !important;
         box-shadow: none !important;
-        border: none !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 6px !important;
         background: white !important;
         overflow: visible !important;
     }
