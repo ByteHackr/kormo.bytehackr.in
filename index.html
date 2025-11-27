@@ -9,24 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="hero-header">
+    <header>
+        <div class="header-top">
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                <span class="theme-icon" id="themeIcon">🌙</span>
+            </button>
+        </div>
         <div class="logo">
             <span class="logo-icon">📋</span>
             <h1>KormoNama</h1>
         </div>
-        <p class="tagline">Build Your Career Story</p>
-        <p class="hero-subtitle">Create professional resumes in minutes. Free forever. No signup required.</p>
-        <div class="hero-features">
-            <span class="hero-feature">✓ 40+ Templates</span>
-            <span class="hero-feature">✓ All Professions</span>
-            <span class="hero-feature">✓ PDF Download</span>
-            <span class="hero-feature">✓ 100% Free</span>
-        </div>
+        <p class="tagline">Free Resume Builder</p>
         <nav class="header-nav">
-            <a href="templates.html" class="nav-link">Browse All Templates →</a>
-            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                <span class="theme-icon">🌙</span>
-            </button>
+            <a href="templates.html" class="nav-link">Templates</a>
         </nav>
     </header>
 

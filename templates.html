@@ -10,18 +10,20 @@
 </head>
 <body>
     <header>
+        <div class="header-top">
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                <span class="theme-icon" id="themeIcon">🌙</span>
+            </button>
+        </div>
         <div class="logo">
             <a href="index.html" class="logo-link">
                 <span class="logo-icon">📋</span>
                 <h1>KormoNama</h1>
             </a>
         </div>
-        <p class="tagline">Browse Templates</p>
+        <p class="tagline">Templates</p>
         <nav class="header-nav">
-            <a href="index.html" class="nav-btn">← Back to Editor</a>
-            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                <span class="theme-icon">🌙</span>
-            </button>
+            <a href="index.html" class="nav-btn">← Back</a>
         </nav>
     </header>
 
@@ -481,20 +483,27 @@
         (function initTheme() {
             const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
-            setTimeout(() => {
-                const icon = document.querySelector('.theme-icon');
-                if (icon) icon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
-            }, 0);
         })();
 
-        function toggleTheme() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup theme toggle
+            const themeBtn = document.getElementById('themeToggle');
+            const icon = document.getElementById('themeIcon');
             const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('kormoNamaTheme', newTheme);
-            const icon = document.querySelector('.theme-icon');
-            if (icon) icon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
-        }
+            
+            if (icon) icon.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+            
+            if (themeBtn) {
+                themeBtn.addEventListener('click', function() {
+                    const html = document.documentElement;
+                    const current = html.getAttribute('data-theme') || 'dark';
+                    const newTheme = current === 'dark' ? 'light' : 'dark';
+                    html.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('kormoNamaTheme', newTheme);
+                    if (icon) icon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+                });
+            }
+        });
 
         // Filter functionality
         const filterBtns = document.querySelectorAll('.filter-btn');
