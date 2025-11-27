@@ -1113,16 +1113,16 @@ function renderTemplatesGallery() {
 // Generate HTML for a specific template using data
 function generateResumeHTML(template, data) {
     // Destructure data
-    const { personal, experience, education, projects, certifications, skills, softSkills, languages } = data;
+    const { personal, experience, education, projects, certifications } = data;
     
     // Build HTML parts
     const experienceHTML = buildExperienceHTML(experience);
     const educationHTML = buildEducationHTML(education);
     const projectsHTML = buildProjectsHTML(projects);
     const certificationsHTML = buildCertificationsHTML(certifications);
-    const skillsHTML = buildSkillsHTML(skills);
-    const softSkillsHTML = buildSkillsHTML(softSkills);
-    const languagesHTML = buildLanguagesHTML(languages);
+    const skillsHTML = buildSkillsHTML(personal.skills);
+    const softSkillsHTML = buildSkillsHTML(personal.softSkills);
+    const languagesHTML = buildLanguagesHTML(personal.languages);
     const contactHTML = buildContactHTML(personal.email, personal.phone, personal.location, personal.linkedin, personal.website, personal.github);
     
     // Escape personal info
@@ -1502,84 +1502,97 @@ function saveToLocalStorage() {
     localStorage.setItem('kormoNamaData', JSON.stringify(data));
 }
 
-// Sample Data for first-time users
+// Sample Data for first-time users (Indian Profile)
 const sampleData = {
     personal: {
-        fullName: 'Alex Morgan',
-        jobTitle: 'Senior Project Manager',
-        email: 'alex.morgan@example.com',
-        phone: '+1 555 019 2834',
-        location: 'San Francisco, CA',
-        linkedin: 'linkedin.com/in/alexmorgan',
-        website: 'alexmorgan.io',
-        github: 'github.com/alexmorgan',
-        summary: 'Results-oriented Project Manager with 7+ years of experience leading cross-functional teams to deliver complex software solutions. Proven track record of optimizing workflows, reducing costs by 20%, and increasing team productivity. Certified PMP and Scrum Master skilled in Agile methodologies and stakeholder management.',
-        skills: 'Project Management, Agile & Scrum, Risk Management, Budgeting, JIRA, Confluence, Stakeholder Communication, Leadership, Strategic Planning',
-        softSkills: 'Leadership, Communication, Problem Solving, Adaptability, Time Management, Team Building, Negotiation',
-        languages: 'English (Native), Spanish (Professional), French (Basic)',
-        photo: 'sample-profile.jpg' // User can upload their own
+        fullName: 'Arjun Sharma',
+        jobTitle: 'Senior Software Engineer',
+        email: 'arjun.sharma@gmail.com',
+        phone: '+91 98765 43210',
+        location: 'Bengaluru, Karnataka',
+        linkedin: 'linkedin.com/in/arjunsharma',
+        website: 'arjunsharma.dev',
+        github: 'github.com/arjunsharma',
+        summary: 'Passionate Software Engineer with 6+ years of experience building scalable web applications and microservices. Expert in React, Node.js, and cloud technologies. Led development of fintech platforms serving 2M+ users. Strong advocate for clean code, test-driven development, and agile practices. Open source contributor and tech community speaker.',
+        skills: 'JavaScript, TypeScript, React.js, Node.js, Python, AWS, Docker, Kubernetes, MongoDB, PostgreSQL, Redis, GraphQL, REST APIs, Git',
+        softSkills: 'Problem Solving, Team Collaboration, Mentoring, Communication, Agile Methodologies, Code Review, Technical Writing',
+        languages: 'English (Fluent), Hindi (Native), Kannada (Conversational)',
+        photo: 'sample-profile.jpg'
     },
     experience: [
         {
-            title: 'Senior Project Manager',
-            company: 'TechFlow Solutions',
-            startDate: 'Jan 2021',
-            endDate: 'Present',
-            description: '• Led a team of 15 developers and designers to launch a flagship SaaS product, achieving $2M ARR in the first year.\n• Implemented Agile methodologies, reducing development cycle time by 30%.\n• Managed project budgets of up to $500k, consistently delivering under budget.\n• Facilitated cross-departmental collaboration between engineering, marketing, and sales teams.'
+            title: 'Senior Software Engineer',
+            company: 'Razorpay',
+            start: 'Apr 2022',
+            end: 'Present',
+            description: '• Architected and developed payment gateway microservices handling 50,000+ transactions per minute.\n• Led a team of 5 engineers to build merchant dashboard using React and Node.js.\n• Reduced API response time by 40% through optimization and caching strategies.\n• Implemented CI/CD pipelines reducing deployment time from hours to minutes.'
         },
         {
-            title: 'Project Coordinator',
-            company: 'Innovate Corp',
-            startDate: 'Jun 2018',
-            endDate: 'Dec 2020',
-            description: '• Coordinated daily stand-ups and sprint planning for 3 agile teams.\n• Tracked project milestones and deliverables using JIRA, ensuring 95% on-time delivery.\n• Prepared weekly status reports for executive leadership, highlighting risks and mitigation strategies.\n• Organized client feedback sessions to incorporate user requirements into product roadmap.'
+            title: 'Software Engineer',
+            company: 'Flipkart',
+            start: 'Jul 2019',
+            end: 'Mar 2022',
+            description: '• Built real-time inventory management system for warehouse operations.\n• Developed customer-facing features for mobile app with 100M+ downloads.\n• Collaborated with data science team to implement ML-based recommendation engine.\n• Mentored 3 junior developers and conducted technical interviews.'
+        },
+        {
+            title: 'Associate Software Engineer',
+            company: 'Infosys',
+            start: 'Jun 2017',
+            end: 'Jun 2019',
+            description: '• Developed enterprise web applications for banking clients using Java and Angular.\n• Participated in agile sprints and contributed to sprint planning and retrospectives.\n• Created automated test suites improving code coverage from 45% to 85%.'
         }
     ],
     education: [
         {
-            degree: 'Master of Business Administration (MBA)',
-            institution: 'University of California, Berkeley',
-            year: '2016 - 2018',
-            grade: 'GPA: 3.8/4.0'
+            degree: 'B.Tech in Computer Science',
+            institution: 'IIT Delhi',
+            year: '2013 - 2017',
+            grade: 'CGPA: 8.7/10'
         },
         {
-            degree: 'B.S. Computer Science',
-            institution: 'University of Washington',
-            year: '2012 - 2016',
-            grade: 'Cum Laude'
+            degree: 'Higher Secondary (XII)',
+            institution: 'Delhi Public School, R.K. Puram',
+            year: '2011 - 2013',
+            grade: '94.5%'
         }
     ],
     projects: [
         {
-            name: 'Enterprise ERP Migration',
-            tech: 'SAP, Oracle, Cloud Migration',
-            link: 'company.com/case-study',
-            duration: '2022',
-            description: '• Successfully migrated legacy on-premise ERP system to cloud-based solution for a 5000+ employee organization.\n• Managed stakeholder expectations and training for 500+ end-users.'
+            name: 'OpenCart - E-commerce Platform',
+            tech: 'React, Node.js, MongoDB, AWS',
+            link: 'github.com/arjunsharma/opencart',
+            duration: '2023',
+            description: '• Built open-source e-commerce platform with 500+ GitHub stars.\n• Features include payment integration, inventory management, and analytics dashboard.'
         },
         {
-            name: 'Mobile App Launch',
-            tech: 'iOS, Android, React Native',
-            link: '',
-            duration: '2021',
-            description: '• Oversaw the end-to-end development and launch of a consumer-facing mobile app with 100k+ downloads.'
+            name: 'DevConnect - Developer Social Network',
+            tech: 'Next.js, GraphQL, PostgreSQL',
+            link: 'devconnect.arjunsharma.dev',
+            duration: '2022',
+            description: '• Created social platform for developers to share projects and collaborate.\n• Implemented real-time chat and notification system using WebSockets.'
         }
     ],
     certifications: [
         {
-            name: 'Project Management Professional (PMP)',
-            issuer: 'PMI',
-            year: '2019',
-            link: 'pmi.org/verify/12345'
+            name: 'AWS Solutions Architect - Associate',
+            issuer: 'Amazon Web Services',
+            date: '2023',
+            link: 'credly.com/verify/aws-123'
         },
         {
-            name: 'Certified Scrum Master (CSM)',
-            issuer: 'Scrum Alliance',
-            year: '2018',
+            name: 'Google Cloud Professional Developer',
+            issuer: 'Google',
+            date: '2022',
+            link: ''
+        },
+        {
+            name: 'MongoDB Certified Developer',
+            issuer: 'MongoDB University',
+            date: '2021',
             link: ''
         }
     ],
-    template: 'modern-split'
+    template: 'clean-blue'
 };
 
 // Load form data from localStorage or use Sample Data
