@@ -1273,7 +1273,9 @@ function printResume() {
 
 // Clean PDF download using html2pdf (no browser headers/footers)
 function downloadCleanPDF() {
-    const resumeContent = document.getElementById('resumeContent');
+    console.log('downloadCleanPDF called');
+    
+    var resumeContent = document.getElementById('resumeContent');
     if (!resumeContent || !resumeContent.innerHTML.trim()) {
         alert('Please fill in your resume details first.');
         return;
@@ -1281,38 +1283,31 @@ function downloadCleanPDF() {
     
     // Check if html2pdf is available
     if (typeof html2pdf === 'undefined') {
-        alert('PDF library not loaded. Refreshing page...');
-        location.reload();
+        console.error('html2pdf not loaded');
+        alert('PDF library not loaded. Please refresh the page and try again.');
         return;
     }
     
-    const fullName = document.getElementById('fullName').value || 'Resume';
-    const fileName = fullName.replace(/\s+/g, '_') + '_Resume.pdf';
+    console.log('html2pdf is available');
     
-    // Find and update button
-    const btn = document.querySelector('.btn-primary');
-    let originalText = '';
-    if (btn) {
-        originalText = btn.innerHTML;
-        btn.innerHTML = '⏳ Generating PDF...';
-        btn.disabled = true;
+    var fullName = document.getElementById('fullName').value || 'Resume';
+    var fileName = fullName.replace(/\s+/g, '_') + '_Resume.pdf';
+    
+    // Show loading
+    var downloadBtn = document.getElementById('downloadPdfBtn');
+    if (downloadBtn) {
+        downloadBtn.innerHTML = '⏳ Generating...';
+        downloadBtn.disabled = true;
     }
     
-    // Clone the resume content to avoid modifying the original
-    const clone = resumeContent.cloneNode(true);
-    clone.style.width = '210mm';
-    clone.style.padding = '15mm';
-    clone.style.background = 'white';
-    clone.style.boxShadow = 'none';
-    
-    const opt = {
-        margin: 0,
+    var opt = {
+        margin: [10, 10, 10, 10],
         filename: fileName,
-        image: { type: 'jpeg', quality: 0.95 },
+        image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
             scale: 2,
             useCORS: true,
-            logging: false,
+            allowTaint: true,
             backgroundColor: '#ffffff'
         },
         jsPDF: { 
@@ -1322,19 +1317,27 @@ function downloadCleanPDF() {
         }
     };
     
-    html2pdf().set(opt).from(clone).save().then(function() {
-        if (btn) {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-    }).catch(function(err) {
-        console.error('PDF generation error:', err);
-        alert('Error generating PDF. Please try "Print / Save as PDF" option instead.');
-        if (btn) {
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        }
-    });
+    console.log('Starting PDF generation with options:', opt);
+    
+    html2pdf()
+        .set(opt)
+        .from(resumeContent)
+        .save()
+        .then(function() {
+            console.log('PDF saved successfully');
+            if (downloadBtn) {
+                downloadBtn.innerHTML = '<span>📥</span> Download PDF';
+                downloadBtn.disabled = false;
+            }
+        })
+        .catch(function(error) {
+            console.error('PDF generation failed:', error);
+            alert('PDF generation failed. Error: ' + error.message);
+            if (downloadBtn) {
+                downloadBtn.innerHTML = '<span>📥</span> Download PDF';
+                downloadBtn.disabled = false;
+            }
+        });
 }
 
 
