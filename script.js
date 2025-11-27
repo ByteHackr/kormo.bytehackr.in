@@ -1787,7 +1787,7 @@ const sampleData = {
         skills: 'JavaScript, TypeScript, React.js, Node.js, Python, AWS, Docker, Kubernetes, MongoDB, PostgreSQL, Redis, GraphQL, REST APIs, Git',
         softSkills: 'Problem Solving, Team Collaboration, Mentoring, Communication, Agile Methodologies, Code Review, Technical Writing',
         languages: 'English (Fluent), Hindi (Native), Kannada (Conversational)',
-        photo: 'sample-profile.jpg'
+        photo: 'profile_photo.png'
     },
     experience: [
         {
