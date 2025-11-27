@@ -15,7 +15,7 @@ body.generating-pdf .resume-preview {
 
 body.generating-pdf .resume-content {
     width: 100% !important;
-    min-height: 297mm !important;
+    min-height: auto !important;
     height: auto !important;
     margin: 0 !important;
     padding: 15mm !important; /* Standard A4 padding */
@@ -23,7 +23,7 @@ body.generating-pdf .resume-content {
     border: none !important;
     background: white !important;
     color: #1f2937 !important;
-    page-break-inside: avoid !important;
+    overflow: visible !important;
     print-color-adjust: exact !important;
     -webkit-print-color-adjust: exact !important;
 }
@@ -75,8 +75,18 @@ body.generating-pdf .actions {
    ============================================ */
 @media print {
     @page {
-        margin: 0;
+        margin: 10mm 15mm;
         size: A4 portrait;
+    }
+
+    /* First page has no top margin for header */
+    @page :first {
+        margin-top: 0;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
     }
 
     body {
@@ -84,12 +94,13 @@ body.generating-pdf .actions {
         margin: 0 !important;
         padding: 0 !important;
         color: #1f2937 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+        font-size: 11pt !important;
+        line-height: 1.4 !important;
     }
 
     /* Hide everything except the resume */
-    header, .editor-panel, .preview-header, footer, .actions, .theme-toggle, .nav-link {
+    header, .editor-panel, .preview-header, footer, .actions, 
+    .theme-toggle, .nav-link, .header-top, .header-nav {
         display: none !important;
     }
 
@@ -107,12 +118,13 @@ body.generating-pdf .actions {
         margin: 0 !important;
         padding: 0 !important;
         border: none !important;
+        background: white !important;
     }
 
     .resume-preview {
-        width: 210mm !important;
-        max-width: 210mm !important;
-        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
         padding: 0 !important;
         background: white !important;
         border: none !important;
@@ -122,36 +134,107 @@ body.generating-pdf .actions {
 
     .resume-content {
         width: 100% !important;
-        min-height: 297mm !important;
-        padding: 15mm !important; /* Consistent padding */
+        min-height: auto !important;
+        height: auto !important;
+        padding: 10mm !important;
         margin: 0 !important;
         box-shadow: none !important;
         border: none !important;
-        page-break-after: always;
+        background: white !important;
+        overflow: visible !important;
+    }
+
+    /* Page break handling - avoid breaking inside important elements */
+    .resume-header {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    .resume-section {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        margin-bottom: 1rem !important;
+    }
+
+    .exp-item, .edu-item, .proj-item, .cert-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    /* Allow page breaks between sections */
+    .resume-section + .resume-section {
+        page-break-before: auto;
+    }
+
+    /* For very long sections, allow breaking */
+    .resume-experience, .resume-education, .resume-projects {
+        page-break-inside: auto;
     }
 
     /* Template specific fixes for print */
     .resume-content.modern-split {
         display: grid !important;
         grid-template-columns: 30% 70% !important;
-        height: 100vh !important; /* Full height for print */
         padding: 0 !important;
+    }
+    
+    .resume-content.modern-split .column-left,
+    .resume-content.modern-split .column-right {
+        padding: 10mm !important;
     }
     
     .resume-content.modern-split .column-left {
         background: #f3f4f6 !important;
-        -webkit-print-color-adjust: exact !important;
     }
 
+    .resume-content.executive-orange {
+        border-top: 10px solid #ed8922 !important;
+    }
+
+    .resume-content.executive-orange .main-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 180px !important;
+    }
+
+    /* Ensure text is readable */
+    .resume-content, 
     .resume-content p, 
     .resume-content li, 
-    .resume-content span {
+    .resume-content span,
+    .resume-content div {
         color: #1f2937 !important;
+    }
+
+    /* Keep template heading colors */
+    .resume-content h1,
+    .resume-content h2,
+    .resume-content .resume-name {
+        color: inherit !important;
     }
     
     /* Ensure links look like text, but are clickable in PDF */
     a {
         text-decoration: none !important;
         color: inherit !important;
+    }
+
+    /* Skill tags */
+    .skill-tag {
+        display: inline-block !important;
+        margin: 2px !important;
+        padding: 3px 8px !important;
+        font-size: 10pt !important;
+    }
+
+    /* Fix for 2-column templates on page 2 */
+    .main-grid, .column-left, .column-right,
+    .sidebar-left, .main-right {
+        page-break-inside: auto !important;
+    }
+
+    /* Ensure grid layouts work on print */
+    .resume-content.creative-split {
+        display: grid !important;
+        grid-template-columns: 250px 1fr !important;
     }
 }
