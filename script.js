@@ -1129,7 +1129,7 @@ function generateResumeHTML(template, data) {
     const fullName = escapeHtml(personal.fullName);
     const jobTitle = escapeHtml(personal.jobTitle);
     const summary = escapeHtml(personal.summary);
-    const photoBase64 = ''; // No photo for gallery previews to keep it clean/fast
+    const photoBase64 = personal.photo || ''; // Use photo from data or empty
     
     // Logic copied from updatePreview but using variables
     
@@ -1517,7 +1517,7 @@ const sampleData = {
         skills: 'Project Management, Agile & Scrum, Risk Management, Budgeting, JIRA, Confluence, Stakeholder Communication, Leadership, Strategic Planning',
         softSkills: 'Leadership, Communication, Problem Solving, Adaptability, Time Management, Team Building, Negotiation',
         languages: 'English (Native), Spanish (Professional), French (Basic)',
-        photo: '' // User can upload their own
+        photo: 'sample-profile.jpg' // User can upload their own
     },
     experience: [
         {
