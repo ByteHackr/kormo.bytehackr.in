@@ -784,50 +784,24 @@ function downloadPDF() {
     btn.innerHTML = '<span>⏳</span> Generating...';
     btn.disabled = true;
     
-    // Create a wrapper for PDF generation with explicit styles
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = resumeContent.outerHTML;
-    const pdfContent = wrapper.firstChild;
-    
-    // Apply explicit inline styles to override CSS variables
-    pdfContent.style.cssText = `
-        background: #ffffff !important;
-        color: #1f2937 !important;
-        padding: 40px !important;
-        font-family: 'Crimson Pro', Georgia, serif !important;
-        font-size: 11pt !important;
-        line-height: 1.5 !important;
-        width: 210mm !important;
-        min-height: auto !important;
-        box-shadow: none !important;
-    `;
-    
-    // Fix all text colors in the cloned content
-    pdfContent.querySelectorAll('*').forEach(el => {
-        const computed = window.getComputedStyle(el);
-        if (computed.color) {
-            el.style.color = computed.color;
-        }
-        if (computed.backgroundColor && computed.backgroundColor !== 'rgba(0, 0, 0, 0)') {
-            el.style.backgroundColor = computed.backgroundColor;
-        }
-    });
-    
-    // Temporarily add to DOM (hidden)
-    wrapper.style.cssText = 'position: absolute; left: -9999px; top: 0;';
-    document.body.appendChild(wrapper);
+    // Prepare content for PDF
+    const originalStyle = resumeContent.getAttribute('style');
+    resumeContent.style.width = '210mm';
+    resumeContent.style.padding = '0';
+    resumeContent.style.margin = '0';
+    resumeContent.style.backgroundColor = '#ffffff';
     
     // Configure PDF options
     const options = {
-        margin: [5, 5, 5, 5],
+        margin: 0,
         filename: `${fullName.replace(/\s+/g, '_')}_resume.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 1.0 },
         html2canvas: { 
             scale: 2,
             useCORS: true,
             allowTaint: true,
-            backgroundColor: '#ffffff',
-            logging: false
+            scrollY: 0,
+            backgroundColor: '#ffffff'
         },
         jsPDF: { 
             unit: 'mm', 
@@ -836,19 +810,29 @@ function downloadPDF() {
         }
     };
     
-    // Generate and download PDF
+    // Generate PDF
     html2pdf()
         .set(options)
-        .from(pdfContent)
+        .from(resumeContent)
         .save()
         .then(() => {
-            document.body.removeChild(wrapper);
+            // Restore original state
+            if (originalStyle) {
+                resumeContent.setAttribute('style', originalStyle);
+            } else {
+                resumeContent.removeAttribute('style');
+            }
             btn.innerHTML = originalText;
             btn.disabled = false;
         })
         .catch((err) => {
             console.error('PDF generation error:', err);
-            document.body.removeChild(wrapper);
+            // Restore original state on error too
+            if (originalStyle) {
+                resumeContent.setAttribute('style', originalStyle);
+            } else {
+                resumeContent.removeAttribute('style');
+            }
             btn.innerHTML = originalText;
             btn.disabled = false;
             alert('Error generating PDF. Please try again.');
