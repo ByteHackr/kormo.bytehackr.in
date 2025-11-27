@@ -50,25 +50,33 @@ document.addEventListener('DOMContentLoaded', function() {
         icon.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
     }
     
-    initializeEventListeners();
-    loadFromLocalStorage();
-    
-    // Check if coming from templates page with a selected template
-    const urlParams = new URLSearchParams(window.location.search);
-    const templateParam = urlParams.get('template');
-    const storedTemplate = localStorage.getItem('kormoNamaSelectedTemplate');
-    
-    if (templateParam) {
-        document.getElementById('templateSelect').value = templateParam;
-        localStorage.removeItem('kormoNamaSelectedTemplate');
-        // Clean up URL
-        window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (storedTemplate) {
-        document.getElementById('templateSelect').value = storedTemplate;
-        localStorage.removeItem('kormoNamaSelectedTemplate');
+    // Editor page initialization
+    if (document.getElementById('resumeContent')) {
+        initializeEventListeners();
+        loadFromLocalStorage();
+        
+        // Check if coming from templates page with a selected template
+        const urlParams = new URLSearchParams(window.location.search);
+        const templateParam = urlParams.get('template');
+        const storedTemplate = localStorage.getItem('kormoNamaSelectedTemplate');
+        
+        if (templateParam) {
+            document.getElementById('templateSelect').value = templateParam;
+            localStorage.removeItem('kormoNamaSelectedTemplate');
+            // Clean up URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        } else if (storedTemplate) {
+            document.getElementById('templateSelect').value = storedTemplate;
+            localStorage.removeItem('kormoNamaSelectedTemplate');
+        }
+        
+        updatePreview();
     }
     
-    updatePreview();
+    // Templates gallery initialization
+    if (document.querySelector('.templates-grid')) {
+        renderTemplatesGallery();
+    }
 });
 
 // Setup event listeners for all form inputs
@@ -391,86 +399,131 @@ function updatePreview() {
 }
 
 // Build experience section HTML
-function buildExperienceHTML() {
-    const entries = document.querySelectorAll('.experience-entry');
+function buildExperienceHTML(data = null) {
     let html = '';
     
-    entries.forEach(entry => {
-        const title = entry.querySelector('.exp-title').value;
-        const company = entry.querySelector('.exp-company').value;
-        const startDate = entry.querySelector('.exp-start').value;
-        const endDate = entry.querySelector('.exp-end').value;
-        const description = entry.querySelector('.exp-description').value;
-        
-        if (title || company) {
+    if (data) {
+        // Use provided data array
+        data.forEach(item => {
             html += `
                 <div class="exp-item">
                     <div class="exp-header">
-                        <span class="exp-title-company">${escapeHtml(title)}</span>
-                        <span class="exp-dates">${escapeHtml(startDate)}${startDate && endDate ? ' - ' : ''}${escapeHtml(endDate)}</span>
+                        <span class="exp-title-company">${escapeHtml(item.title)}</span>
+                        <span class="exp-dates">${escapeHtml(item.start)}${item.start && item.end ? ' - ' : ''}${escapeHtml(item.end)}</span>
                     </div>
-                    ${company ? `<div class="exp-company">${escapeHtml(company)}</div>` : ''}
-                    ${description ? `<div class="exp-description">${escapeHtml(description)}</div>` : ''}
+                    ${item.company ? `<div class="exp-company">${escapeHtml(item.company)}</div>` : ''}
+                    ${item.description ? `<div class="exp-description">${escapeHtml(item.description)}</div>` : ''}
                 </div>
             `;
-        }
-    });
+        });
+    } else {
+        const entries = document.querySelectorAll('.experience-entry');
+        entries.forEach(entry => {
+            const title = entry.querySelector('.exp-title').value;
+            const company = entry.querySelector('.exp-company').value;
+            const startDate = entry.querySelector('.exp-start').value;
+            const endDate = entry.querySelector('.exp-end').value;
+            const description = entry.querySelector('.exp-description').value;
+            
+            if (title || company) {
+                html += `
+                    <div class="exp-item">
+                        <div class="exp-header">
+                            <span class="exp-title-company">${escapeHtml(title)}</span>
+                            <span class="exp-dates">${escapeHtml(startDate)}${startDate && endDate ? ' - ' : ''}${escapeHtml(endDate)}</span>
+                        </div>
+                        ${company ? `<div class="exp-company">${escapeHtml(company)}</div>` : ''}
+                        ${description ? `<div class="exp-description">${escapeHtml(description)}</div>` : ''}
+                    </div>
+                `;
+            }
+        });
+    }
     
     return html;
 }
 
 // Build education section HTML
-function buildEducationHTML() {
-    const entries = document.querySelectorAll('.education-entry');
+function buildEducationHTML(data = null) {
     let html = '';
     
-    entries.forEach(entry => {
-        const degree = entry.querySelector('.edu-degree').value;
-        const institution = entry.querySelector('.edu-institution').value;
-        const year = entry.querySelector('.edu-year').value;
-        const grade = entry.querySelector('.edu-grade').value;
-        
-        if (degree || institution) {
+    if (data) {
+        data.forEach(item => {
             html += `
                 <div class="edu-item">
                     <div class="edu-header">
-                        <span class="edu-degree">${escapeHtml(degree)}</span>
-                        <span class="edu-year">${escapeHtml(year)}</span>
+                        <span class="edu-degree">${escapeHtml(item.degree)}</span>
+                        <span class="edu-year">${escapeHtml(item.year)}</span>
                     </div>
-                    ${institution ? `<div class="edu-institution">${escapeHtml(institution)}${grade ? ' | ' + escapeHtml(grade) : ''}</div>` : ''}
+                    ${item.institution ? `<div class="edu-institution">${escapeHtml(item.institution)}${item.grade ? ' | ' + escapeHtml(item.grade) : ''}</div>` : ''}
                 </div>
             `;
-        }
-    });
+        });
+    } else {
+        const entries = document.querySelectorAll('.education-entry');
+        entries.forEach(entry => {
+            const degree = entry.querySelector('.edu-degree').value;
+            const institution = entry.querySelector('.edu-institution').value;
+            const year = entry.querySelector('.edu-year').value;
+            const grade = entry.querySelector('.edu-grade').value;
+            
+            if (degree || institution) {
+                html += `
+                    <div class="edu-item">
+                        <div class="edu-header">
+                            <span class="edu-degree">${escapeHtml(degree)}</span>
+                            <span class="edu-year">${escapeHtml(year)}</span>
+                        </div>
+                        ${institution ? `<div class="edu-institution">${escapeHtml(institution)}${grade ? ' | ' + escapeHtml(grade) : ''}</div>` : ''}
+                    </div>
+                `;
+            }
+        });
+    }
     
     return html;
 }
 
 // Build projects section HTML
-function buildProjectsHTML() {
-    const entries = document.querySelectorAll('.project-entry');
+function buildProjectsHTML(data = null) {
     let html = '';
     
-    entries.forEach(entry => {
-        const name = entry.querySelector('.proj-name').value;
-        const tech = entry.querySelector('.proj-tech').value;
-        const link = entry.querySelector('.proj-link').value;
-        const duration = entry.querySelector('.proj-duration').value;
-        const description = entry.querySelector('.proj-description').value;
-        
-        if (name || description) {
+    if (data) {
+        data.forEach(item => {
             html += `
                 <div class="proj-item">
                     <div class="proj-header">
-                        <span class="proj-title">${escapeHtml(name)}${link ? ` <a href="${escapeHtml(link)}" class="proj-link-url" target="_blank">↗</a>` : ''}</span>
-                        <span class="proj-dates">${escapeHtml(duration)}</span>
+                        <span class="proj-title">${escapeHtml(item.name)}${item.link ? ` <a href="${escapeHtml(item.link)}" class="proj-link-url" target="_blank">↗</a>` : ''}</span>
+                        <span class="proj-dates">${escapeHtml(item.duration)}</span>
                     </div>
-                    ${tech ? `<div class="proj-tech-used">${escapeHtml(tech)}</div>` : ''}
-                    ${description ? `<div class="proj-desc">${escapeHtml(description)}</div>` : ''}
+                    ${item.tech ? `<div class="proj-tech-used">${escapeHtml(item.tech)}</div>` : ''}
+                    ${item.description ? `<div class="proj-desc">${escapeHtml(item.description)}</div>` : ''}
                 </div>
             `;
-        }
-    });
+        });
+    } else {
+        const entries = document.querySelectorAll('.project-entry');
+        entries.forEach(entry => {
+            const name = entry.querySelector('.proj-name').value;
+            const tech = entry.querySelector('.proj-tech').value;
+            const link = entry.querySelector('.proj-link').value;
+            const duration = entry.querySelector('.proj-duration').value;
+            const description = entry.querySelector('.proj-description').value;
+            
+            if (name || description) {
+                html += `
+                    <div class="proj-item">
+                        <div class="proj-header">
+                            <span class="proj-title">${escapeHtml(name)}${link ? ` <a href="${escapeHtml(link)}" class="proj-link-url" target="_blank">↗</a>` : ''}</span>
+                            <span class="proj-dates">${escapeHtml(duration)}</span>
+                        </div>
+                        ${tech ? `<div class="proj-tech-used">${escapeHtml(tech)}</div>` : ''}
+                        ${description ? `<div class="proj-desc">${escapeHtml(description)}</div>` : ''}
+                    </div>
+                `;
+            }
+        });
+    }
     
     return html;
 }
@@ -516,26 +569,37 @@ function buildContactHTML(email, phone, location, linkedin, website, github) {
 }
 
 // Build certifications section HTML
-function buildCertificationsHTML() {
-    const entries = document.querySelectorAll('.certification-entry');
+function buildCertificationsHTML(data = null) {
     let html = '';
     
-    entries.forEach(entry => {
-        const name = entry.querySelector('.cert-name').value;
-        const issuer = entry.querySelector('.cert-issuer').value;
-        const year = entry.querySelector('.cert-year').value;
-        const link = entry.querySelector('.cert-link').value;
-        
-        if (name) {
-            const certText = `${escapeHtml(name)}${issuer ? ' - ' + escapeHtml(issuer) : ''}${year ? ' (' + escapeHtml(year) + ')' : ''}`;
-            
-            if (link) {
-                html += `<div class="cert-item"><a href="${escapeHtml(link)}" target="_blank" class="cert-link-url">${certText} ↗</a></div>`;
+    if (data) {
+        data.forEach(item => {
+            const certText = `${escapeHtml(item.name)}${item.issuer ? ' - ' + escapeHtml(item.issuer) : ''}${item.date ? ' (' + escapeHtml(item.date) + ')' : ''}`;
+            if (item.link) {
+                html += `<div class="cert-item"><a href="${escapeHtml(item.link)}" target="_blank" class="cert-link-url">${certText} ↗</a></div>`;
             } else {
                 html += `<div class="cert-item">${certText}</div>`;
             }
-        }
-    });
+        });
+    } else {
+        const entries = document.querySelectorAll('.certification-entry');
+        entries.forEach(entry => {
+            const name = entry.querySelector('.cert-name').value;
+            const issuer = entry.querySelector('.cert-issuer').value;
+            const year = entry.querySelector('.cert-year').value;
+            const link = entry.querySelector('.cert-link').value;
+            
+            if (name) {
+                const certText = `${escapeHtml(name)}${issuer ? ' - ' + escapeHtml(issuer) : ''}${year ? ' (' + escapeHtml(year) + ')' : ''}`;
+                
+                if (link) {
+                    html += `<div class="cert-item"><a href="${escapeHtml(link)}" target="_blank" class="cert-link-url">${certText} ↗</a></div>`;
+                } else {
+                    html += `<div class="cert-item">${certText}</div>`;
+                }
+            }
+        });
+    }
     
     return html;
 }
@@ -980,6 +1044,304 @@ function loadFormData(data) {
     updatePreview();
     saveToLocalStorage();
 }
+
+// ============================================
+// TEMPLATES GALLERY RENDERING
+// ============================================
+
+function renderTemplatesGallery() {
+    const templates = document.querySelectorAll('.template-card');
+    if (templates.length === 0) return;
+    
+    templates.forEach(card => {
+        const templateName = card.getAttribute('data-template');
+        const container = card.querySelector('.resume-content');
+        if (container) {
+            container.innerHTML = generateResumeHTML(templateName, sampleData);
+            // Ensure correct class is set
+            container.className = 'resume-content ' + templateName;
+        }
+    });
+}
+
+// Generate HTML for a specific template using data
+function generateResumeHTML(template, data) {
+    // Destructure data
+    const { personal, experience, education, projects, certifications, skills, softSkills, languages } = data;
+    
+    // Build HTML parts
+    const experienceHTML = buildExperienceHTML(experience);
+    const educationHTML = buildEducationHTML(education);
+    const projectsHTML = buildProjectsHTML(projects);
+    const certificationsHTML = buildCertificationsHTML(certifications);
+    const skillsHTML = buildSkillsHTML(skills);
+    const softSkillsHTML = buildSkillsHTML(softSkills);
+    const languagesHTML = buildLanguagesHTML(languages);
+    const contactHTML = buildContactHTML(personal.email, personal.phone, personal.location, personal.linkedin, personal.website, personal.github);
+    
+    // Escape personal info
+    const fullName = escapeHtml(personal.fullName);
+    const jobTitle = escapeHtml(personal.jobTitle);
+    const summary = escapeHtml(personal.summary);
+    const photoBase64 = ''; // No photo for gallery previews to keep it clean/fast
+    
+    // Logic copied from updatePreview but using variables
+    
+    // Special layout for Modern Split template
+    if (template === 'modern-split') {
+        return `
+            <div class="header-section">
+                ${photoBase64 ? `<div class="profile-photo"><img src="${photoBase64}" alt="Profile"></div>` : ''}
+                <div class="header-text">
+                    <h1 class="resume-name">${fullName}</h1>
+                    <p class="resume-title">${jobTitle}</p>
+                </div>
+                ${summary ? `<p class="header-summary">${summary}</p>` : ''}
+            </div>
+            
+            <div class="contact-bar">
+                ${contactHTML}
+            </div>
+            
+            <div class="main-grid">
+                <div class="column-left">
+                    ${experienceHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
+                        <div class="resume-experience">${experienceHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${projectsHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-code"></i> Projects</h2>
+                        <div class="resume-projects">${projectsHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${certificationsHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-certificate"></i> Workshops & Training</h2>
+                        <div class="resume-certifications">${certificationsHTML}</div>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="column-right">
+                    ${skillsHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-tools"></i> Hard Skills</h2>
+                        <div class="resume-skills vertical-list">${skillsHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${softSkillsHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-lightbulb"></i> Soft Skills</h2>
+                        <div class="resume-skills tag-cloud">${softSkillsHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${educationHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+                        <div class="resume-education simple-list">${educationHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${languagesHTML ? `
+                    <div class="resume-section">
+                        <h2><i class="fas fa-language"></i> Languages</h2>
+                        <div class="resume-languages">${languagesHTML}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+
+    // Special layout for Clean Blue template
+    if (template === 'clean-blue') {
+        return `
+            <div class="resume-header">
+                ${photoBase64 ? `<div class="profile-photo"><img src="${photoBase64}" alt="Profile"></div>` : ''}
+                <h1 class="resume-name">${fullName}</h1>
+                <div class="resume-contact">${contactHTML}</div>
+            </div>
+            
+            ${summary ? `
+            <div class="resume-section">
+                <h2>Resume Objective</h2>
+                <p class="resume-summary">${summary}</p>
+            </div>
+            ` : ''}
+            
+            ${educationHTML ? `
+            <div class="resume-section">
+                <h2>Education</h2>
+                <div class="resume-education">${educationHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${skillsHTML ? `
+            <div class="resume-section">
+                <h2>Skills</h2>
+                <div class="resume-skills">${skillsHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${experienceHTML ? `
+            <div class="resume-section">
+                <h2>Work History</h2>
+                <div class="resume-experience">${experienceHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${projectsHTML ? `
+            <div class="resume-section">
+                <h2>Accomplishments</h2>
+                <div class="resume-projects">${projectsHTML}</div>
+            </div>
+            ` : ''}
+        `;
+    }
+
+    // Special layout for Executive Orange template
+    if (template === 'executive-orange') {
+        return `
+            <div class="resume-header">
+                <h1 class="resume-name">${fullName}</h1>
+            </div>
+            
+            <div class="main-grid">
+                <div class="column-left">
+                    ${summary ? `
+                    <div class="resume-section">
+                        <h2>Professional Summary</h2>
+                        <p class="resume-summary">${summary}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${experienceHTML ? `
+                    <div class="resume-section">
+                        <h2>Work History</h2>
+                        <div class="resume-experience">${experienceHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${educationHTML ? `
+                    <div class="resume-section">
+                        <h2>Education & Training</h2>
+                        <div class="resume-education">${educationHTML}</div>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="column-right">
+                    ${photoBase64 ? `<div class="profile-photo"><img src="${photoBase64}" alt="Profile"></div>` : ''}
+                    
+                    <div class="resume-section">
+                        <h2>Contact</h2>
+                        <div class="resume-contact">
+                            ${contactHTML.split('•').map(item => `<span>${item}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    ${skillsHTML ? `
+                    <div class="resume-section">
+                        <h2>Skills</h2>
+                        <div class="resume-skills vertical-list">${skillsHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${certificationsHTML ? `
+                    <div class="resume-section">
+                        <h2>Certifications</h2>
+                        <div class="resume-certifications">${certificationsHTML}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }
+    
+    // Standard templates
+    const isFresherTemplate = ['fresh-graduate', 'student', 'entry-level'].includes(template);
+    
+    return `
+        <div class="resume-header">
+            <h1 class="resume-name">${fullName}</h1>
+            <p class="resume-title">${jobTitle}</p>
+            <div class="resume-contact">${contactHTML}</div>
+        </div>
+        
+        ${summary ? `
+        <div class="resume-section">
+            <h2>Professional Summary</h2>
+            <p class="resume-summary">${summary}</p>
+        </div>
+        ` : ''}
+        
+        ${isFresherTemplate ? `
+            ${educationHTML ? `
+            <div class="resume-section">
+                <h2>Education</h2>
+                <div class="resume-education">${educationHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${projectsHTML ? `
+            <div class="resume-section">
+                <h2>Projects</h2>
+                <div class="resume-projects">${projectsHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${experienceHTML ? `
+            <div class="resume-section">
+                <h2>Experience</h2>
+                <div class="resume-experience">${experienceHTML}</div>
+            </div>
+            ` : ''}
+        ` : `
+            ${experienceHTML ? `
+            <div class="resume-section">
+                <h2>Experience</h2>
+                <div class="resume-experience">${experienceHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${educationHTML ? `
+            <div class="resume-section">
+                <h2>Education</h2>
+                <div class="resume-education">${educationHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${projectsHTML ? `
+            <div class="resume-section">
+                <h2>Projects</h2>
+                <div class="resume-projects">${projectsHTML}</div>
+            </div>
+            ` : ''}
+        `}
+        
+        ${certificationsHTML ? `
+        <div class="resume-section">
+            <h2>Certifications</h2>
+            <div class="resume-certifications">${certificationsHTML}</div>
+        </div>
+        ` : ''}
+        
+        ${skillsHTML ? `
+        <div class="resume-section">
+            <h2>Skills</h2>
+            <div class="resume-skills">${skillsHTML}</div>
+        </div>
+        ` : ''}
+    `;
+}
+
 
 // Clear all form data
 function clearForm() {
