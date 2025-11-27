@@ -6,7 +6,7 @@ A beautiful, simple, and completely free resume builder web application. Built e
 
 > **কর্মনামা** (KormoNama) - Bengali for "Work Document" or "Career Record"
 
-🌐 **Live Demo**: [resume.bytehackr.in](https://resume.bytehackr.in)
+🌐 **Live Demo**: [kormo.bytehackr.in](https://kormo.bytehackr.in)
 
 ## ✨ Features
 
