@@ -1138,7 +1138,138 @@ function printResume() {
         alert('Please fill in your resume details first.');
         return;
     }
-    window.print();
+    
+    // Get the current template class
+    const templateClass = resumeContent.className;
+    
+    // Clone the resume content
+    const resumeHTML = resumeContent.outerHTML;
+    
+    // Get all stylesheets
+    const styles = Array.from(document.styleSheets)
+        .map(sheet => {
+            try {
+                return Array.from(sheet.cssRules).map(rule => rule.cssText).join('\n');
+            } catch (e) {
+                // External stylesheets may throw security error
+                return '';
+            }
+        })
+        .join('\n');
+    
+    // Create print window
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Resume - Print</title>
+            <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+            <style>
+                ${styles}
+                
+                @page {
+                    margin: 10mm;
+                    size: A4 portrait;
+                }
+                
+                * {
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
+                
+                html, body {
+                    margin: 0;
+                    padding: 0;
+                    background: white;
+                    width: 210mm;
+                }
+                
+                .resume-content {
+                    width: 100%;
+                    max-width: 190mm;
+                    margin: 0 auto;
+                    padding: 10mm;
+                    box-sizing: border-box;
+                    background: white !important;
+                    box-shadow: none !important;
+                    border: none !important;
+                }
+                
+                /* Ensure sections don't break awkwardly */
+                .resume-section {
+                    page-break-inside: avoid;
+                    break-inside: avoid;
+                }
+                
+                .exp-item, .edu-item, .proj-item, .cert-item {
+                    page-break-inside: avoid;
+                    break-inside: avoid;
+                }
+                
+                .resume-header {
+                    page-break-after: avoid;
+                }
+                
+                /* Fix grid layouts for print */
+                .resume-content.modern-split .main-grid,
+                .resume-content.executive-orange .main-grid,
+                .resume-content.creative-split {
+                    display: grid !important;
+                }
+                
+                .resume-content.modern-split .main-grid {
+                    grid-template-columns: 60% 40% !important;
+                }
+                
+                .resume-content.executive-orange .main-grid {
+                    grid-template-columns: 1fr 180px !important;
+                }
+                
+                .resume-content.creative-split {
+                    grid-template-columns: 240px 1fr !important;
+                }
+                
+                /* Ensure backgrounds print */
+                .resume-content.modern .resume-header,
+                .resume-content.executive .resume-header,
+                .resume-content.modern-split .header-section,
+                .resume-content.creative-split .resume-header {
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
+                
+                @media print {
+                    body {
+                        width: 100%;
+                    }
+                    .resume-content {
+                        max-width: 100%;
+                        padding: 5mm;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            ${resumeHTML}
+            <script>
+                // Wait for fonts and images to load, then print
+                window.onload = function() {
+                    setTimeout(function() {
+                        window.print();
+                        // Close window after print dialog closes (optional)
+                        // window.close();
+                    }, 500);
+                };
+            </script>
+        </body>
+        </html>
+    `);
+    
+    printWindow.document.close();
 }
 
 
