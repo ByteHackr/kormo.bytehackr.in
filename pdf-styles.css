@@ -1,0 +1,72 @@
+
+/* ============================================
+   PDF GENERATION STYLES
+   ============================================ */
+
+/* Force A4 layout during PDF generation */
+body.generating-pdf .resume-preview {
+    width: 210mm !important;
+    max-width: 210mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    overflow: visible !important;
+}
+
+body.generating-pdf .resume-content {
+    width: 100% !important;
+    min-height: 297mm !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 15mm !important; /* Standard A4 padding */
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+    color: #1f2937 !important;
+    page-break-inside: avoid !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+}
+
+/* Force text colors to be dark in PDF */
+body.generating-pdf .resume-content,
+body.generating-pdf .resume-content p,
+body.generating-pdf .resume-content li,
+body.generating-pdf .resume-content span {
+    color: #1f2937 !important;
+}
+
+/* Keep headings colored */
+body.generating-pdf .resume-content h1,
+body.generating-pdf .resume-content h2,
+body.generating-pdf .resume-content h3,
+body.generating-pdf .resume-content h4 {
+    color: inherit !important; /* Respect template colors */
+}
+
+/* Template Specific Adjustments for PDF */
+body.generating-pdf .resume-content.modern-split {
+    display: grid !important;
+    grid-template-columns: 30% 70% !important;
+    height: 100% !important;
+    padding: 0 !important; /* Split template handles its own padding */
+}
+
+body.generating-pdf .resume-content.modern-split .sidebar {
+    height: 100% !important;
+    min-height: 297mm !important;
+}
+
+body.generating-pdf .resume-content.clean-blue .header-section {
+    border-bottom: 2px solid #2563eb !important;
+}
+
+/* Hide non-resume elements just in case */
+body.generating-pdf header,
+body.generating-pdf .editor-panel,
+body.generating-pdf .preview-header,
+body.generating-pdf footer,
+body.generating-pdf .actions {
+    display: none !important;
+}
+

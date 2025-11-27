@@ -784,24 +784,21 @@ function downloadPDF() {
     btn.innerHTML = '<span>⏳</span> Generating...';
     btn.disabled = true;
     
-    // Prepare content for PDF
-    const originalStyle = resumeContent.getAttribute('style');
-    resumeContent.style.width = '210mm';
-    resumeContent.style.padding = '0';
-    resumeContent.style.margin = '0';
-    resumeContent.style.backgroundColor = '#ffffff';
+    // Add class to body to trigger PDF-specific styles
+    document.body.classList.add('generating-pdf');
     
     // Configure PDF options
     const options = {
-        margin: 0,
+        margin: 0, // Margins handled by CSS
         filename: `${fullName.replace(/\s+/g, '_')}_resume.pdf`,
         image: { type: 'jpeg', quality: 1.0 },
         html2canvas: { 
-            scale: 2,
+            scale: 2, // High resolution
             useCORS: true,
             allowTaint: true,
             scrollY: 0,
-            backgroundColor: '#ffffff'
+            backgroundColor: '#ffffff', // Force white background
+            windowWidth: 794, // A4 width in pixels (approx) at 96 DPI
         },
         jsPDF: { 
             unit: 'mm', 
@@ -816,23 +813,14 @@ function downloadPDF() {
         .from(resumeContent)
         .save()
         .then(() => {
-            // Restore original state
-            if (originalStyle) {
-                resumeContent.setAttribute('style', originalStyle);
-            } else {
-                resumeContent.removeAttribute('style');
-            }
+            // Remove class and restore state
+            document.body.classList.remove('generating-pdf');
             btn.innerHTML = originalText;
             btn.disabled = false;
         })
         .catch((err) => {
             console.error('PDF generation error:', err);
-            // Restore original state on error too
-            if (originalStyle) {
-                resumeContent.setAttribute('style', originalStyle);
-            } else {
-                resumeContent.removeAttribute('style');
-            }
+            document.body.classList.remove('generating-pdf');
             btn.innerHTML = originalText;
             btn.disabled = false;
             alert('Error generating PDF. Please try again.');
