@@ -297,9 +297,13 @@ function updatePreview() {
 
     // Special layout for Executive Orange template
     if (template === 'executive-orange') {
+        // Build vertical contact list for sidebar
+        const contactListHTML = buildVerticalContactHTML(email, phone, location, linkedin, website, github);
+        
         resumeContent.innerHTML = `
             <div class="resume-header">
                 <h1 class="resume-name">${escapeHtml(fullName)}</h1>
+                <p class="resume-title">${escapeHtml(jobTitle)}</p>
             </div>
             
             <div class="main-grid">
@@ -331,9 +335,7 @@ function updatePreview() {
                     
                     <div class="resume-section">
                         <h2>Contact</h2>
-                        <div class="resume-contact">
-                            ${contactHTML.split('•').map(item => `<span>${item}</span>`).join('')}
-                        </div>
+                        <div class="resume-contact vertical-contact">${contactListHTML}</div>
                     </div>
                     
                     ${skillsHTML ? `
@@ -601,6 +603,35 @@ function buildContactHTML(email, phone, location, linkedin, website, github) {
     }
     
     return parts.join('<span class="contact-separator">•</span>');
+}
+
+// Build vertical contact list (for sidebar layouts)
+function buildVerticalContactHTML(email, phone, location, linkedin, website, github) {
+    let items = [];
+    
+    if (email) {
+        items.push(`<div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>`);
+    }
+    if (phone) {
+        items.push(`<div class="contact-item"><i class="fas fa-phone"></i> <a href="tel:${escapeHtml(phone.replace(/\s/g, ''))}">${escapeHtml(phone)}</a></div>`);
+    }
+    if (location) {
+        items.push(`<div class="contact-item"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(location)}</div>`);
+    }
+    if (linkedin) {
+        const display = linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+        items.push(`<div class="contact-item"><i class="fab fa-linkedin"></i> <a href="${escapeHtml(linkedin)}" target="_blank">${escapeHtml(display)}</a></div>`);
+    }
+    if (website) {
+        const display = website.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+        items.push(`<div class="contact-item"><i class="fas fa-globe"></i> <a href="${escapeHtml(website)}" target="_blank">${escapeHtml(display)}</a></div>`);
+    }
+    if (github) {
+        const display = github.replace(/^https?:\/\/(www\.)?github\.com\/?/, '');
+        items.push(`<div class="contact-item"><i class="fab fa-github"></i> <a href="${escapeHtml(github)}" target="_blank">${escapeHtml(display)}</a></div>`);
+    }
+    
+    return items.join('');
 }
 
 // Build certifications section HTML
@@ -1254,9 +1285,12 @@ function generateResumeHTML(template, data) {
 
     // Special layout for Executive Orange template
     if (template === 'executive-orange') {
+        const contactListHTML = buildVerticalContactHTML(personal.email, personal.phone, personal.location, personal.linkedin, personal.website, personal.github);
+        
         return `
             <div class="resume-header">
                 <h1 class="resume-name">${fullName}</h1>
+                <p class="resume-title">${jobTitle}</p>
             </div>
             
             <div class="main-grid">
@@ -1288,9 +1322,7 @@ function generateResumeHTML(template, data) {
                     
                     <div class="resume-section">
                         <h2>Contact</h2>
-                        <div class="resume-contact">
-                            ${contactHTML.split('•').map(item => `<span>${item}</span>`).join('')}
-                        </div>
+                        <div class="resume-contact vertical-contact">${contactListHTML}</div>
                     </div>
                     
                     ${skillsHTML ? `
