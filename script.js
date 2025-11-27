@@ -773,25 +773,59 @@ function downloadPDF() {
     const resumeContent = document.getElementById('resumeContent');
     const fullName = document.getElementById('fullName').value || 'resume';
     
-    // Clone the element to avoid modifying the original
-    const clone = resumeContent.cloneNode(true);
-    clone.style.width = '210mm';
-    clone.style.minHeight = '297mm';
-    clone.style.padding = '15mm';
-    clone.style.background = '#ffffff';
-    clone.style.position = 'absolute';
-    clone.style.left = '-9999px';
-    document.body.appendChild(clone);
+    if (!resumeContent || !resumeContent.innerHTML.trim()) {
+        alert('Please fill in your resume details first.');
+        return;
+    }
+    
+    // Show loading state
+    const btn = event.target.closest('button');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span>⏳</span> Generating...';
+    btn.disabled = true;
+    
+    // Create a wrapper for PDF generation with explicit styles
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = resumeContent.outerHTML;
+    const pdfContent = wrapper.firstChild;
+    
+    // Apply explicit inline styles to override CSS variables
+    pdfContent.style.cssText = `
+        background: #ffffff !important;
+        color: #1f2937 !important;
+        padding: 40px !important;
+        font-family: 'Crimson Pro', Georgia, serif !important;
+        font-size: 11pt !important;
+        line-height: 1.5 !important;
+        width: 210mm !important;
+        min-height: auto !important;
+        box-shadow: none !important;
+    `;
+    
+    // Fix all text colors in the cloned content
+    pdfContent.querySelectorAll('*').forEach(el => {
+        const computed = window.getComputedStyle(el);
+        if (computed.color) {
+            el.style.color = computed.color;
+        }
+        if (computed.backgroundColor && computed.backgroundColor !== 'rgba(0, 0, 0, 0)') {
+            el.style.backgroundColor = computed.backgroundColor;
+        }
+    });
+    
+    // Temporarily add to DOM (hidden)
+    wrapper.style.cssText = 'position: absolute; left: -9999px; top: 0;';
+    document.body.appendChild(wrapper);
     
     // Configure PDF options
     const options = {
-        margin: 0,
+        margin: [5, 5, 5, 5],
         filename: `${fullName.replace(/\s+/g, '_')}_resume.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
             scale: 2,
             useCORS: true,
-            letterRendering: true,
+            allowTaint: true,
             backgroundColor: '#ffffff',
             logging: false
         },
@@ -803,9 +837,22 @@ function downloadPDF() {
     };
     
     // Generate and download PDF
-    html2pdf().set(options).from(clone).save().then(() => {
-        document.body.removeChild(clone);
-    });
+    html2pdf()
+        .set(options)
+        .from(pdfContent)
+        .save()
+        .then(() => {
+            document.body.removeChild(wrapper);
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        })
+        .catch((err) => {
+            console.error('PDF generation error:', err);
+            document.body.removeChild(wrapper);
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            alert('Error generating PDF. Please try again.');
+        });
 }
 
 // ============================================
