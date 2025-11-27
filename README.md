@@ -165,4 +165,4 @@ SOFTWARE.
 
 📋 **কর্মনামা (KormoNama)** - আপনার কর্মজীবনের গল্প বলুন • Build Your Career Story
 
-Made with ♥ in Bangladesh 🇧🇩
+Made with ♥ in India 🇮🇳
