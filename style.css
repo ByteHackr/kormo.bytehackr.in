@@ -996,6 +996,174 @@ textarea {
     display: none;
 }
 
+/* Executive Orange Template */
+.resume-content.executive-orange {
+    font-family: 'Arial', sans-serif;
+    background: white;
+    padding: 0;
+    color: #000;
+    position: relative;
+    border-top: 20px solid #ed8922; /* Top orange band */
+}
+
+.resume-content.executive-orange .resume-header {
+    padding: 3rem 3rem 1rem 3rem;
+    border-bottom: 2px solid #000;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.resume-content.executive-orange .resume-name {
+    font-size: 3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 0;
+    line-height: 1;
+}
+
+/* Layout Grid */
+.resume-content.executive-orange .main-grid {
+    display: grid;
+    grid-template-columns: 65% 30%;
+    gap: 5%;
+    padding: 0 3rem 3rem 3rem;
+}
+
+/* Photo */
+.resume-content.executive-orange .profile-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 1px solid #ddd;
+}
+
+.resume-content.executive-orange .profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Section Headers with Highlight */
+.resume-content.executive-orange h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    border-bottom: none;
+    padding-right: 1rem;
+}
+
+.resume-content.executive-orange h2::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 120px; /* Start highlight after text roughly */
+    right: -100px; /* Extend right */
+    height: 12px;
+    background: #faebd7; /* Beige highlight */
+    z-index: -1;
+    width: 200%; /* Ensure it covers wide enough */
+}
+
+/* Sidebar specific styling */
+.resume-content.executive-orange .column-right h2::after {
+    left: 0;
+    width: 100%;
+    top: 6px;
+}
+
+.resume-content.executive-orange .column-right h2 {
+    display: block;
+    width: 100%;
+}
+
+/* Contact Info */
+.resume-content.executive-orange .resume-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.resume-content.executive-orange .resume-contact span {
+    color: #000;
+    font-weight: 500;
+}
+
+/* Content Styling */
+.resume-content.executive-orange .exp-item,
+.resume-content.executive-orange .edu-item {
+    margin-bottom: 1.5rem;
+}
+
+.resume-content.executive-orange .exp-title-company {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.resume-content.executive-orange .exp-dates {
+    font-style: normal;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.resume-content.executive-orange ul {
+    padding-left: 1rem;
+    margin-top: 0.5rem;
+}
+
+.resume-content.executive-orange li {
+    margin-bottom: 0.25rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Skills in Sidebar */
+.resume-content.executive-orange .skill-tag {
+    display: block;
+    background: transparent;
+    padding: 0.25rem 0;
+    font-weight: 500;
+    position: relative;
+    padding-left: 1rem;
+    border: none;
+    color: #000;
+}
+
+.resume-content.executive-orange .skill-tag::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Separators */
+.resume-content.executive-orange .resume-section {
+    border-bottom: 1px solid #000;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.resume-content.executive-orange .resume-section:last-child {
+    border-bottom: none;
+}
+
+.resume-content.executive-orange .column-right .resume-section {
+    border-bottom: 1px solid #000;
+}
+
+/* Icons Removal */
+.resume-content.executive-orange h2 i {
+    display: none;
+}
+
 /* ============================================
    ADVANCED CREATIVE TEMPLATES
    ============================================ */

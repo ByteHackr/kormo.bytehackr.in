@@ -208,6 +208,66 @@ function updatePreview() {
         `;
         return;
     }
+
+    // Special layout for Executive Orange template
+    if (template === 'executive-orange') {
+        resumeContent.innerHTML = `
+            <div class="resume-header">
+                <h1 class="resume-name">${escapeHtml(fullName)}</h1>
+            </div>
+            
+            <div class="main-grid">
+                <div class="column-left">
+                    ${summary ? `
+                    <div class="resume-section">
+                        <h2>Professional Summary</h2>
+                        <p class="resume-summary">${escapeHtml(summary)}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${experienceHTML ? `
+                    <div class="resume-section">
+                        <h2>Work History</h2>
+                        <div class="resume-experience">${experienceHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${educationHTML ? `
+                    <div class="resume-section">
+                        <h2>Education & Training</h2>
+                        <div class="resume-education">${educationHTML}</div>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="column-right">
+                    ${photoBase64 ? `<div class="profile-photo"><img src="${photoBase64}" alt="Profile"></div>` : ''}
+                    
+                    <div class="resume-section">
+                        <h2>Contact</h2>
+                        <div class="resume-contact">
+                            ${contactHTML.split('•').map(item => `<span>${item}</span>`).join('')}
+                        </div>
+                    </div>
+                    
+                    ${skillsHTML ? `
+                    <div class="resume-section">
+                        <h2>Skills</h2>
+                        <div class="resume-skills vertical-list">${skillsHTML}</div>
+                    </div>
+                    ` : ''}
+                    
+                    ${certificationsHTML ? `
+                    <div class="resume-section">
+                        <h2>Certifications</h2>
+                        <div class="resume-certifications">${certificationsHTML}</div>
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+        return;
+    }
     
     // Determine section order based on template (freshers get projects before experience)
     const isFresherTemplate = ['fresh-graduate', 'student', 'entry-level'].includes(template);
