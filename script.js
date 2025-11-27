@@ -11,14 +11,14 @@
 
 // Initialize theme on page load (runs immediately)
 (function initTheme() {
-    const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
+    const savedTheme = localStorage.getItem('kormoNamaTheme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 })();
 
 // Toggle between dark and light themes
 function toggleTheme() {
     const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme') || 'dark';
+    const currentTheme = html.getAttribute('data-theme') || 'light';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
     
     html.setAttribute('data-theme', newTheme);
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Update theme icon
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     const icon = document.getElementById('themeIcon');
     if (icon) {
         icon.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
@@ -985,6 +985,11 @@ function removeCertification(button) {
 // Add new custom section
 function addCustomSection() {
     const container = document.getElementById('customSectionsContainer');
+    if (!container) {
+        console.error('Custom sections container not found');
+        return;
+    }
+    
     const index = container.querySelectorAll('.custom-section-entry').length;
     
     const entry = document.createElement('div');
@@ -1013,6 +1018,9 @@ function addCustomSection() {
             saveToLocalStorage();
         });
     });
+    
+    // Trigger preview update
+    updatePreview();
 }
 
 // Remove custom section
@@ -1028,9 +1036,18 @@ function buildCustomSectionsHTML() {
     const entries = document.querySelectorAll('.custom-section-entry');
     let html = '';
     
+    if (!entries || entries.length === 0) {
+        return html;
+    }
+    
     entries.forEach(entry => {
-        const title = entry.querySelector('.custom-title').value;
-        const content = entry.querySelector('.custom-content').value;
+        const titleEl = entry.querySelector('.custom-title');
+        const contentEl = entry.querySelector('.custom-content');
+        
+        if (!titleEl || !contentEl) return;
+        
+        const title = titleEl.value;
+        const content = contentEl.value;
         
         if (title && content) {
             // Format content - convert bullet points and newlines
@@ -1039,10 +1056,6 @@ function buildCustomSectionsHTML() {
                 .map(line => line.trim())
                 .filter(line => line)
                 .map(line => {
-                    // If line starts with bullet point, keep it
-                    if (line.startsWith('•') || line.startsWith('-') || line.startsWith('*')) {
-                        return `<div class="custom-item">${escapeHtml(line)}</div>`;
-                    }
                     return `<div class="custom-item">${escapeHtml(line)}</div>`;
                 })
                 .join('');
