@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates Gallery - Sundar Resume</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="templates-gallery.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html" class="logo-link">
+                <span class="logo-icon">✦</span>
+                <h1>Sundar Resume</h1>
+            </a>
+        </div>
+        <p class="tagline">Browse Our Template Collection</p>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-btn">← Back to Editor</a>
+        </nav>
+    </header>
+
+    <main class="templates-container">
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+            <button class="filter-btn active" data-filter="all">All Templates</button>
+            <button class="filter-btn" data-filter="fresher">For Freshers</button>
+            <button class="filter-btn" data-filter="experienced">For Experienced</button>
+            <button class="filter-btn" data-filter="profession">By Profession</button>
+            <button class="filter-btn" data-filter="minimal">Minimal</button>
+        </div>
+
+        <!-- Templates Grid -->
+        <div class="templates-grid">
+            
+            <!-- FRESHER TEMPLATES -->
+            
+            <!-- Fresh Graduate -->
+            <div class="template-card" data-category="fresher" data-template="fresh-graduate">
+                <div class="template-badge fresher">Fresher</div>
+                <div class="template-preview">
+                    <div class="resume-content fresh-graduate">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Priya Sharma</h1>
+                            <p class="resume-title">Computer Science Graduate</p>
+                            <div class="resume-contact">
+                                <span>priya.sharma@email.com</span>
+                                <span>•</span>
+                                <span>+91 98765 43210</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Education</h2>
+                            <div class="edu-item">
+                                <div class="edu-header">
+                                    <span class="edu-degree">B.Tech Computer Science</span>
+                                    <span class="edu-year">2020 - 2024</span>
+                                </div>
+                                <div class="edu-institution">IIT Delhi | CGPA: 8.5/10</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Projects</h2>
+                            <div class="proj-item">
+                                <div class="proj-header">
+                                    <span class="proj-title">E-Commerce Platform</span>
+                                </div>
+                                <div class="proj-tech-used">React, Node.js, MongoDB</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">React</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Fresh Graduate</h3>
+                    <p>Warm yellow tones, perfect for new graduates</p>
+                    <button class="use-template-btn" onclick="useTemplate('fresh-graduate')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Student -->
+            <div class="template-card" data-category="fresher" data-template="student">
+                <div class="template-badge fresher">Fresher</div>
+                <div class="template-preview">
+                    <div class="resume-content student">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Rahul Kumar</h1>
+                            <p class="resume-title">Final Year Engineering Student</p>
+                            <div class="resume-contact">
+                                <span>rahul.k@college.edu</span>
+                                <span>•</span>
+                                <span>Mumbai, India</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Education</h2>
+                            <div class="edu-item">
+                                <div class="edu-header">
+                                    <span class="edu-degree">B.E. Electronics</span>
+                                    <span class="edu-year">2021 - 2025</span>
+                                </div>
+                                <div class="edu-institution">Mumbai University</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Projects</h2>
+                            <div class="proj-item">
+                                <div class="proj-header">
+                                    <span class="proj-title">IoT Smart Home System</span>
+                                </div>
+                                <div class="proj-tech-used">Arduino, Python, MQTT</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">C++</span>
+                                <span class="skill-tag">Arduino</span>
+                                <span class="skill-tag">MATLAB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Student</h3>
+                    <p>Green theme, emphasizes education & projects</p>
+                    <button class="use-template-btn" onclick="useTemplate('student')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Entry Level -->
+            <div class="template-card" data-category="fresher" data-template="entry-level">
+                <div class="template-badge fresher">Fresher</div>
+                <div class="template-preview">
+                    <div class="resume-content entry-level">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Ananya Patel</h1>
+                            <p class="resume-title">Junior Software Developer</p>
+                            <div class="resume-contact">
+                                <span>ananya.p@email.com</span>
+                                <span>•</span>
+                                <span>Bangalore, India</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Summary</h2>
+                            <p class="resume-summary">Enthusiastic developer with strong foundation in web technologies...</p>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Education</h2>
+                            <div class="edu-item">
+                                <div class="edu-header">
+                                    <span class="edu-degree">MCA</span>
+                                    <span class="edu-year">2022 - 2024</span>
+                                </div>
+                                <div class="edu-institution">Christ University</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">Spring Boot</span>
+                                <span class="skill-tag">MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Entry Level</h3>
+                    <p>Purple gradient, modern & energetic look</p>
+                    <button class="use-template-btn" onclick="useTemplate('entry-level')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- EXPERIENCED TEMPLATES -->
+
+            <!-- Classic Professional -->
+            <div class="template-card" data-category="experienced" data-template="classic">
+                <div class="template-badge experienced">Experienced</div>
+                <div class="template-preview">
+                    <div class="resume-content classic">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Vikram Mehta</h1>
+                            <p class="resume-title">Senior Software Engineer</p>
+                            <div class="resume-contact">
+                                <span>vikram.mehta@email.com</span>
+                                <span>•</span>
+                                <span>+91 99887 76655</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Senior Software Engineer</span>
+                                    <span class="exp-dates">2020 - Present</span>
+                                </div>
+                                <div class="exp-company">Microsoft India</div>
+                                <div class="exp-description">• Led team of 8 developers</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">C#</span>
+                                <span class="skill-tag">.NET</span>
+                                <span class="skill-tag">Azure</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Classic Professional</h3>
+                    <p>Traditional serif typography, timeless design</p>
+                    <button class="use-template-btn" onclick="useTemplate('classic')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Executive -->
+            <div class="template-card" data-category="experienced" data-template="executive">
+                <div class="template-badge experienced">Experienced</div>
+                <div class="template-preview">
+                    <div class="resume-content executive">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Rajesh Iyer</h1>
+                            <p class="resume-title">Chief Technology Officer</p>
+                            <div class="resume-contact">
+                                <span>rajesh.iyer@company.com</span>
+                                <span>•</span>
+                                <span>Hyderabad</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">CTO</span>
+                                    <span class="exp-dates">2018 - Present</span>
+                                </div>
+                                <div class="exp-company">TechCorp Solutions</div>
+                                <div class="exp-description">• Scaled engineering team from 20 to 150</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Leadership</span>
+                                <span class="skill-tag">Strategy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Executive</h3>
+                    <p>Dark header with gold accents, commanding presence</p>
+                    <button class="use-template-btn" onclick="useTemplate('executive')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Modern -->
+            <div class="template-card" data-category="experienced" data-template="modern">
+                <div class="template-badge experienced">Experienced</div>
+                <div class="template-preview">
+                    <div class="resume-content modern">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Sneha Reddy</h1>
+                            <p class="resume-title">Product Manager</p>
+                            <div class="resume-contact">
+                                <span>sneha.r@email.com</span>
+                                <span>•</span>
+                                <span>Pune, India</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Senior Product Manager</span>
+                                    <span class="exp-dates">2019 - Present</span>
+                                </div>
+                                <div class="exp-company">Flipkart</div>
+                                <div class="exp-description">• Launched 5 major product features</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Agile</span>
+                                <span class="skill-tag">Jira</span>
+                                <span class="skill-tag">Analytics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Modern</h3>
+                    <p>Blue header block, contemporary professional look</p>
+                    <button class="use-template-btn" onclick="useTemplate('modern')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- PROFESSION TEMPLATES -->
+
+            <!-- Tech / Developer -->
+            <div class="template-card" data-category="profession" data-template="tech">
+                <div class="template-badge profession">Tech</div>
+                <div class="template-preview">
+                    <div class="resume-content tech">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Arjun Nair</h1>
+                            <p class="resume-title">Full Stack Developer</p>
+                            <div class="resume-contact">
+                                <span>arjun@github.io</span>
+                                <span>•</span>
+                                <span>github.com/arjunnair</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Full Stack Developer</span>
+                                    <span class="exp-dates">2021 - Present</span>
+                                </div>
+                                <div class="exp-company">Razorpay</div>
+                                <div class="exp-description">• Built payment gateway APIs</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">TypeScript</span>
+                                <span class="skill-tag">Go</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Tech / Developer</h3>
+                    <p>Dark IDE-style theme with code aesthetics</p>
+                    <button class="use-template-btn" onclick="useTemplate('tech')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Creative / Designer -->
+            <div class="template-card" data-category="profession" data-template="creative">
+                <div class="template-badge profession">Creative</div>
+                <div class="template-preview">
+                    <div class="resume-content creative">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Kavya Menon</h1>
+                            <p class="resume-title">UI/UX Designer</p>
+                            <div class="resume-contact">
+                                <span>kavya.design@email.com</span>
+                                <span>•</span>
+                                <span>dribbble.com/kavya</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Senior UI Designer</span>
+                                    <span class="exp-dates">2020 - Present</span>
+                                </div>
+                                <div class="exp-company">Swiggy</div>
+                                <div class="exp-description">• Redesigned checkout flow</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Figma</span>
+                                <span class="skill-tag">Adobe XD</span>
+                                <span class="skill-tag">Prototyping</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Creative / Designer</h3>
+                    <p>Colorful gradient sidebar, artistic layout</p>
+                    <button class="use-template-btn" onclick="useTemplate('creative')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Healthcare -->
+            <div class="template-card" data-category="profession" data-template="healthcare">
+                <div class="template-badge profession">Healthcare</div>
+                <div class="template-preview">
+                    <div class="resume-content healthcare">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Dr. Meera Joshi</h1>
+                            <p class="resume-title">Senior Physician</p>
+                            <div class="resume-contact">
+                                <span>dr.meera@hospital.com</span>
+                                <span>•</span>
+                                <span>Chennai, India</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Senior Physician</span>
+                                    <span class="exp-dates">2015 - Present</span>
+                                </div>
+                                <div class="exp-company">Apollo Hospitals</div>
+                                <div class="exp-description">• 10+ years in internal medicine</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Internal Medicine</span>
+                                <span class="skill-tag">Diagnostics</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Healthcare / Medical</h3>
+                    <p>Professional cyan/teal theme for medical professionals</p>
+                    <button class="use-template-btn" onclick="useTemplate('healthcare')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Academic -->
+            <div class="template-card" data-category="profession" data-template="academic">
+                <div class="template-badge profession">Academic</div>
+                <div class="template-preview">
+                    <div class="resume-content academic">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Prof. Suresh Kumar</h1>
+                            <p class="resume-title">Associate Professor, Physics</p>
+                            <div class="resume-contact">
+                                <span>suresh.k@iitb.ac.in</span>
+                                <span>•</span>
+                                <span>IIT Bombay</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Associate Professor</span>
+                                    <span class="exp-dates">2012 - Present</span>
+                                </div>
+                                <div class="exp-company">IIT Bombay</div>
+                                <div class="exp-description">• Published 45+ research papers</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Quantum Physics</span>
+                                <span class="skill-tag">Research</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Academic / Research</h3>
+                    <p>Scholarly serif font with warm parchment tones</p>
+                    <button class="use-template-btn" onclick="useTemplate('academic')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Sales -->
+            <div class="template-card" data-category="profession" data-template="sales">
+                <div class="template-badge profession">Sales</div>
+                <div class="template-preview">
+                    <div class="resume-content sales">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Amit Verma</h1>
+                            <p class="resume-title">Regional Sales Manager</p>
+                            <div class="resume-contact">
+                                <span>amit.v@sales.com</span>
+                                <span>•</span>
+                                <span>Delhi NCR</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Regional Sales Manager</span>
+                                    <span class="exp-dates">2019 - Present</span>
+                                </div>
+                                <div class="exp-company">HCL Technologies</div>
+                                <div class="exp-description">• Exceeded targets by 150%</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">B2B Sales</span>
+                                <span class="skill-tag">Negotiation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Sales / Marketing</h3>
+                    <p>Bold red design for high-impact presence</p>
+                    <button class="use-template-btn" onclick="useTemplate('sales')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Legal -->
+            <div class="template-card" data-category="profession" data-template="legal">
+                <div class="template-badge profession">Legal</div>
+                <div class="template-preview">
+                    <div class="resume-content legal">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Adv. Nisha Gupta</h1>
+                            <p class="resume-title">Corporate Lawyer</p>
+                            <div class="resume-contact">
+                                <span>nisha.g@lawfirm.com</span>
+                                <span>•</span>
+                                <span>Mumbai, India</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Senior Associate</span>
+                                    <span class="exp-dates">2017 - Present</span>
+                                </div>
+                                <div class="exp-company">Cyril Amarchand Mangaldas</div>
+                                <div class="exp-description">• M&A specialist</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Corporate Law</span>
+                                <span class="skill-tag">M&A</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Legal / Finance</h3>
+                    <p>Conservative, formal double-border style</p>
+                    <button class="use-template-btn" onclick="useTemplate('legal')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- MINIMAL TEMPLATES -->
+
+            <!-- Minimal -->
+            <div class="template-card" data-category="minimal" data-template="minimal">
+                <div class="template-badge minimal">Minimal</div>
+                <div class="template-preview">
+                    <div class="resume-content minimal">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Rohan Das</h1>
+                            <p class="resume-title">Software Engineer</p>
+                            <div class="resume-contact">
+                                <span>rohan.d@email.com</span>
+                                <span>•</span>
+                                <span>Kolkata</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Software Engineer</span>
+                                    <span class="exp-dates">2022 - Present</span>
+                                </div>
+                                <div class="exp-company">TCS</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">Python</span>
+                                <span class="skill-tag">SQL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Simple Minimal</h3>
+                    <p>Clean, no-frills professional design</p>
+                    <button class="use-template-btn" onclick="useTemplate('minimal')">Use This Template</button>
+                </div>
+            </div>
+
+            <!-- Elegant -->
+            <div class="template-card" data-category="minimal" data-template="elegant">
+                <div class="template-badge minimal">Minimal</div>
+                <div class="template-preview">
+                    <div class="resume-content elegant">
+                        <div class="resume-header">
+                            <h1 class="resume-name">Divya Krishnan</h1>
+                            <p class="resume-title">Business Analyst</p>
+                            <div class="resume-contact">
+                                <span>divya.k@email.com</span>
+                                <span>•</span>
+                                <span>Bangalore</span>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Experience</h2>
+                            <div class="exp-item">
+                                <div class="exp-header">
+                                    <span class="exp-title-company">Business Analyst</span>
+                                    <span class="exp-dates">2021 - Present</span>
+                                </div>
+                                <div class="exp-company">Infosys</div>
+                            </div>
+                        </div>
+                        <div class="resume-section">
+                            <h2>Skills</h2>
+                            <div class="resume-skills">
+                                <span class="skill-tag">Data Analysis</span>
+                                <span class="skill-tag">Excel</span>
+                                <span class="skill-tag">Tableau</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="template-info">
+                    <h3>Elegant</h3>
+                    <p>Soft purple tones with refined typography</p>
+                    <button class="use-template-btn" onclick="useTemplate('elegant')">Use This Template</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>✦ <strong>Sundar Resume</strong> - Beautiful Resumes, Completely Free</p>
+        <p class="footer-links">
+            <a href="index.html">Create Your Resume</a> • 
+            <span>MIT License</span> • 
+            <span>100% Free Forever</span>
+        </p>
+    </footer>
+
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const templateCards = document.querySelectorAll('.template-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                // Filter cards
+                templateCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => card.style.opacity = '1', 10);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(() => card.style.display = 'none', 300);
+                    }
+                });
+            });
+        });
+
+        // Use template - redirect to editor with template selected
+        function useTemplate(templateName) {
+            // Store the selected template
+            localStorage.setItem('sundarSelectedTemplate', templateName);
+            // Redirect to editor
+            window.location.href = 'index.html?template=' + templateName;
+        }
+    </script>
+</body>
+</html>
+

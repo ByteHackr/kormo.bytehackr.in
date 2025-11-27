@@ -1,0 +1,276 @@
+/* ============================================
+   Sundar Resume - Templates Gallery Styles
+   ============================================ */
+
+/* Header Navigation */
+.header-nav {
+    margin-top: 1rem;
+}
+
+.nav-btn {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-link:hover .logo-icon {
+    transform: rotate(45deg);
+}
+
+.logo-icon {
+    transition: transform 0.3s ease;
+}
+
+/* Templates Container */
+.templates-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Filter Tabs */
+.filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+/* Templates Grid */
+.templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+}
+
+@media (max-width: 768px) {
+    .templates-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Template Card */
+.template-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.template-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent);
+}
+
+/* Template Badge */
+.template-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 10;
+}
+
+.template-badge.fresher {
+    background: linear-gradient(135deg, #fde047 0%, #facc15 100%);
+    color: #854d0e;
+}
+
+.template-badge.experienced {
+    background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+    color: white;
+}
+
+.template-badge.profession {
+    background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
+    color: white;
+}
+
+.template-badge.minimal {
+    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+    color: white;
+}
+
+/* Template Preview */
+.template-preview {
+    padding: 1rem;
+    background: #f0f0f0;
+    height: 320px;
+    overflow: hidden;
+    position: relative;
+}
+
+.template-preview::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(transparent, #f0f0f0);
+    pointer-events: none;
+}
+
+.template-preview .resume-content {
+    transform: scale(0.55);
+    transform-origin: top left;
+    width: 180%;
+    min-height: 500px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Template Info */
+.template-info {
+    padding: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.template-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.template-info p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+/* Use Template Button */
+.use-template-btn {
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    background: linear-gradient(135deg, var(--accent) 0%, #3b82f6 100%);
+    border: none;
+    color: white;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.use-template-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(74, 158, 255, 0.4);
+}
+
+.use-template-btn:active {
+    transform: translateY(0);
+}
+
+/* Card Animations */
+.template-card {
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .filter-tabs {
+        flex-direction: column;
+    }
+    
+    .filter-btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .templates-container {
+        padding: 1rem;
+    }
+    
+    .template-preview {
+        height: 280px;
+    }
+}
+
+/* Staggered Animation on Load */
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.template-card {
+    animation: cardFadeIn 0.4s ease forwards;
+}
+
+.template-card:nth-child(1) { animation-delay: 0.05s; }
+.template-card:nth-child(2) { animation-delay: 0.1s; }
+.template-card:nth-child(3) { animation-delay: 0.15s; }
+.template-card:nth-child(4) { animation-delay: 0.2s; }
+.template-card:nth-child(5) { animation-delay: 0.25s; }
+.template-card:nth-child(6) { animation-delay: 0.3s; }
+.template-card:nth-child(7) { animation-delay: 0.35s; }
+.template-card:nth-child(8) { animation-delay: 0.4s; }
+.template-card:nth-child(9) { animation-delay: 0.45s; }
+.template-card:nth-child(10) { animation-delay: 0.5s; }
+.template-card:nth-child(11) { animation-delay: 0.55s; }
+.template-card:nth-child(12) { animation-delay: 0.6s; }
+.template-card:nth-child(13) { animation-delay: 0.65s; }
+.template-card:nth-child(14) { animation-delay: 0.7s; }
+
