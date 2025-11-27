@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('resumeContent')) {
         initializeEventListeners();
         loadFromLocalStorage();
+        loadSectionOrder(); // Apply saved section order
         
         // Check if coming from templates page with a selected template
         const urlParams = new URLSearchParams(window.location.search);
@@ -435,8 +436,65 @@ function updatePreview() {
         return;
     }
     
-    // Determine section order based on template (freshers get projects before experience)
-    const isFresherTemplate = ['fresh-graduate', 'student', 'entry-level'].includes(template);
+    // Get section order from DOM or use default
+    var sectionOrder = getSectionOrder();
+    
+    // Build sections HTML based on order
+    var sectionsHTML = '';
+    sectionOrder.forEach(function(sectionName) {
+        switch(sectionName) {
+            case 'experience':
+                if (experienceHTML) {
+                    sectionsHTML += `
+                    <div class="resume-section">
+                        <h2>Experience</h2>
+                        <div class="resume-experience">${experienceHTML}</div>
+                    </div>`;
+                }
+                break;
+            case 'education':
+                if (educationHTML) {
+                    sectionsHTML += `
+                    <div class="resume-section">
+                        <h2>Education</h2>
+                        <div class="resume-education">${educationHTML}</div>
+                    </div>`;
+                }
+                break;
+            case 'projects':
+                if (projectsHTML) {
+                    sectionsHTML += `
+                    <div class="resume-section">
+                        <h2>Projects</h2>
+                        <div class="resume-projects">${projectsHTML}</div>
+                    </div>`;
+                }
+                break;
+            case 'certifications':
+                if (certificationsHTML) {
+                    sectionsHTML += `
+                    <div class="resume-section">
+                        <h2>Certifications</h2>
+                        <div class="resume-certifications">${certificationsHTML}</div>
+                    </div>`;
+                }
+                break;
+            case 'skills':
+                if (skillsHTML) {
+                    sectionsHTML += `
+                    <div class="resume-section">
+                        <h2>Skills</h2>
+                        <div class="resume-skills">${skillsHTML}</div>
+                    </div>`;
+                }
+                break;
+            case 'custom':
+                if (customSectionsHTML) {
+                    sectionsHTML += customSectionsHTML;
+                }
+                break;
+        }
+    });
     
     // Update resume content
     resumeContent.innerHTML = `
@@ -453,66 +511,29 @@ function updatePreview() {
         </div>
         ` : ''}
         
-        ${isFresherTemplate ? `
-            ${educationHTML ? `
-            <div class="resume-section">
-                <h2>Education</h2>
-                <div class="resume-education">${educationHTML}</div>
-            </div>
-            ` : ''}
-            
-            ${projectsHTML ? `
-            <div class="resume-section">
-                <h2>Projects</h2>
-                <div class="resume-projects">${projectsHTML}</div>
-            </div>
-            ` : ''}
-            
-            ${experienceHTML ? `
-            <div class="resume-section">
-                <h2>Experience</h2>
-                <div class="resume-experience">${experienceHTML}</div>
-            </div>
-            ` : ''}
-        ` : `
-            ${experienceHTML ? `
-            <div class="resume-section">
-                <h2>Experience</h2>
-                <div class="resume-experience">${experienceHTML}</div>
-            </div>
-            ` : ''}
-            
-            ${educationHTML ? `
-            <div class="resume-section">
-                <h2>Education</h2>
-                <div class="resume-education">${educationHTML}</div>
-            </div>
-            ` : ''}
-            
-            ${projectsHTML ? `
-            <div class="resume-section">
-                <h2>Projects</h2>
-                <div class="resume-projects">${projectsHTML}</div>
-            </div>
-            ` : ''}
-        `}
-        
-        ${certificationsHTML ? `
-        <div class="resume-section">
-            <h2>Certifications</h2>
-            <div class="resume-certifications">${certificationsHTML}</div>
-        </div>
-        ` : ''}
-        
-        ${skillsHTML ? `
-        <div class="resume-section">
-            <h2>Skills</h2>
-            <div class="resume-skills">${skillsHTML}</div>
-        </div>
-        ` : ''}
-        
-        ${customSectionsHTML}
+        ${sectionsHTML}
     `;
+}
+
+// Get current section order from DOM
+function getSectionOrder() {
+    var container = document.getElementById('movableSections');
+    if (!container) {
+        // Default order if container not found
+        return ['experience', 'education', 'projects', 'certifications', 'skills', 'custom'];
+    }
+    
+    var sections = container.querySelectorAll('.movable-section');
+    var order = [];
+    
+    sections.forEach(function(section) {
+        var sectionName = section.getAttribute('data-section');
+        if (sectionName) {
+            order.push(sectionName);
+        }
+    });
+    
+    return order.length > 0 ? order : ['experience', 'education', 'projects', 'certifications', 'skills', 'custom'];
 }
 
 // Build experience section HTML
@@ -976,6 +997,80 @@ function removeCertification(button) {
     entry.remove();
     updatePreview();
     saveToLocalStorage();
+}
+
+// ============================================
+// SECTION REORDERING
+// ============================================
+
+// Move a section up or down
+function moveSection(button, direction) {
+    var section = button.closest('.movable-section');
+    var container = document.getElementById('movableSections');
+    
+    if (!section || !container) return;
+    
+    var sections = Array.from(container.querySelectorAll('.movable-section'));
+    var currentIndex = sections.indexOf(section);
+    
+    // Add moving animation
+    section.classList.add('moving');
+    
+    if (direction === 'up' && currentIndex > 0) {
+        // Move up - insert before the previous sibling
+        container.insertBefore(section, sections[currentIndex - 1]);
+    } else if (direction === 'down' && currentIndex < sections.length - 1) {
+        // Move down - insert after the next sibling
+        var nextSection = sections[currentIndex + 1];
+        container.insertBefore(nextSection, section);
+    }
+    
+    // Remove animation class after transition
+    setTimeout(function() {
+        section.classList.remove('moving');
+    }, 300);
+    
+    // Update preview with new order
+    updatePreview();
+    
+    // Save section order
+    saveSectionOrder();
+}
+
+// Save section order to localStorage
+function saveSectionOrder() {
+    var container = document.getElementById('movableSections');
+    if (!container) return;
+    
+    var sections = container.querySelectorAll('.movable-section');
+    var order = [];
+    
+    sections.forEach(function(section) {
+        order.push(section.getAttribute('data-section'));
+    });
+    
+    localStorage.setItem('kormoNamaSectionOrder', JSON.stringify(order));
+}
+
+// Load and apply section order from localStorage
+function loadSectionOrder() {
+    var savedOrder = localStorage.getItem('kormoNamaSectionOrder');
+    if (!savedOrder) return;
+    
+    try {
+        var order = JSON.parse(savedOrder);
+        var container = document.getElementById('movableSections');
+        if (!container) return;
+        
+        order.forEach(function(sectionName) {
+            var section = container.querySelector('[data-section="' + sectionName + '"]');
+            if (section) {
+                container.appendChild(section);
+            }
+        });
+    } catch (e) {
+        console.error('Error loading section order:', e);
+    }
 }
 
 // ============================================

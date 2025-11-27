@@ -84,9 +84,18 @@
                 </div>
             </section>
 
+            <!-- Movable Sections Container -->
+            <div id="movableSections">
+            
             <!-- Experience -->
-            <section class="form-section">
-                <h3>Work Experience</h3>
+            <section class="form-section movable-section" data-section="experience">
+                <div class="section-header">
+                    <h3>Work Experience</h3>
+                    <div class="section-controls">
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'up')" title="Move Up">▲</button>
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'down')" title="Move Down">▼</button>
+                    </div>
+                </div>
                 <div id="experienceContainer">
                     <div class="experience-entry" data-index="0">
                         <div class="form-grid">
@@ -118,8 +127,14 @@
             </section>
 
             <!-- Education -->
-            <section class="form-section">
-                <h3>Education</h3>
+            <section class="form-section movable-section" data-section="education">
+                <div class="section-header">
+                    <h3>Education</h3>
+                    <div class="section-controls">
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'up')" title="Move Up">▲</button>
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'down')" title="Move Down">▼</button>
+                    </div>
+                </div>
                 <div id="educationContainer">
                     <div class="education-entry" data-index="0">
                         <div class="form-grid">
@@ -147,8 +162,14 @@
             </section>
 
             <!-- Projects (Great for Freshers) -->
-            <section class="form-section">
-                <h3>Projects</h3>
+            <section class="form-section movable-section" data-section="projects">
+                <div class="section-header">
+                    <h3>Projects</h3>
+                    <div class="section-controls">
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'up')" title="Move Up">▲</button>
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'down')" title="Move Down">▼</button>
+                    </div>
+                </div>
                 <div id="projectsContainer">
                     <div class="project-entry" data-index="0">
                         <div class="form-grid">
@@ -180,8 +201,14 @@
             </section>
 
             <!-- Certifications -->
-            <section class="form-section">
-                <h3>Certifications (Optional)</h3>
+            <section class="form-section movable-section" data-section="certifications">
+                <div class="section-header">
+                    <h3>Certifications</h3>
+                    <div class="section-controls">
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'up')" title="Move Up">▲</button>
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'down')" title="Move Down">▼</button>
+                    </div>
+                </div>
                 <div id="certificationsContainer">
                     <div class="certification-entry" data-index="0">
                         <div class="form-grid">
@@ -209,8 +236,15 @@
             </section>
 
             <!-- Skills -->
-            <section class="form-section">
-                <h3>Hard Skills</h3>
+            <section class="form-section movable-section" data-section="skills">
+                <div class="section-header">
+                    <h3>Skills</h3>
+                    <div class="section-controls">
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'up')" title="Move Up">▲</button>
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'down')" title="Move Down">▼</button>
+                    </div>
+                </div>
+                <label style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem; display: block;">Hard Skills</label>
                 <div class="form-group full-width">
                     <label for="skills">Enter skills separated by commas</label>
                     <textarea id="skills" rows="3" placeholder="JavaScript, Python, React, Node.js, SQL, Git, AWS, Docker"></textarea>
@@ -236,8 +270,14 @@
             </section>
 
             <!-- Custom Sections -->
-            <section class="form-section">
-                <h3>Custom Sections <span style="font-weight: normal; font-size: 0.85rem; color: var(--text-muted);">(Optional)</span></h3>
+            <section class="form-section movable-section" data-section="custom">
+                <div class="section-header">
+                    <h3>Custom Sections</h3>
+                    <div class="section-controls">
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'up')" title="Move Up">▲</button>
+                        <button type="button" class="btn-move" onclick="moveSection(this, 'down')" title="Move Down">▼</button>
+                    </div>
+                </div>
                 <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">Add your own sections like Awards, Volunteering, Publications, Hobbies, etc.</p>
                 <div id="customSectionsContainer">
                     <!-- Custom sections will be added here -->
@@ -246,6 +286,8 @@
                     + Add Custom Section
                 </button>
             </section>
+            
+            </div><!-- End movableSections -->
 
             <!-- Actions -->
             <div class="actions" style="flex-direction: column; gap: 1rem;">
@@ -351,4 +393,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
