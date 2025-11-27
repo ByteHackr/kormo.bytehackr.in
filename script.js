@@ -356,6 +356,75 @@ function updatePreview() {
         `;
         return;
     }
+
+    // Special layout for Creative Split template (2-column with dark header)
+    if (template === 'creative-split') {
+        resumeContent.innerHTML = `
+            <div class="resume-header">
+                <div class="header-left">
+                    <h1 class="resume-name">${escapeHtml(fullName)}</h1>
+                    <p class="resume-title">${escapeHtml(jobTitle)}</p>
+                </div>
+                <div class="header-right">
+                    <div class="resume-contact">${contactHTML}</div>
+                </div>
+            </div>
+            
+            <div class="sidebar-left">
+                ${summary ? `
+                <div class="resume-section">
+                    <h2>About</h2>
+                    <p class="resume-summary">${escapeHtml(summary)}</p>
+                </div>
+                ` : ''}
+                
+                ${skillsHTML ? `
+                <div class="resume-section">
+                    <h2>Skills</h2>
+                    <div class="resume-skills">${skillsHTML}</div>
+                </div>
+                ` : ''}
+                
+                ${languagesHTML ? `
+                <div class="resume-section">
+                    <h2>Languages</h2>
+                    <div class="resume-languages">${languagesHTML}</div>
+                </div>
+                ` : ''}
+                
+                ${certificationsHTML ? `
+                <div class="resume-section">
+                    <h2>Certifications</h2>
+                    <div class="resume-certifications">${certificationsHTML}</div>
+                </div>
+                ` : ''}
+            </div>
+            
+            <div class="main-right">
+                ${experienceHTML ? `
+                <div class="resume-section">
+                    <h2>Experience</h2>
+                    <div class="resume-experience">${experienceHTML}</div>
+                </div>
+                ` : ''}
+                
+                ${educationHTML ? `
+                <div class="resume-section">
+                    <h2>Education</h2>
+                    <div class="resume-education">${educationHTML}</div>
+                </div>
+                ` : ''}
+                
+                ${projectsHTML ? `
+                <div class="resume-section">
+                    <h2>Projects</h2>
+                    <div class="resume-projects">${projectsHTML}</div>
+                </div>
+                ` : ''}
+            </div>
+        `;
+        return;
+    }
     
     // Determine section order based on template (freshers get projects before experience)
     const isFresherTemplate = ['fresh-graduate', 'student', 'entry-level'].includes(template);
@@ -1280,6 +1349,74 @@ function generateResumeHTML(template, data) {
                 <div class="resume-projects">${projectsHTML}</div>
             </div>
             ` : ''}
+        `;
+    }
+
+    // Special layout for Creative Split template
+    if (template === 'creative-split') {
+        return `
+            <div class="resume-header">
+                <div class="header-left">
+                    <h1 class="resume-name">${fullName}</h1>
+                    <p class="resume-title">${jobTitle}</p>
+                </div>
+                <div class="header-right">
+                    <div class="resume-contact">${contactHTML}</div>
+                </div>
+            </div>
+            
+            <div class="sidebar-left">
+                ${summary ? `
+                <div class="resume-section">
+                    <h2>About</h2>
+                    <p class="resume-summary">${summary}</p>
+                </div>
+                ` : ''}
+                
+                ${skillsHTML ? `
+                <div class="resume-section">
+                    <h2>Skills</h2>
+                    <div class="resume-skills">${skillsHTML}</div>
+                </div>
+                ` : ''}
+                
+                ${languagesHTML ? `
+                <div class="resume-section">
+                    <h2>Languages</h2>
+                    <div class="resume-languages">${languagesHTML}</div>
+                </div>
+                ` : ''}
+                
+                ${certificationsHTML ? `
+                <div class="resume-section">
+                    <h2>Certifications</h2>
+                    <div class="resume-certifications">${certificationsHTML}</div>
+                </div>
+                ` : ''}
+            </div>
+            
+            <div class="main-right">
+                ${experienceHTML ? `
+                <div class="resume-section">
+                    <h2>Experience</h2>
+                    <div class="resume-experience">${experienceHTML}</div>
+                </div>
+                ` : ''}
+                
+                ${educationHTML ? `
+                <div class="resume-section">
+                    <h2>Education</h2>
+                    <div class="resume-education">${educationHTML}</div>
+                </div>
+                ` : ''}
+                
+                ${projectsHTML ? `
+                <div class="resume-section">
+                    <h2>Projects</h2>
+                    <div class="resume-projects">${projectsHTML}</div>
+                </div>
+                ` : ''}
+            </div>
         `;
     }
 

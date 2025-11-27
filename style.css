@@ -1322,7 +1322,7 @@ textarea {
 .resume-content.creative-split {
     font-family: 'DM Sans', sans-serif;
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 280px 1fr;
     grid-template-rows: auto 1fr;
     padding: 0;
     background: white;
@@ -1332,90 +1332,120 @@ textarea {
     grid-column: 1 / -1;
     background: #1a1a1a;
     color: white;
-    padding: 3rem;
+    padding: 2.5rem 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: none;
+}
+
+.resume-content.creative-split .header-left {
+    flex: 1;
+}
+
+.resume-content.creative-split .header-right {
+    text-align: right;
 }
 
 .resume-content.creative-split .resume-name {
-    font-size: 3.5rem;
+    font-size: 2.5rem;
     font-weight: 300;
     color: white;
     letter-spacing: -0.03em;
     line-height: 1;
+    margin-bottom: 0.5rem;
 }
 
 .resume-content.creative-split .resume-title {
     color: #888;
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
+    font-size: 1rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
 .resume-content.creative-split .resume-contact {
-    text-align: right;
     color: #888;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
-.resume-content.creative-split .resume-contact span {
+.resume-content.creative-split .resume-contact a {
+    color: #888;
+}
+
+.resume-content.creative-split .resume-contact .contact-separator {
+    display: none;
+}
+
+.resume-content.creative-split .resume-contact .contact-link {
     display: block;
     margin-bottom: 0.25rem;
 }
 
-.resume-content.creative-split .contact-separator {
-    display: none;
-}
-
 .resume-content.creative-split .sidebar-left {
     background: #f4f4f4;
-    padding: 2.5rem;
+    padding: 2rem;
     border-right: 1px solid #e5e5e5;
 }
 
 .resume-content.creative-split .main-right {
-    padding: 2.5rem;
+    padding: 2rem;
 }
 
-/* Inject Sidebar/Main Logic via CSS Grid placement hack */
-/* Note: Since HTML structure is flat, we use grid-column placement */
-.resume-content.creative-split .resume-section:nth-of-type(1), /* Summary */
-.resume-content.creative-split .resume-section:nth-of-type(3), /* Education */
-.resume-content.creative-split .resume-section:nth-of-type(5), /* Skills */
-.resume-content.creative-split .resume-section:nth-of-type(6)  /* Certifications */ {
-    grid-column: 1;
-    background: #f9f9f9;
-    margin: 0;
-    padding: 0 2.5rem 1.5rem 2.5rem;
-}
-
-.resume-content.creative-split .resume-section:nth-of-type(2), /* Experience */
-.resume-content.creative-split .resume-section:nth-of-type(4)  /* Projects */ {
-    grid-column: 2;
-    padding: 0 2.5rem 1.5rem 2.5rem;
-}
-
-.resume-content.creative-split .resume-section h2 {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: #1a1a1a;
-    border-bottom: 2px solid #1a1a1a;
-    padding-bottom: 0.5rem;
+.resume-content.creative-split .resume-section {
     margin-bottom: 1.5rem;
 }
 
-.resume-content.creative-split .exp-company {
+.resume-content.creative-split .resume-section h2 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #1a1a1a;
+    border-bottom: 2px solid #1a1a1a;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.resume-content.creative-split .exp-item,
+.resume-content.creative-split .edu-item,
+.resume-content.creative-split .proj-item {
+    margin-bottom: 1.25rem;
+}
+
+.resume-content.creative-split .exp-company,
+.resume-content.creative-split .edu-institution {
     color: #666;
     font-weight: 500;
+}
+
+.resume-content.creative-split .exp-description {
+    white-space: pre-line;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #444;
 }
 
 .resume-content.creative-split .skill-tag {
     background: #1a1a1a;
     color: white;
     border-radius: 0;
+    margin-bottom: 0.25rem;
+}
+
+.resume-content.creative-split .resume-summary {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+.resume-content.creative-split .lang-item {
+    font-size: 0.9rem;
+    color: #444;
+    padding: 0.25rem 0;
+}
+
+.resume-content.creative-split .cert-item {
+    font-size: 0.85rem;
+    color: #444;
 }
 
 
@@ -1727,6 +1757,65 @@ textarea {
 
 
 /* Modern Template */
+/* Classic Professional */
+.resume-content.classic {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: #fff;
+}
+
+.resume-content.classic .resume-header {
+    text-align: center;
+    border-bottom: 2px solid #1f2937;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.resume-content.classic .resume-name {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.resume-content.classic .resume-title {
+    font-size: 1.1rem;
+    color: #4b5563;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+.resume-content.classic .resume-contact {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.resume-content.classic h2 {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid #1f2937;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: #1f2937;
+}
+
+.resume-content.classic .exp-title-company {
+    font-weight: 600;
+}
+
+.resume-content.classic .exp-dates {
+    font-style: italic;
+    color: #6b7280;
+}
+
+.resume-content.classic .skill-tag {
+    background: transparent;
+    border: 1px solid #1f2937;
+    color: #1f2937;
+}
+
+/* Modern Corporate */
 .resume-content.modern {
     font-family: 'DM Sans', sans-serif;
 }
