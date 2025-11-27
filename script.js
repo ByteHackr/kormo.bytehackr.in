@@ -864,136 +864,209 @@ function saveToLocalStorage() {
     localStorage.setItem('kormoNamaData', JSON.stringify(data));
 }
 
-// Load form data from localStorage
+// Sample Data for first-time users
+const sampleData = {
+    personal: {
+        fullName: 'Alex Morgan',
+        jobTitle: 'Senior Project Manager',
+        email: 'alex.morgan@example.com',
+        phone: '+1 555 019 2834',
+        location: 'San Francisco, CA',
+        linkedin: 'linkedin.com/in/alexmorgan',
+        website: 'alexmorgan.io',
+        github: 'github.com/alexmorgan',
+        summary: 'Results-oriented Project Manager with 7+ years of experience leading cross-functional teams to deliver complex software solutions. Proven track record of optimizing workflows, reducing costs by 20%, and increasing team productivity. Certified PMP and Scrum Master skilled in Agile methodologies and stakeholder management.',
+        skills: 'Project Management, Agile & Scrum, Risk Management, Budgeting, JIRA, Confluence, Stakeholder Communication, Leadership, Strategic Planning',
+        softSkills: 'Leadership, Communication, Problem Solving, Adaptability, Time Management, Team Building, Negotiation',
+        languages: 'English (Native), Spanish (Professional), French (Basic)',
+        photo: '' // User can upload their own
+    },
+    experience: [
+        {
+            title: 'Senior Project Manager',
+            company: 'TechFlow Solutions',
+            startDate: 'Jan 2021',
+            endDate: 'Present',
+            description: '• Led a team of 15 developers and designers to launch a flagship SaaS product, achieving $2M ARR in the first year.\n• Implemented Agile methodologies, reducing development cycle time by 30%.\n• Managed project budgets of up to $500k, consistently delivering under budget.\n• Facilitated cross-departmental collaboration between engineering, marketing, and sales teams.'
+        },
+        {
+            title: 'Project Coordinator',
+            company: 'Innovate Corp',
+            startDate: 'Jun 2018',
+            endDate: 'Dec 2020',
+            description: '• Coordinated daily stand-ups and sprint planning for 3 agile teams.\n• Tracked project milestones and deliverables using JIRA, ensuring 95% on-time delivery.\n• Prepared weekly status reports for executive leadership, highlighting risks and mitigation strategies.\n• Organized client feedback sessions to incorporate user requirements into product roadmap.'
+        }
+    ],
+    education: [
+        {
+            degree: 'Master of Business Administration (MBA)',
+            institution: 'University of California, Berkeley',
+            year: '2016 - 2018',
+            grade: 'GPA: 3.8/4.0'
+        },
+        {
+            degree: 'B.S. Computer Science',
+            institution: 'University of Washington',
+            year: '2012 - 2016',
+            grade: 'Cum Laude'
+        }
+    ],
+    projects: [
+        {
+            name: 'Enterprise ERP Migration',
+            tech: 'SAP, Oracle, Cloud Migration',
+            link: 'company.com/case-study',
+            duration: '2022',
+            description: '• Successfully migrated legacy on-premise ERP system to cloud-based solution for a 5000+ employee organization.\n• Managed stakeholder expectations and training for 500+ end-users.'
+        },
+        {
+            name: 'Mobile App Launch',
+            tech: 'iOS, Android, React Native',
+            link: '',
+            duration: '2021',
+            description: '• Oversaw the end-to-end development and launch of a consumer-facing mobile app with 100k+ downloads.'
+        }
+    ],
+    certifications: [
+        {
+            name: 'Project Management Professional (PMP)',
+            issuer: 'PMI',
+            year: '2019',
+            link: 'pmi.org/verify/12345'
+        },
+        {
+            name: 'Certified Scrum Master (CSM)',
+            issuer: 'Scrum Alliance',
+            year: '2018',
+            link: ''
+        }
+    ],
+    template: 'modern-split'
+};
+
+// Load form data from localStorage or use Sample Data
 function loadFromLocalStorage() {
+    let data = sampleData; // Default to sample data
     const saved = localStorage.getItem('kormoNamaData');
-    if (!saved) return;
     
-    try {
-        const data = JSON.parse(saved);
-        
-        // Load personal info
-        if (data.personal) {
-            document.getElementById('fullName').value = data.personal.fullName || '';
-            document.getElementById('jobTitle').value = data.personal.jobTitle || '';
-            document.getElementById('email').value = data.personal.email || '';
-            document.getElementById('phone').value = data.personal.phone || '';
-            document.getElementById('location').value = data.personal.location || '';
-            document.getElementById('linkedin').value = data.personal.linkedin || '';
-            document.getElementById('website').value = data.personal.website || '';
-            document.getElementById('github').value = data.personal.github || '';
-            document.getElementById('summary').value = data.personal.summary || '';
-            document.getElementById('skills').value = data.personal.skills || '';
-            document.getElementById('softSkills').value = data.personal.softSkills || '';
-            document.getElementById('languages').value = data.personal.languages || '';
-            document.getElementById('profilePhotoBase64').value = data.personal.photo || '';
+    if (saved) {
+        try {
+            data = JSON.parse(saved);
+        } catch (e) {
+            console.error('Error parsing saved data, using sample data:', e);
         }
-        
-        // Load template
-        if (data.template) {
-            document.getElementById('templateSelect').value = data.template;
-        }
-        
-        // Load experience
-        if (data.experience && data.experience.length > 0) {
-            const container = document.getElementById('experienceContainer');
-            
-            data.experience.forEach((exp, index) => {
-                if (index === 0) {
-                    const entry = container.querySelector('.experience-entry');
-                    entry.querySelector('.exp-title').value = exp.title || '';
-                    entry.querySelector('.exp-company').value = exp.company || '';
-                    entry.querySelector('.exp-start').value = exp.startDate || '';
-                    entry.querySelector('.exp-end').value = exp.endDate || '';
-                    entry.querySelector('.exp-description').value = exp.description || '';
-                } else {
-                    addExperience();
-                    const entries = container.querySelectorAll('.experience-entry');
-                    const entry = entries[entries.length - 1];
-                    entry.querySelector('.exp-title').value = exp.title || '';
-                    entry.querySelector('.exp-company').value = exp.company || '';
-                    entry.querySelector('.exp-start').value = exp.startDate || '';
-                    entry.querySelector('.exp-end').value = exp.endDate || '';
-                    entry.querySelector('.exp-description').value = exp.description || '';
-                }
-            });
-        }
-        
-        // Load education
-        if (data.education && data.education.length > 0) {
-            const container = document.getElementById('educationContainer');
-            
-            data.education.forEach((edu, index) => {
-                if (index === 0) {
-                    const entry = container.querySelector('.education-entry');
-                    entry.querySelector('.edu-degree').value = edu.degree || '';
-                    entry.querySelector('.edu-institution').value = edu.institution || '';
-                    entry.querySelector('.edu-year').value = edu.year || '';
-                    entry.querySelector('.edu-grade').value = edu.grade || '';
-                } else {
-                    addEducation();
-                    const entries = container.querySelectorAll('.education-entry');
-                    const entry = entries[entries.length - 1];
-                    entry.querySelector('.edu-degree').value = edu.degree || '';
-                    entry.querySelector('.edu-institution').value = edu.institution || '';
-                    entry.querySelector('.edu-year').value = edu.year || '';
-                    entry.querySelector('.edu-grade').value = edu.grade || '';
-                }
-            });
-        }
-        
-        // Load projects
-        if (data.projects && data.projects.length > 0) {
-            const container = document.getElementById('projectsContainer');
-            
-            data.projects.forEach((proj, index) => {
-                if (index === 0) {
-                    const entry = container.querySelector('.project-entry');
-                    entry.querySelector('.proj-name').value = proj.name || '';
-                    entry.querySelector('.proj-tech').value = proj.tech || '';
-                    entry.querySelector('.proj-link').value = proj.link || '';
-                    entry.querySelector('.proj-duration').value = proj.duration || '';
-                    entry.querySelector('.proj-description').value = proj.description || '';
-                } else {
-                    addProject();
-                    const entries = container.querySelectorAll('.project-entry');
-                    const entry = entries[entries.length - 1];
-                    entry.querySelector('.proj-name').value = proj.name || '';
-                    entry.querySelector('.proj-tech').value = proj.tech || '';
-                    entry.querySelector('.proj-link').value = proj.link || '';
-                    entry.querySelector('.proj-duration').value = proj.duration || '';
-                    entry.querySelector('.proj-description').value = proj.description || '';
-                }
-            });
-        }
-        
-        // Load certifications
-        if (data.certifications && data.certifications.length > 0) {
-            const container = document.getElementById('certificationsContainer');
-            
-            data.certifications.forEach((cert, index) => {
-                if (index === 0) {
-                    const entry = container.querySelector('.certification-entry');
-                    entry.querySelector('.cert-name').value = cert.name || '';
-                    entry.querySelector('.cert-issuer').value = cert.issuer || '';
-                    entry.querySelector('.cert-year').value = cert.year || '';
-                    entry.querySelector('.cert-link').value = cert.link || '';
-                } else {
-                    addCertification();
-                    const entries = container.querySelectorAll('.certification-entry');
-                    const entry = entries[entries.length - 1];
-                    entry.querySelector('.cert-name').value = cert.name || '';
-                    entry.querySelector('.cert-issuer').value = cert.issuer || '';
-                    entry.querySelector('.cert-year').value = cert.year || '';
-                    entry.querySelector('.cert-link').value = cert.link || '';
-                }
-            });
-        }
-        
-        updatePreview();
-    } catch (e) {
-        console.error('Error loading saved data:', e);
     }
+    
+    // Load personal info
+    if (data.personal) {
+        document.getElementById('fullName').value = data.personal.fullName || '';
+        document.getElementById('jobTitle').value = data.personal.jobTitle || '';
+        document.getElementById('email').value = data.personal.email || '';
+        document.getElementById('phone').value = data.personal.phone || '';
+        document.getElementById('location').value = data.personal.location || '';
+        document.getElementById('linkedin').value = data.personal.linkedin || '';
+        document.getElementById('website').value = data.personal.website || '';
+        document.getElementById('github').value = data.personal.github || '';
+        document.getElementById('summary').value = data.personal.summary || '';
+        document.getElementById('skills').value = data.personal.skills || '';
+        document.getElementById('softSkills').value = data.personal.softSkills || '';
+        document.getElementById('languages').value = data.personal.languages || '';
+        
+        if (data.personal.photo) {
+            document.getElementById('profilePhotoBase64').value = data.personal.photo;
+        }
+    }
+    
+    // Load template - prioritize URL param, then localStorage, then sample
+    const urlParams = new URLSearchParams(window.location.search);
+    const templateParam = urlParams.get('template');
+    if (templateParam) {
+        document.getElementById('templateSelect').value = templateParam;
+    } else if (data.template) {
+        document.getElementById('templateSelect').value = data.template;
+    }
+    
+    // Helper to clear container except first item
+    const clearContainer = (id, className) => {
+        const container = document.getElementById(id);
+        const entries = container.querySelectorAll('.' + className);
+        entries.forEach((entry, index) => {
+            if (index > 0) entry.remove();
+        });
+        return container;
+    };
+
+    // Load experience
+    if (data.experience && data.experience.length > 0) {
+        const container = clearContainer('experienceContainer', 'experience-entry');
+        
+        data.experience.forEach((exp, index) => {
+            if (index > 0) addExperience();
+            
+            const entries = container.querySelectorAll('.experience-entry');
+            const entry = entries[entries.length - 1];
+            
+            entry.querySelector('.exp-title').value = exp.title || '';
+            entry.querySelector('.exp-company').value = exp.company || '';
+            entry.querySelector('.exp-start').value = exp.startDate || '';
+            entry.querySelector('.exp-end').value = exp.endDate || '';
+            entry.querySelector('.exp-description').value = exp.description || '';
+        });
+    }
+    
+    // Load education
+    if (data.education && data.education.length > 0) {
+        const container = clearContainer('educationContainer', 'education-entry');
+        
+        data.education.forEach((edu, index) => {
+            if (index > 0) addEducation();
+            
+            const entries = container.querySelectorAll('.education-entry');
+            const entry = entries[entries.length - 1];
+            
+            entry.querySelector('.edu-degree').value = edu.degree || '';
+            entry.querySelector('.edu-institution').value = edu.institution || '';
+            entry.querySelector('.edu-year').value = edu.year || '';
+            entry.querySelector('.edu-grade').value = edu.grade || '';
+        });
+    }
+    
+    // Load projects
+    if (data.projects && data.projects.length > 0) {
+        const container = clearContainer('projectsContainer', 'project-entry');
+        
+        data.projects.forEach((proj, index) => {
+            if (index > 0) addProject();
+            
+            const entries = container.querySelectorAll('.project-entry');
+            const entry = entries[entries.length - 1];
+            
+            entry.querySelector('.proj-name').value = proj.name || '';
+            entry.querySelector('.proj-tech').value = proj.tech || '';
+            entry.querySelector('.proj-link').value = proj.link || '';
+            entry.querySelector('.proj-duration').value = proj.duration || '';
+            entry.querySelector('.proj-description').value = proj.description || '';
+        });
+    }
+    
+    // Load certifications
+    if (data.certifications && data.certifications.length > 0) {
+        const container = clearContainer('certificationsContainer', 'certification-entry');
+        
+        data.certifications.forEach((cert, index) => {
+            if (index > 0) addCertification();
+            
+            const entries = container.querySelectorAll('.certification-entry');
+            const entry = entries[entries.length - 1];
+            
+            entry.querySelector('.cert-name').value = cert.name || '';
+            entry.querySelector('.cert-issuer').value = cert.issuer || '';
+            entry.querySelector('.cert-year').value = cert.year || '';
+            entry.querySelector('.cert-link').value = cert.link || '';
+        });
+    }
+    
+    updatePreview();
 }
 
 // Helper function to escape HTML
