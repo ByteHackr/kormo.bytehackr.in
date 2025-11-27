@@ -1,6 +1,6 @@
 /**
- * কর্মনামা (KormoNama) - Free & Open Source Resume Builder
- * আপনার কর্মজীবনের গল্প বলুন • Build Your Career Story
+ * KormoNama - Free & Open Source Resume Builder
+ * Build Your Career Story
  * JavaScript functionality for live preview and PDF export
  * License: MIT
  */

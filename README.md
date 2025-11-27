@@ -1,10 +1,8 @@
-# 📋 কর্মনামা (KormoNama) - Free & Open Source Resume Builder
+# 📋 KormoNama - Free & Open Source Resume Builder
 
-**আপনার কর্মজীবনের গল্প বলুন • Build Your Career Story**
+**Build Your Career Story**
 
 A beautiful, simple, and completely free resume builder web application. Built entirely with open source technologies.
-
-> **কর্মনামা** (KormoNama) - Bengali for "Work Document" or "Career Record"
 
 🌐 **Live Demo**: [kormo.bytehackr.in](https://kormo.bytehackr.in)
 
@@ -20,17 +18,17 @@ A beautiful, simple, and completely free resume builder web application. Built e
 
 ## 🎨 Templates
 
-### For Freshers (ফ্রেশার্স)
+### For Freshers
 - **Fresh Graduate** - Warm yellow tones, academic-focused
 - **Student** - Green theme, emphasizes education & projects
 - **Entry Level** - Purple gradient, modern & energetic
 
-### For Experienced (অভিজ্ঞ)
+### For Experienced
 - **Classic Professional** - Traditional serif typography
 - **Executive** - Dark header with gold accents
 - **Modern** - Blue header block, contemporary look
 
-### By Profession (পেশা অনুযায়ী)
+### By Profession
 - **Tech / Developer** - Dark IDE-style with monospace font
 - **Creative / Designer** - Colorful gradient sidebar
 - **Healthcare / Medical** - Cyan/teal professional theme
@@ -38,7 +36,7 @@ A beautiful, simple, and completely free resume builder web application. Built e
 - **Sales / Marketing** - Bold red, high-impact design
 - **Legal / Finance** - Conservative, formal style
 
-### Minimal (সাদামাটা)
+### Minimal
 - **Simple Minimal** - Clean, no-frills design
 - **Elegant** - Soft purple, refined typography
 
@@ -78,12 +76,13 @@ Then open http://localhost:8000 in your browser.
 ## 📁 Project Structure
 
 ```
-কর্মনামা/
+KormoNama/
 ├── index.html             # Main resume builder page
 ├── templates.html         # Templates gallery
 ├── style.css              # Main styles
 ├── templates-gallery.css  # Gallery styles
 ├── script.js              # Application logic
+├── CNAME                  # Custom domain for GitHub Pages
 └── README.md              # This file
 ```
 
@@ -106,7 +105,7 @@ Then open http://localhost:8000 in your browser.
 
 ## 🔒 Privacy
 
-কর্মনামা is designed with privacy in mind:
+KormoNama is designed with privacy in mind:
 - ✅ All processing happens in your browser
 - ✅ Data stored only in browser's localStorage
 - ✅ No data sent to external servers
@@ -134,7 +133,7 @@ This project is licensed under the MIT License.
 ```
 MIT License
 
-Copyright (c) 2024 কর্মনামা (KormoNama)
+Copyright (c) 2024 KormoNama
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -163,6 +162,6 @@ SOFTWARE.
 
 ---
 
-📋 **কর্মনামা (KormoNama)** - আপনার কর্মজীবনের গল্প বলুন • Build Your Career Story
+📋 **KormoNama** - Build Your Career Story
 
 Made with ♥ in India 🇮🇳
