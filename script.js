@@ -161,6 +161,53 @@ function updatePreview() {
         `;
         return;
     }
+
+    // Special layout for Clean Blue template
+    if (template === 'clean-blue') {
+        resumeContent.innerHTML = `
+            <div class="resume-header">
+                ${photoBase64 ? `<div class="profile-photo"><img src="${photoBase64}" alt="Profile"></div>` : ''}
+                <h1 class="resume-name">${escapeHtml(fullName)}</h1>
+                <div class="resume-contact">${contactHTML}</div>
+            </div>
+            
+            ${summary ? `
+            <div class="resume-section">
+                <h2>Resume Objective</h2>
+                <p class="resume-summary">${escapeHtml(summary)}</p>
+            </div>
+            ` : ''}
+            
+            ${educationHTML ? `
+            <div class="resume-section">
+                <h2>Education</h2>
+                <div class="resume-education">${educationHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${skillsHTML ? `
+            <div class="resume-section">
+                <h2>Skills</h2>
+                <div class="resume-skills">${skillsHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${experienceHTML ? `
+            <div class="resume-section">
+                <h2>Work History</h2>
+                <div class="resume-experience">${experienceHTML}</div>
+            </div>
+            ` : ''}
+            
+            ${projectsHTML ? `
+            <div class="resume-section">
+                <h2>Accomplishments</h2>
+                <div class="resume-projects">${projectsHTML}</div>
+            </div>
+            ` : ''}
+        `;
+        return;
+    }
     
     // Determine section order based on template (freshers get projects before experience)
     const isFresherTemplate = ['fresh-graduate', 'student', 'entry-level'].includes(template);

@@ -857,6 +857,145 @@ textarea {
     font-weight: bold;
 }
 
+/* Clean Blue Template */
+.resume-content.clean-blue {
+    font-family: 'Roboto', sans-serif;
+    background: white;
+    padding: 3rem;
+    color: #333;
+    position: relative;
+}
+
+.resume-content.clean-blue .resume-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 0;
+    border-bottom: none;
+    position: relative;
+    min-height: 120px;
+}
+
+/* Right-aligned photo */
+.resume-content.clean-blue .profile-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.resume-content.clean-blue .profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.resume-content.clean-blue .resume-name {
+    color: #2d9cdb;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.resume-content.clean-blue .resume-contact {
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Blue horizontal lines for sections */
+.resume-content.clean-blue .resume-section {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.resume-content.clean-blue h2 {
+    color: #2d9cdb;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    border-bottom: none;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.resume-content.clean-blue h2::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #2d9cdb;
+    margin-left: 1rem;
+}
+
+/* Content Styling */
+.resume-content.clean-blue .exp-item, 
+.resume-content.clean-blue .edu-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    margin-bottom: 1.5rem;
+}
+
+.resume-content.clean-blue .exp-dates, 
+.resume-content.clean-blue .edu-year {
+    font-weight: 500;
+    color: #555;
+}
+
+.resume-content.clean-blue .exp-title-company, 
+.resume-content.clean-blue .edu-degree {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #000;
+}
+
+.resume-content.clean-blue .exp-company, 
+.resume-content.clean-blue .edu-institution {
+    font-weight: 700;
+    color: #000;
+}
+
+/* Skill Bars */
+.resume-content.clean-blue .resume-skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+}
+
+.resume-content.clean-blue .skill-tag {
+    background: transparent;
+    color: #333;
+    padding: 0;
+    font-weight: 500;
+    display: block;
+    width: 100%;
+}
+
+.resume-content.clean-blue .skill-tag::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 6px;
+    background: #e0e0e0;
+    border-radius: 3px;
+    margin-top: 4px;
+    background-image: linear-gradient(to right, #2d9cdb 70%, #e0e0e0 70%);
+}
+
+/* Remove icons for this clean template */
+.resume-content.clean-blue h2 i {
+    display: none;
+}
+
 /* ============================================
    ADVANCED CREATIVE TEMPLATES
    ============================================ */
