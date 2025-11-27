@@ -18,7 +18,7 @@ body.print-mode .resume-content {
     min-height: auto !important;
     height: auto !important;
     margin: 0 !important;
-    padding: 15mm !important; /* Standard A4 padding */
+    padding: 8mm !important; /* Reduced A4 padding */
     box-shadow: none !important;
     border: none !important;
     background: white !important;
@@ -78,23 +78,23 @@ body.print-mode .header-nav {
    ============================================ */
 @media print {
     @page {
-        margin: 15mm;
+        margin: 8mm;
         size: A4 portrait;
     }
 
     /* Ensure all pages have consistent margins */
     @page :first {
-        margin-top: 15mm;
+        margin-top: 8mm;
     }
 
     @page :left {
-        margin-left: 15mm;
-        margin-right: 15mm;
+        margin-left: 8mm;
+        margin-right: 8mm;
     }
 
     @page :right {
-        margin-left: 15mm;
-        margin-right: 15mm;
+        margin-left: 8mm;
+        margin-right: 8mm;
     }
 
     * {
@@ -160,11 +160,11 @@ body.print-mode .header-nav {
 
     /* Ensure all content has consistent padding matching @page margins */
     .resume-content .resume-header {
-        padding: 15mm 15mm 10mm 15mm !important;
+        padding: 8mm 8mm 6mm 8mm !important;
     }
 
     .resume-content .resume-section {
-        padding: 10mm 15mm !important;
+        padding: 6mm 8mm !important;
         margin: 0 !important;
     }
 
@@ -181,15 +181,15 @@ body.print-mode .header-nav {
 
     /* Ensure sections that start on new pages have proper top padding */
     .resume-section {
-        padding-top: 15mm !important;
-        padding-bottom: 10mm !important;
-        padding-left: 15mm !important;
-        padding-right: 15mm !important;
+        padding-top: 8mm !important;
+        padding-bottom: 6mm !important;
+        padding-left: 8mm !important;
+        padding-right: 8mm !important;
     }
 
     /* First section on first page doesn't need extra top padding */
     .resume-content > .resume-header + .resume-section {
-        padding-top: 10mm !important;
+        padding-top: 6mm !important;
     }
 
     /* Override for templates with custom layouts */
@@ -223,7 +223,7 @@ body.print-mode .header-nav {
     
     .resume-content.modern-split .column-left,
     .resume-content.modern-split .column-right {
-        padding: 10mm !important;
+        padding: 8mm !important;
     }
     
     .resume-content.modern-split .column-left {
@@ -237,7 +237,7 @@ body.print-mode .header-nav {
     }
 
     .resume-content.executive-orange .resume-header {
-        padding: 15mm 15mm 10mm 15mm !important;
+        padding: 8mm 8mm 6mm 8mm !important;
         margin-bottom: 0 !important;
         border-bottom: 2px solid #000 !important;
     }
@@ -245,8 +245,8 @@ body.print-mode .header-nav {
     .resume-content.executive-orange .main-grid {
         display: grid !important;
         grid-template-columns: 1fr 180px !important;
-        gap: 10mm !important;
-        padding: 10mm 15mm 15mm 15mm !important;
+        gap: 8mm !important;
+        padding: 6mm 8mm 8mm 8mm !important;
         margin: 0 !important;
         page-break-inside: auto !important;
     }
