@@ -45,9 +45,9 @@ Software Engineer
 john@example.com
 ..."></textarea>
                     <div class="import-actions" style="margin-top: 1.5rem;">
-                        <input type="file" id="importFile" accept=".txt,.json" style="display:none" onchange="handleFileImport(this)">
+                        <input type="file" id="importFile" accept=".txt,.json,.pdf" style="display:none" onchange="handleFileImport(this)">
                         <button type="button" class="btn-import" onclick="document.getElementById('importFile').click()" style="padding: 1rem;">
-                            <i class="fas fa-file-upload"></i> Upload File (.txt/.json)
+                            <i class="fas fa-file-upload"></i> Upload File (.pdf/.txt/.json)
                         </button>
                         <button type="button" class="btn-primary" onclick="parseAndRedirect()" style="flex: 2;">
                             ⚡ Parse & Fill Editor
@@ -66,8 +66,12 @@ john@example.com
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="script.js"></script>
     <script>
+        // Initialize PDF.js worker
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
         // Theme Toggle
         (function initTheme() {
             const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
@@ -91,6 +95,50 @@ john@example.com
             
             // Redirect to editor
             window.location.href = 'editor.html';
+        }
+
+        // Custom File Import Handling with PDF Support
+        const originalHandleFileImport = window.handleFileImport;
+        window.handleFileImport = async function(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            if (file.type === 'application/pdf') {
+                const btn = document.querySelector('.btn-import');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Parsing PDF...';
+                btn.disabled = true;
+
+                try {
+                    const text = await extractTextFromPDF(file);
+                    document.getElementById('importResume').value = text;
+                    alert('PDF parsed successfully! Please review the text below and click "Parse & Fill Editor".');
+                } catch (err) {
+                    console.error(err);
+                    alert('Error parsing PDF. Please try copying text manually.');
+                } finally {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            } else {
+                // Fallback to original handler for txt/json
+                originalHandleFileImport(input);
+            }
+        };
+
+        // Extract text from PDF
+        async function extractTextFromPDF(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            let fullText = '';
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map(item => item.str).join(' ');
+                fullText += pageText + '\n\n';
+            }
+            return fullText;
         }
     </script>
 </body>
