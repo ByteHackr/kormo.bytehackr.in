@@ -1211,67 +1211,150 @@ function parseResumeText(text) {
     const result = {};
     const lines = text.split('\n').map(l => l.trim()).filter(l => l);
     
-    // Email pattern
+    // Clean up text for better matching
+    const cleanText = text.replace(/\s+/g, ' ');
+    
+    // Email pattern - more comprehensive
     const emailMatch = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
     if (emailMatch) result.email = emailMatch[0];
     
-    // Phone pattern (various formats)
-    const phoneMatch = text.match(/(?:\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\+\d{10,14}/);
-    if (phoneMatch) result.phone = phoneMatch[0];
-    
-    // LinkedIn
-    const linkedinMatch = text.match(/linkedin\.com\/in\/[\w-]+/i);
-    if (linkedinMatch) result.linkedin = 'https://' + linkedinMatch[0];
-    
-    // GitHub
-    const githubMatch = text.match(/github\.com\/[\w-]+/i);
-    if (githubMatch) result.github = 'https://' + githubMatch[0];
-    
-    // Website (generic URL)
-    const websiteMatch = text.match(/(?:https?:\/\/)?(?:www\.)?([a-zA-Z0-9-]+\.[a-zA-Z]{2,})(?:\/\S*)?/);
-    if (websiteMatch && !websiteMatch[0].includes('linkedin') && !websiteMatch[0].includes('github')) {
-        result.website = websiteMatch[0].startsWith('http') ? websiteMatch[0] : 'https://' + websiteMatch[0];
-    }
-    
-    // First line is often the name
-    if (lines[0] && !lines[0].includes('@') && !lines[0].includes('http') && lines[0].length < 50) {
-        result.name = lines[0];
-    }
-    
-    // Look for job title (often second line or after name)
-    const titleKeywords = ['developer', 'engineer', 'designer', 'manager', 'analyst', 'consultant', 
-                          'architect', 'specialist', 'coordinator', 'assistant', 'director', 'lead',
-                          'senior', 'junior', 'intern', 'executive', 'officer', 'administrator'];
-    for (let i = 1; i < Math.min(5, lines.length); i++) {
-        const line = lines[i].toLowerCase();
-        if (titleKeywords.some(k => line.includes(k))) {
-            result.title = lines[i];
+    // Phone pattern - support Indian and international formats
+    const phonePatterns = [
+        /\+91[\s.-]?\d{5}[\s.-]?\d{5}/,           // Indian +91 format
+        /\+\d{1,3}[\s.-]?\d{3,4}[\s.-]?\d{3,4}[\s.-]?\d{3,4}/, // International
+        /\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/,    // US format
+        /\d{10}/                                   // Plain 10 digits
+    ];
+    for (const pattern of phonePatterns) {
+        const match = text.match(pattern);
+        if (match) {
+            result.phone = match[0];
             break;
         }
     }
     
-    // Location patterns
-    const locationMatch = text.match(/(?:located in|location|address|city)[:\s]*([A-Za-z\s,]+)/i) ||
-                         text.match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?),\s*([A-Z]{2}|[A-Z][a-z]+)/);
-    if (locationMatch) {
-        result.location = locationMatch[1] ? locationMatch[1].trim() : locationMatch[0].trim();
+    // LinkedIn - multiple formats
+    const linkedinMatch = text.match(/(?:linkedin\.com\/in\/|linkedin:?\s*)([a-zA-Z0-9_-]+)/i);
+    if (linkedinMatch) {
+        result.linkedin = 'https://linkedin.com/in/' + linkedinMatch[1];
     }
     
-    // Skills section
-    const skillsMatch = text.match(/(?:skills|technical skills|technologies)[:\s]*([\s\S]*?)(?:\n\n|\n[A-Z]|$)/i);
-    if (skillsMatch) {
-        result.skills = skillsMatch[1]
-            .replace(/[•\-\*]/g, ',')
-            .replace(/\n/g, ', ')
-            .replace(/,\s*,/g, ',')
-            .replace(/^\s*,|,\s*$/g, '')
-            .trim();
+    // GitHub - multiple formats
+    const githubMatch = text.match(/(?:github\.com\/|github:?\s*)([a-zA-Z0-9_-]+)/i);
+    if (githubMatch && githubMatch[1].toLowerCase() !== 'com') {
+        result.github = 'https://github.com/' + githubMatch[1];
     }
     
-    // Summary/Objective
-    const summaryMatch = text.match(/(?:summary|objective|profile|about)[:\s]*([\s\S]*?)(?:\n\n|\n[A-Z][a-z]+:|\n[A-Z][A-Z]|$)/i);
-    if (summaryMatch) {
-        result.summary = summaryMatch[1].trim().substring(0, 500);
+    // Website (generic URL, excluding linkedin/github)
+    const urlMatches = text.match(/(?:https?:\/\/)?(?:www\.)?([a-zA-Z0-9][a-zA-Z0-9-]*\.[a-zA-Z]{2,})(?:\/\S*)?/g) || [];
+    for (const url of urlMatches) {
+        if (!url.includes('linkedin') && !url.includes('github') && !url.includes('gmail') && !url.includes('email')) {
+            result.website = url.startsWith('http') ? url : 'https://' + url;
+            break;
+        }
+    }
+    
+    // Name detection - first substantial line that looks like a name
+    for (let i = 0; i < Math.min(3, lines.length); i++) {
+        const line = lines[i];
+        // Name should be short, no special chars, no common keywords
+        if (line.length > 2 && line.length < 50 && 
+            !line.includes('@') && !line.includes('http') && !line.includes('•') &&
+            !line.match(/^\d/) && !line.match(/resume|cv|curriculum/i) &&
+            line.match(/^[A-Za-z\s.'-]+$/)) {
+            result.name = line;
+            break;
+        }
+    }
+    
+    // Job title detection
+    const titleKeywords = ['developer', 'engineer', 'designer', 'manager', 'analyst', 'consultant', 
+                          'architect', 'specialist', 'coordinator', 'assistant', 'director', 'lead',
+                          'senior', 'junior', 'intern', 'executive', 'officer', 'administrator',
+                          'scientist', 'researcher', 'professor', 'teacher', 'nurse', 'doctor',
+                          'accountant', 'lawyer', 'paralegal', 'writer', 'editor', 'marketing'];
+    
+    for (let i = 0; i < Math.min(8, lines.length); i++) {
+        const line = lines[i];
+        const lineLower = line.toLowerCase();
+        // Skip if it's the name or too long
+        if (line === result.name || line.length > 60) continue;
+        
+        if (titleKeywords.some(k => lineLower.includes(k))) {
+            result.title = line;
+            break;
+        }
+    }
+    
+    // Location patterns - Indian cities and general patterns
+    const indianCities = ['bengaluru', 'bangalore', 'mumbai', 'delhi', 'hyderabad', 'chennai', 
+                         'kolkata', 'pune', 'ahmedabad', 'jaipur', 'lucknow', 'kanpur', 'nagpur',
+                         'indore', 'thane', 'bhopal', 'visakhapatnam', 'patna', 'vadodara'];
+    
+    // Try to find city in text
+    for (const city of indianCities) {
+        const cityRegex = new RegExp(`(${city}[,\\s]*(?:india|karnataka|maharashtra|tamil nadu|andhra pradesh|telangana|west bengal|gujarat|rajasthan|uttar pradesh|madhya pradesh)?)`, 'i');
+        const match = text.match(cityRegex);
+        if (match) {
+            result.location = match[1].trim();
+            break;
+        }
+    }
+    
+    // Fallback location pattern
+    if (!result.location) {
+        const locationMatch = text.match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?),\s*([A-Z]{2}|[A-Z][a-z]+(?:\s[A-Z][a-z]+)?)/);
+        if (locationMatch) {
+            result.location = locationMatch[0].trim();
+        }
+    }
+    
+    // Skills section - more patterns
+    const skillsPatterns = [
+        /(?:technical\s+)?skills?\s*[:\-]?\s*([\s\S]*?)(?=\n\s*\n|\n[A-Z][a-z]+\s*[:\-]|experience|education|project|work\s*history|$)/i,
+        /(?:technologies|tech\s+stack|expertise)\s*[:\-]?\s*([\s\S]*?)(?=\n\s*\n|\n[A-Z]|$)/i
+    ];
+    
+    for (const pattern of skillsPatterns) {
+        const match = text.match(pattern);
+        if (match && match[1].trim().length > 5) {
+            result.skills = match[1]
+                .replace(/[•\-\*\|]/g, ',')
+                .replace(/\n/g, ', ')
+                .replace(/,\s*,+/g, ',')
+                .replace(/^\s*,|,\s*$/g, '')
+                .replace(/\s+/g, ' ')
+                .trim()
+                .substring(0, 500);
+            break;
+        }
+    }
+    
+    // Summary/Objective/Profile
+    const summaryPatterns = [
+        /(?:professional\s+)?summary\s*[:\-]?\s*([\s\S]*?)(?=\n\s*\n|\n[A-Z][a-z]+\s*[:\-]|skills|experience|education|$)/i,
+        /(?:career\s+)?objective\s*[:\-]?\s*([\s\S]*?)(?=\n\s*\n|\n[A-Z]|$)/i,
+        /(?:about\s+me|profile)\s*[:\-]?\s*([\s\S]*?)(?=\n\s*\n|\n[A-Z]|$)/i
+    ];
+    
+    for (const pattern of summaryPatterns) {
+        const match = text.match(pattern);
+        if (match && match[1].trim().length > 20) {
+            result.summary = match[1].trim().substring(0, 500);
+            break;
+        }
+    }
+    
+    // Experience extraction (basic)
+    const expMatch = text.match(/(?:work\s+)?(?:experience|history|employment)\s*[:\-]?\s*([\s\S]*?)(?=\n\s*\n\s*(?:education|skills|projects?|certifications?)|$)/i);
+    if (expMatch) {
+        result.experience = expMatch[1].trim().substring(0, 1000);
+    }
+    
+    // Education extraction (basic)
+    const eduMatch = text.match(/education\s*[:\-]?\s*([\s\S]*?)(?=\n\s*\n\s*(?:experience|skills|projects?|certifications?|work)|$)/i);
+    if (eduMatch) {
+        result.education = eduMatch[1].trim().substring(0, 500);
     }
     
     return result;

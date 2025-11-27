@@ -72,11 +72,7 @@ john@example.com
         // Initialize PDF.js worker
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-        // Theme Toggle
-        (function initTheme() {
-            const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-        })();
+        // Theme is initialized by script.js
 
         // Parse and Redirect
         function parseAndRedirect() {
@@ -126,7 +122,7 @@ john@example.com
             }
         };
 
-        // Extract text from PDF
+        // Extract text from PDF with better line structure preservation
         async function extractTextFromPDF(file) {
             const arrayBuffer = await file.arrayBuffer();
             const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -135,9 +131,48 @@ john@example.com
             for (let i = 1; i <= pdf.numPages; i++) {
                 const page = await pdf.getPage(i);
                 const textContent = await page.getTextContent();
-                const pageText = textContent.items.map(item => item.str).join(' ');
-                fullText += pageText + '\n\n';
+                
+                // Sort items by Y position (top to bottom), then X (left to right)
+                const items = textContent.items.slice().sort((a, b) => {
+                    const yDiff = b.transform[5] - a.transform[5]; // Y is inverted in PDF
+                    if (Math.abs(yDiff) > 5) return yDiff; // Different lines
+                    return a.transform[4] - b.transform[4]; // Same line, sort by X
+                });
+                
+                let lastY = null;
+                let lineText = '';
+                
+                for (const item of items) {
+                    const currentY = Math.round(item.transform[5]);
+                    
+                    if (lastY !== null && Math.abs(currentY - lastY) > 5) {
+                        // New line detected
+                        fullText += lineText.trim() + '\n';
+                        lineText = '';
+                    }
+                    
+                    // Add space between words on same line
+                    if (lineText && !lineText.endsWith(' ') && !item.str.startsWith(' ')) {
+                        lineText += ' ';
+                    }
+                    lineText += item.str;
+                    lastY = currentY;
+                }
+                
+                // Add last line
+                if (lineText.trim()) {
+                    fullText += lineText.trim() + '\n';
+                }
+                
+                fullText += '\n'; // Page break
             }
+            
+            // Clean up extra whitespace
+            fullText = fullText
+                .replace(/\n{3,}/g, '\n\n')  // Max 2 newlines
+                .replace(/[ \t]+/g, ' ')      // Single spaces
+                .trim();
+            
             return fullText;
         }
     </script>
