@@ -237,13 +237,21 @@
             </section>
 
             <!-- Actions -->
-            <div class="actions">
-                <button type="button" class="btn-primary" onclick="downloadPDF()">
-                    <span>↓</span> Download PDF
+            <div class="actions" style="flex-direction: column; gap: 1rem;">
+                <div style="display: flex; gap: 1rem; width: 100%;">
+                    <button type="button" class="btn-primary" onclick="printResume()" title="Best for ATS and Job Applications">
+                        <span>📄</span> Save as PDF (ATS Friendly)
+                    </button>
+                    <button type="button" class="btn-secondary" onclick="downloadPDF()" title="Best for exact layout match">
+                        <span>🖼️</span> Download Image PDF
+                    </button>
+                </div>
+                <button type="button" class="btn-secondary" onclick="clearForm()" style="width: 100%;">
+                    Clear All Data
                 </button>
-                <button type="button" class="btn-secondary" onclick="clearForm()">
-                    Clear All
-                </button>
+                <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">
+                    <strong>Tip:</strong> Use "Save as PDF" for selectable text (ATS friendly). Use "Image PDF" if layout looks broken.
+                </p>
             </div>
         </div>
 

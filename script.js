@@ -926,6 +926,17 @@ function downloadPDF() {
         });
 }
 
+// Print Resume (Native Browser Print for ATS Friendly PDF)
+function printResume() {
+    const resumeContent = document.getElementById('resumeContent');
+    if (!resumeContent || !resumeContent.innerHTML.trim()) {
+        alert('Please fill in your resume details first.');
+        return;
+    }
+    window.print();
+}
+
+
 // ============================================
 // RESUME IMPORT & PARSING
 // ============================================

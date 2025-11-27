@@ -70,3 +70,88 @@ body.generating-pdf .actions {
     display: none !important;
 }
 
+/* ============================================
+   NATIVE PRINT STYLES (For ATS Friendly PDF)
+   ============================================ */
+@media print {
+    @page {
+        margin: 0;
+        size: A4 portrait;
+    }
+
+    body {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: #1f2937 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* Hide everything except the resume */
+    header, .editor-panel, .preview-header, footer, .actions, .theme-toggle, .nav-link {
+        display: none !important;
+    }
+
+    .container {
+        display: block !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .preview-panel {
+        position: static !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+
+    .resume-preview {
+        width: 210mm !important;
+        max-width: 210mm !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+        background: white !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+
+    .resume-content {
+        width: 100% !important;
+        min-height: 297mm !important;
+        padding: 15mm !important; /* Consistent padding */
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        page-break-after: always;
+    }
+
+    /* Template specific fixes for print */
+    .resume-content.modern-split {
+        display: grid !important;
+        grid-template-columns: 30% 70% !important;
+        height: 100vh !important; /* Full height for print */
+        padding: 0 !important;
+    }
+    
+    .resume-content.modern-split .column-left {
+        background: #f3f4f6 !important;
+        -webkit-print-color-adjust: exact !important;
+    }
+
+    .resume-content p, 
+    .resume-content li, 
+    .resume-content span {
+        color: #1f2937 !important;
+    }
+    
+    /* Ensure links look like text, but are clickable in PDF */
+    a {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+}
