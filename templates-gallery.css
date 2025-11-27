@@ -2,9 +2,53 @@
    KormoNama - Templates Gallery Styles
    ============================================ */
 
+/* Light Theme Variables */
+[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f1f5f9;
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --accent-dim: rgba(37, 99, 235, 0.1);
+    --border: #e2e8f0;
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+}
+
+.theme-toggle:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    transform: rotate(15deg);
+}
+
+.theme-icon {
+    font-size: 1.25rem;
+}
+
 /* Header Navigation */
 .header-nav {
     margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .nav-btn {

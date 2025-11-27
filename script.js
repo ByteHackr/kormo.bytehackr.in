@@ -5,8 +5,44 @@
  * License: MIT
  */
 
+// ============================================
+// THEME TOGGLE FUNCTIONALITY
+// ============================================
+
+// Initialize theme on page load (runs immediately)
+(function initTheme() {
+    const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+})();
+
+// Toggle between dark and light themes
+function toggleTheme() {
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('kormoNamaTheme', newTheme);
+    updateThemeIcon(newTheme);
+}
+
+// Update the theme toggle icon
+function updateThemeIcon(theme) {
+    const icon = document.querySelector('.theme-icon');
+    if (icon) {
+        icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    }
+}
+
+// ============================================
+// INITIALIZE APPLICATION
+// ============================================
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+    // Update theme icon after DOM is ready
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    updateThemeIcon(currentTheme);
+    
     initializeEventListeners();
     loadFromLocalStorage();
     

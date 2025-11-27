@@ -19,6 +19,9 @@
         <p class="tagline">Browse Templates</p>
         <nav class="header-nav">
             <a href="index.html" class="nav-btn">← Back to Editor</a>
+            <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+                <span class="theme-icon">🌙</span>
+            </button>
         </nav>
     </header>
 
@@ -474,6 +477,25 @@
     </footer>
 
     <script>
+        // Theme Toggle
+        (function initTheme() {
+            const savedTheme = localStorage.getItem('kormoNamaTheme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            setTimeout(() => {
+                const icon = document.querySelector('.theme-icon');
+                if (icon) icon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+            }, 0);
+        })();
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('kormoNamaTheme', newTheme);
+            const icon = document.querySelector('.theme-icon');
+            if (icon) icon.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+        }
+
         // Filter functionality
         const filterBtns = document.querySelectorAll('.filter-btn');
         const templateCards = document.querySelectorAll('.template-card');
