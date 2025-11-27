@@ -173,6 +173,7 @@ function updatePreview() {
     const skillsHTML = buildSkillsHTML(skills);
     const softSkillsHTML = buildSkillsHTML(softSkills);
     const languagesHTML = buildLanguagesHTML(languages);
+    const customSectionsHTML = buildCustomSectionsHTML();
     
     // Special layout for Modern Split template
     if (template === 'modern-split') {
@@ -212,6 +213,8 @@ function updatePreview() {
                         <div class="resume-certifications">${certificationsHTML}</div>
                     </div>
                     ` : ''}
+                    
+                    ${customSectionsHTML}
                 </div>
                 
                 <div class="column-right">
@@ -291,6 +294,8 @@ function updatePreview() {
                 <div class="resume-projects">${projectsHTML}</div>
             </div>
             ` : ''}
+            
+            ${customSectionsHTML}
         `;
         return;
     }
@@ -328,6 +333,8 @@ function updatePreview() {
                         <div class="resume-education">${educationHTML}</div>
                     </div>
                     ` : ''}
+                    
+                    ${customSectionsHTML}
                 </div>
                 
                 <div class="column-right">
@@ -421,6 +428,8 @@ function updatePreview() {
                     <div class="resume-projects">${projectsHTML}</div>
                 </div>
                 ` : ''}
+                
+                ${customSectionsHTML}
             </div>
         `;
         return;
@@ -501,6 +510,8 @@ function updatePreview() {
             <div class="resume-skills">${skillsHTML}</div>
         </div>
         ` : ''}
+        
+        ${customSectionsHTML}
     `;
 }
 
@@ -965,6 +976,87 @@ function removeCertification(button) {
     entry.remove();
     updatePreview();
     saveToLocalStorage();
+}
+
+// ============================================
+// CUSTOM SECTIONS
+// ============================================
+
+// Add new custom section
+function addCustomSection() {
+    const container = document.getElementById('customSectionsContainer');
+    const index = container.querySelectorAll('.custom-section-entry').length;
+    
+    const entry = document.createElement('div');
+    entry.className = 'custom-section-entry';
+    entry.dataset.index = index;
+    entry.innerHTML = `
+        <div class="form-grid">
+            <div class="form-group full-width">
+                <label>Section Title</label>
+                <input type="text" class="custom-title" placeholder="e.g., Awards, Volunteering, Publications, Hobbies">
+            </div>
+            <div class="form-group full-width">
+                <label>Content (use bullet points with • or new lines)</label>
+                <textarea class="custom-content" rows="4" placeholder="• First item&#10;• Second item&#10;• Third item"></textarea>
+            </div>
+        </div>
+        <button type="button" class="btn-remove" onclick="removeCustomSection(this)">Remove Section</button>
+    `;
+    
+    container.appendChild(entry);
+    
+    // Add event listeners to new inputs
+    entry.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('input', () => {
+            updatePreview();
+            saveToLocalStorage();
+        });
+    });
+}
+
+// Remove custom section
+function removeCustomSection(button) {
+    const entry = button.closest('.custom-section-entry');
+    entry.remove();
+    updatePreview();
+    saveToLocalStorage();
+}
+
+// Build custom sections HTML for preview
+function buildCustomSectionsHTML() {
+    const entries = document.querySelectorAll('.custom-section-entry');
+    let html = '';
+    
+    entries.forEach(entry => {
+        const title = entry.querySelector('.custom-title').value;
+        const content = entry.querySelector('.custom-content').value;
+        
+        if (title && content) {
+            // Format content - convert bullet points and newlines
+            const formattedContent = content
+                .split('\n')
+                .map(line => line.trim())
+                .filter(line => line)
+                .map(line => {
+                    // If line starts with bullet point, keep it
+                    if (line.startsWith('•') || line.startsWith('-') || line.startsWith('*')) {
+                        return `<div class="custom-item">${escapeHtml(line)}</div>`;
+                    }
+                    return `<div class="custom-item">${escapeHtml(line)}</div>`;
+                })
+                .join('');
+            
+            html += `
+                <div class="resume-section custom-section">
+                    <h2>${escapeHtml(title)}</h2>
+                    <div class="custom-section-content">${formattedContent}</div>
+                </div>
+            `;
+        }
+    });
+    
+    return html;
 }
 
 // Download resume as PDF using html2pdf.js (Open Source - MIT License)
@@ -1623,6 +1715,7 @@ function saveToLocalStorage() {
         education: [],
         projects: [],
         certifications: [],
+        customSections: [],
         template: document.getElementById('templateSelect').value
     };
     
@@ -1665,6 +1758,14 @@ function saveToLocalStorage() {
             issuer: entry.querySelector('.cert-issuer').value,
             year: entry.querySelector('.cert-year').value,
             link: entry.querySelector('.cert-link').value
+        });
+    });
+    
+    // Save custom section entries
+    document.querySelectorAll('.custom-section-entry').forEach(entry => {
+        data.customSections.push({
+            title: entry.querySelector('.custom-title').value,
+            content: entry.querySelector('.custom-content').value
         });
     });
     
@@ -1883,6 +1984,22 @@ function loadFromLocalStorage() {
             entry.querySelector('.cert-issuer').value = cert.issuer || '';
             entry.querySelector('.cert-year').value = cert.year || '';
             entry.querySelector('.cert-link').value = cert.link || '';
+        });
+    }
+    
+    // Load custom sections
+    if (data.customSections && data.customSections.length > 0) {
+        const container = document.getElementById('customSectionsContainer');
+        container.innerHTML = ''; // Clear any existing
+        
+        data.customSections.forEach((section) => {
+            addCustomSection();
+            
+            const entries = container.querySelectorAll('.custom-section-entry');
+            const entry = entries[entries.length - 1];
+            
+            entry.querySelector('.custom-title').value = section.title || '';
+            entry.querySelector('.custom-content').value = section.content || '';
         });
     }
     
